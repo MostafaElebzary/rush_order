@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\App;
 
 class Company extends Model
 {
@@ -68,8 +69,46 @@ class Company extends Model
         return "";
     }
 
+    protected $appends = ['title'];
+
+    public function getTitleAttribute()
+    {
+        if ($locale = App::currentLocale() == "en") {
+            return $this->title_en;
+        } else {
+            return $this->title_ar;
+        }
+    }
+
+
     public function Activity()
     {
         return $this->belongsTo(Activity::class, 'activity_id');
+    }
+
+
+    public function Branches()
+    {
+        return $this->hasMany(Branch::class, 'company_id');
+    }
+
+    public function Rates()
+    {
+        return $this->hasMany(CompanyRate::class, 'company_id');
+    }
+
+    public function CompanyWorkTime()
+    {
+        return $this->hasMany(CompanyWorkTime::class, 'company_id');
+    }
+
+    public function CompanySubActivities()
+    {
+        return $this->belongsToMany(Activity::class, 'company_sub_activities', 'company_id', 'activity_id');
+    }
+
+    public function CompanyPivotActivity()
+    {
+        return $this->hasMany(CompanySubActivity::class, 'company_id');
     }
 }

@@ -18,9 +18,10 @@ class CreateBranchesTable extends Migration
             $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
             $table->string('lat')->nullable();
             $table->string('lng')->nullable();
-            $table->foreignId('city_id')->nullable()->constrained('cities')->onDelete('set null');
+            $table->bigInteger('city_id')->nullable();
             $table->string('title_ar');
             $table->string('title_en');
+            $table->string('delivery_time');
             $table->timestamps();
         });
     }

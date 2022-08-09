@@ -13,6 +13,12 @@ class CompanyRate extends Model
         'rate', 'comment', 'user_name', 'company_id', 'user_id'
     ];
 
+
+    protected $casts = [
+        'rate' => 'int',
+
+    ];
+
     public function User()
     {
         return $this->belongsTo(User::class, 'user_id');
