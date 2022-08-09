@@ -45,6 +45,10 @@ class HomeController extends Controller
                 $q->whereHas('CompanyPivotActivity', function ($q4) use ($request) {
                     $q4->whereIn('activity_id', $request->subactivity_id);
                 });
+                if ($request->search) {
+                    $q->where('title_ar', 'like', '%' . $request->search . '%')
+                        ->orwhere('title_en', 'like', '%' . $request->search . '%');
+                }
             }
         });
         if ($request->city_id) {
@@ -63,6 +67,7 @@ class HomeController extends Controller
                 ->with('CompanyWorkTime')
                 ->with('Rates');
         }]);
+
         $data = $query->paginate(5);
         $data = BranchsResource::collection($data)->response()->getData(true);
         return response()->json(msgdata(success(), trans('lang.success'), $data));
