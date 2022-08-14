@@ -4,11 +4,15 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Http\Resources\BranchsResource;
+use App\Http\Resources\CompanyCategoryResource;
+use App\Http\Resources\CompanyProductResource;
 use App\Http\Resources\MainCategoryResource;
 use App\Http\Resources\SliderResources;
 use App\Models\Activity;
 use App\Models\Branch;
 use App\Models\Company;
+use App\Models\CompanyCategory;
+use App\Models\CompanyProduct;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -70,6 +74,39 @@ class HomeController extends Controller
 
         $data = $query->paginate(5);
         $data = BranchsResource::collection($data)->response()->getData(true);
+        return response()->json(msgdata(success(), trans('lang.success'), $data));
+
+    }
+
+    public function branch_Categories(Request $request, $id)
+    {
+        $branch = Branch::where('id', $id)->first();
+        if ($branch) {
+            $branch_categories = CompanyCategory::where('company_id', $branch->company_id)->get();
+        } else {
+            return response()->json(msg(not_found(), trans('lang.not_found')));
+        }
+
+        $data = $branch_categories;
+        $data = CompanyCategoryResource::collection($data);
+        return response()->json(msgdata(success(), trans('lang.success'), $data));
+
+    }
+
+
+    public function branch_products(Request $request, $branch_id, $category_id = null)
+    {
+        $branch = Branch::where('id', $branch_id)->first();
+        if (!$branch) {
+            return response()->json(msg(not_found(), trans('lang.not_found')));
+        }
+        $query = CompanyProduct::query();
+        $query->where('company_id', $branch->company_id);
+        if ($category_id) {
+            $query->where('company_category_id', $category_id);
+        }
+        $data = $query->paginate(10);
+        $data = CompanyProductResource::collection($data)->response()->getData(true);
         return response()->json(msgdata(success(), trans('lang.success'), $data));
 
     }

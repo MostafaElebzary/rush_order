@@ -35,3 +35,5 @@ Route::get('/offers', [HomeController::class, 'Offers']);
 Route::get('/main-categories', [HomeController::class, 'MainCategories']);
 Route::get('/sub-categories/{id}', [HomeController::class, 'SubCategories']);
 Route::get('/branches', [HomeController::class, 'branches']);
+Route::get('/branch-categories/{branch_id}', [HomeController::class, 'branch_Categories']);
+Route::get('/branch-products/{branch_id}/{category_id?}', [HomeController::class, 'branch_products']);

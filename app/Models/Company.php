@@ -92,6 +92,11 @@ class Company extends Model
         return $this->hasMany(Branch::class, 'company_id');
     }
 
+    public function CompanyCategories()
+    {
+        return $this->hasMany(CompanyCategory::class, 'company_id');
+    }
+
     public function Rates()
     {
         return $this->hasMany(CompanyRate::class, 'company_id');

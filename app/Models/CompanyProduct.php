@@ -41,7 +41,7 @@ class CompanyProduct extends Model
     public function getImageAttribute($image)
     {
         if (!empty($image)) {
-            return asset('uploads/company_category') . '/' . $image;
+            return asset('uploads/company_product') . '/' . $image;
         }
         return "";
     }
@@ -49,7 +49,7 @@ class CompanyProduct extends Model
     public function setImageAttribute($image)
     {
         if (is_file($image)) {
-            $imageFields = upload($image, 'company_category');
+            $imageFields = upload($image, 'company_product');
             $this->attributes['image'] = $imageFields;
         }
         return "";
