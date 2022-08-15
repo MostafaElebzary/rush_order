@@ -17,8 +17,8 @@ function send_notification($title, $body, $details, $image, $data, $token)
     );
 
     $fields = array('registration_ids' => $token,
-        'notification' => array('title' => $title, 'body' =>  strip_tags($message), 'details' => $details, 'image' => $image),
-        'data' => array('title' => $title, 'body' =>  strip_tags($message), 'details' => $details, 'image' => $image));
+        'notification' => array('title' => $title, 'body' => strip_tags($message), 'details' => $details, 'image' => $image),
+        'data' => array('title' => $title, 'body' => strip_tags($message), 'details' => $details, 'image' => $image));
 
     $payload = json_encode($fields);
     $curl_session = curl_init();
@@ -37,7 +37,7 @@ function send_notification($title, $body, $details, $image, $data, $token)
 if (!function_exists('settings')) {
     function settings($key)
     {
-        $result = App\Models\Setting::select('id','key','value')->where('key',$key)->first();
+        $result = App\Models\Setting::select('id', 'key', 'value')->where('key', $key)->first();
         return $result['value'];
     }
 }
@@ -46,9 +46,8 @@ if (!function_exists('format_coordiantes')) {
     function format_coordiantes($coordinates)
     {
         $data = [];
-        foreach($coordinates as $coord)
-        {
-            $data[] = (object)['lat'=>$coord->getlat(), 'lng'=>$coord->getlng()];
+        foreach ($coordinates as $coord) {
+            $data[] = (object)['lat' => $coord->getlat(), 'lng' => $coord->getlng()];
         }
         return $data;
     }
@@ -109,7 +108,7 @@ function check_jwt($jwt)
 }
 
 
-function msgdata( $status, $key, $data)
+function msgdata($status, $key, $data)
 {
     $msg['status'] = $status;
     $msg['msg'] = $key;
@@ -118,7 +117,7 @@ function msgdata( $status, $key, $data)
 }
 
 
-function msg( $status, $key)
+function msg($status, $key)
 {
     $msg['status'] = $status;
     $msg['msg'] = $key;
@@ -143,7 +142,7 @@ function send($tokens, $title = "رسالة جديدة", $msg = "رسالة جد
         ],
         'notification' => [
             'title' => $title,
-            'body' =>  strip_tags($msg),
+            'body' => strip_tags($msg),
             'id' => $chat,
             'type' => $type,
             'icon' => 'myIcon',
@@ -173,7 +172,6 @@ function send($tokens, $title = "رسالة جديدة", $msg = "رسالة جد
     if ($result === FALSE) {
         die('Curl failed: ' . curl_error($ch));
     }
-
 
 
     curl_close($ch);
@@ -212,7 +210,6 @@ function not_active()
 }
 
 
-
 function upload($file, $dir)
 {
     $image = time() . uniqid() . '.' . $file->getClientOriginalExtension();
@@ -227,7 +224,6 @@ function upload_multiple($file, $dir)
     $file->storeAs($destinationPath, $image, 'my_upload');
     return $image;
 }
-
 
 
 if (!function_exists('HttpPost')) {
@@ -253,6 +249,23 @@ if (!function_exists('HttpPost')) {
         return json_decode($output);
     }
 
+
+    function cart_sum($company_id, $user_id)
+    {
+        $total = 0;
+        $carts = \App\Models\Cart::where('company_id', $company_id)->where('user_id', $user_id)->get();
+        foreach ($carts as $cart) {
+            $total += $cart->price;
+        }
+
+        return $total;
+    }
+
+    function taxs()
+    {
+
+        return 15;
+    }
 
 
 }

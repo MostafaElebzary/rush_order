@@ -102,6 +102,11 @@ class Company extends Model
         return $this->hasMany(CompanyRate::class, 'company_id');
     }
 
+    public function carts()
+    {
+        return $this->hasMany(Cart::class, 'company_id');
+    }
+
     public function CompanyWorkTime()
     {
         return $this->hasMany(CompanyWorkTime::class, 'company_id');

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\HomeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -37,3 +38,11 @@ Route::get('/sub-categories/{id}', [HomeController::class, 'SubCategories']);
 Route::get('/branches', [HomeController::class, 'branches']);
 Route::get('/branch-categories/{branch_id}', [HomeController::class, 'branch_Categories']);
 Route::get('/branch-products/{branch_id}/{category_id?}', [HomeController::class, 'branch_products']);
+
+// cart
+Route::post('/add-to-cart', [CartController::class, 'AddToCart']);
+Route::post('/update-cart', [CartController::class, 'UpdateCart']);
+Route::get('/get-cart', [CartController::class, 'getCart']);
+Route::get('/delete-cart/{id}', [CartController::class, 'deleteCart']);
+Route::get('/add-qty/{id}', [CartController::class, 'AddQty']);
+Route::get('/decrease-qty/{id}', [CartController::class, 'DecreaseQty']);
