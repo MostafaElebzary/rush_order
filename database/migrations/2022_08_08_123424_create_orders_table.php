@@ -21,10 +21,17 @@ class CreateOrdersTable extends Migration
             $table->string('user_state')->nullable();
             $table->string('user_city')->nullable();
             $table->string('user_address');
+            $table->foreignId('user_address_id')->nullable()->constrained('user_addresses')->onDelete('set null');
             $table->enum('payment_type', ['Cash', 'Online'])->default('Cash');
+            $table->double('delivery_price')->default(0);
+            $table->double('order_price');
             $table->double('total_price');
             $table->tinyInteger('status')->default(0)->comment("0->pending , 1->accepted , 2->processing , 3->delivered , 4->cancelled");
-
+            $table->enum('deliver_type', ['Delivery', 'OnSite', 'ByCar'])->default('Delivery');
+            $table->string('car_type')->nullable();
+            $table->string('car_color')->nullable();
+            $table->string('car_num')->nullable();
+            $table->string('car_notes')->nullable();
             $table->timestamps();
         });
     }

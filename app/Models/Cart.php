@@ -68,7 +68,7 @@ class Cart extends Model
         return $res;
     }
 
-     public function getPriceAttribute()
+    public function getPriceAttribute()
     {
         $attribute_price = 0;
         $attributes = json_decode($this->attributes['attributes']);
@@ -96,6 +96,6 @@ class Cart extends Model
             }
         }
 
-        return $this->CompanyProduct->price + $attribute_price + $addition_price + $drink_price;
+        return $this->CompanyProduct->price * $this->qty + $attribute_price + $addition_price + $drink_price;
     }
 }

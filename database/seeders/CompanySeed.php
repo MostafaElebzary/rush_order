@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Activity;
 use App\Models\Branch;
 use App\Models\Company;
+use App\Models\Copoun;
 use Illuminate\Database\Seeder;
 
 class CompanySeed extends Seeder
@@ -57,7 +58,6 @@ class CompanySeed extends Seeder
                 'delivery_price' => 15.30,
 
             ],
-
             [
                 'title_ar' => 'شركة 2',
                 'title_en' => 'company 2',
@@ -82,7 +82,8 @@ class CompanySeed extends Seeder
                 'expire_date' => '2022-09-01',
                 'delivery_price' => 15.30,
 
-            ], [
+            ],
+            [
                 'title_ar' => 'شركة 3',
                 'title_en' => 'company 3',
                 'logo' => '3.jpg',
@@ -122,6 +123,7 @@ class CompanySeed extends Seeder
                 'title_en' => 'branch 1',
                 'lat' => '18.1725',
                 'lng' => '11.1851',
+                'delivery_time' => '30-60',
 
             ],
             [
@@ -131,6 +133,7 @@ class CompanySeed extends Seeder
                 'title_en' => 'branch 2',
                 'lat' => '35.1725',
                 'lng' => '18.1851',
+                'delivery_time' => '30-60',
 
             ],
             [
@@ -140,6 +143,7 @@ class CompanySeed extends Seeder
                 'title_en' => 'branch 3',
                 'lat' => '25.1725',
                 'lng' => '38.1851',
+                'delivery_time' => '30-60',
 
             ],
 
@@ -150,6 +154,7 @@ class CompanySeed extends Seeder
                 'title_en' => 'branch 1',
                 'lat' => '18.1725',
                 'lng' => '11.1851',
+                'delivery_time' => '30-60',
 
             ],
             [
@@ -159,6 +164,7 @@ class CompanySeed extends Seeder
                 'title_en' => 'branch 2',
                 'lat' => '35.1725',
                 'lng' => '18.1851',
+                'delivery_time' => '30-60',
 
             ],
             [
@@ -168,11 +174,28 @@ class CompanySeed extends Seeder
                 'title_en' => 'branch 3',
                 'lat' => '25.1725',
                 'lng' => '38.1851',
+                'delivery_time' => '30-60',
 
             ],
         ];
         foreach ($data as $row) {
             Branch::updateOrCreate($row);
+        }
+        $data = [
+
+            [
+                'code' => "rush60",
+                'from_date' => "2022-08-01",
+                'to_date' => "2022-09-01",
+                'amount' => '60',
+                'discount_type' => 'Ratio',
+                'active' => 1,
+
+
+            ],
+        ];
+        foreach ($data as $row) {
+            Copoun::updateOrCreate($row);
         }
 
 

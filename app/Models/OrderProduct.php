@@ -27,9 +27,7 @@ class OrderProduct extends Model
     {
         $res = null;
         if ($this->attributes['attributes'] != null) {
-
             $res = json_decode($this->attributes['attributes']);
-
         }
 
         return $res;
@@ -51,11 +49,9 @@ class OrderProduct extends Model
     {
         $res = null;
         if ($this->attributes['drinks'] != null) {
-
             $res = json_decode($this->attributes['drinks']);
-
         }
-
         return $res;
     }
+
 }
