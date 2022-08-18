@@ -20,16 +20,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
-
 //auth
 Route::post('/check-code', [AuthController::class, 'CheckCode']);
 Route::post('/register', [AuthController::class, 'Register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/change-password', [AuthController::class, 'change_password']);
 Route::get('/get-profile', [AuthController::class, 'get_profile_data']);
-
-
 // Home
 Route::get('/user-notification', [AuthController::class, 'UserNotification']);
 Route::get('/offers', [HomeController::class, 'Offers']);
@@ -37,8 +33,7 @@ Route::get('/main-categories', [HomeController::class, 'MainCategories']);
 Route::get('/sub-categories/{id}', [HomeController::class, 'SubCategories']);
 Route::get('/branches', [HomeController::class, 'branches']);
 Route::get('/branch-categories/{branch_id}', [HomeController::class, 'branch_Categories']);
-Route::get('/branch-products/{branch_id}/{category_id?}', [HomeController::class, 'branch_products']);
-
+Route::get('/branch-products/{branch_id}', [HomeController::class, 'branch_products']);
 // cart
 Route::post('/add-to-cart', [CartController::class, 'AddToCart']);
 Route::post('/update-cart', [CartController::class, 'UpdateCart']);

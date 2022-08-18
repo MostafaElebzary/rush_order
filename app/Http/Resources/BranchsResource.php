@@ -40,10 +40,8 @@ class BranchsResource extends JsonResource
             'open_time' => $work_time ? Carbon::parse($work_time->open_time)->translatedFormat("h:i a") : null,
             'close_time' => $work_time ? Carbon::parse($work_time->close_time)->translatedFormat("h:i a") : null,
             'is_open' => (boolean)$is_open,
-            'distance' =>$this->distance ? number_format((float)$this->distance, 2, '.', '') : 0.0,
+            'distance' => $this->distance ? number_format((float)$this->distance, 2, '.', '') : 0.0,
             'sub_categories' => ActivityResource::collection($this->Company->CompanySubActivities),
-
-
         ];
     }
 }

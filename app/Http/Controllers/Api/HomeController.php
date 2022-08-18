@@ -94,7 +94,7 @@ class HomeController extends Controller
     }
 
 
-    public function branch_products(Request $request, $branch_id, $category_id = null)
+    public function branch_products(Request $request, $branch_id)
     {
         $branch = Branch::where('id', $branch_id)->first();
         if (!$branch) {
@@ -102,8 +102,8 @@ class HomeController extends Controller
         }
         $query = CompanyProduct::query();
         $query->where('company_id', $branch->company_id);
-        if ($category_id) {
-            $query->where('company_category_id', $category_id);
+        if ($request->category_id) {
+            $query->whereIn('company_category_id', $request->category_id);
         }
         $data = $query->paginate(10);
         $data = CompanyProductResource::collection($data)->response()->getData(true);

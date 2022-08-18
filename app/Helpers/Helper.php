@@ -257,7 +257,6 @@ if (!function_exists('HttpPost')) {
         foreach ($carts as $cart) {
             $total += $cart->price;
         }
-
         return $total;
     }
 
