@@ -45,3 +45,5 @@ Route::get('/decrease-qty/{id}', [CartController::class, 'DecreaseQty']);
 
 //Order
 Route::post('/place-order', [OrderController::class, 'PlaceOrder']);
+Route::get('/get-orders', [OrderController::class, 'getOrders']);
+Route::get('/delete-order/{id}', [OrderController::class, 'deleteOrder']);

@@ -20,7 +20,7 @@ class OrderProduct extends Model
 
     public function CompanyProduct()
     {
-        return $this->belongsTo(Order::class, 'order_id');
+        return $this->belongsTo(CompanyProduct::class, 'company_product_id');
     }
 
     public function getAttributesAttribute()

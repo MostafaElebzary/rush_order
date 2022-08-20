@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CompanyOrderResources;
+use App\Http\Resources\OrderResources;
 use App\Models\Cart;
 use App\Models\Company;
 use App\Models\Copoun;
@@ -102,8 +104,43 @@ class OrderController extends Controller
                 ->where('company_id', $request->company_id)->delete();
             $data = Order::whereId($order->id)->with(['Company', 'OrderProducts'])->first();
 
-            return response()->json(msgdata(success(), trans('lang.success'), $data));
+            return response()->json(msg(success(), trans('lang.success')));
 
+        }
+        return msg(failed(), trans('lang.not_authorized'));
+    }
+
+    public function getOrders(Request $request)
+    {
+        $jwt = ($request->hasHeader('jwt') ? $request->header('jwt') : "");
+        $user = check_jwt($jwt);
+        if ($user) {
+
+            $orders = Order::where('user_id', $user->id)->with('Company')->with('OrderProducts');
+            if ($request->status) {
+                $orders = $orders->where('status', $request->status);
+            }
+            $orders = $orders->paginate(10);
+            $data = OrderResources::collection($orders)->response()->getData(true);
+            return response()->json(msgdata(success(), trans('lang.success'), $data));
+        }
+        return msg(failed(), trans('lang.not_authorized'));
+    }
+
+    public function deleteOrder(Request $request, $id)
+    {
+        $jwt = ($request->hasHeader('jwt') ? $request->header('jwt') : "");
+        $user = check_jwt($jwt);
+        if ($user) {
+
+            $orders = Order::whereId($id)->first();
+            if ($orders) {
+                $orders->delete();
+            } else {
+                return response()->json(msg(not_found(), trans('lang.not_found')));
+            }
+
+            return response()->json(msg(success(), trans('lang.success')));
         }
         return msg(failed(), trans('lang.not_authorized'));
     }

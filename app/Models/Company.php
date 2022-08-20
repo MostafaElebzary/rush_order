@@ -107,6 +107,11 @@ class Company extends Model
         return $this->hasMany(Cart::class, 'company_id');
     }
 
+    public function Orders()
+    {
+        return $this->hasMany(Order::class, 'company_id');
+    }
+
     public function CompanyWorkTime()
     {
         return $this->hasMany(CompanyWorkTime::class, 'company_id');
