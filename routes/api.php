@@ -4,6 +4,8 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\CartController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\OrderController;
+use App\Http\Controllers\Api\SettingsController;
+use App\Http\Controllers\Api\UserAddressController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -49,4 +51,16 @@ Route::get('/decrease-qty/{id}', [CartController::class, 'DecreaseQty']);
 Route::post('/place-order', [OrderController::class, 'PlaceOrder']);
 Route::get('/get-orders', [OrderController::class, 'getOrders']);
 Route::get('/delete-order/{id}', [OrderController::class, 'deleteOrder']);
+
+//user addresses
+Route::get('/user-address', [UserAddressController::class, 'UserAddresses']);
+Route::get('/change-address-status/{id}', [UserAddressController::class, 'changeUserAddressStatus']);
+Route::get('/delete-address/{id}', [UserAddressController::class, 'deleteUserAddress']);
+Route::post('/add-address', [UserAddressController::class, 'AddUserAddress']);
+
+//settings
+Route::get('/settings', [SettingsController::class, 'Settings']);
+Route::post('/contact-us', [SettingsController::class, 'ContactUs']);
+
+
 

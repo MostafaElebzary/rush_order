@@ -13,7 +13,10 @@ class UserAddress extends Model
         'address', 'description', 'is_default', 'lat', 'lng', 'user_id'
     ];
 
-    public function User(){
-        return $this->belongsTo(User::class,'user_id');
+    protected $hidden = ['created_at', 'updated_at'];
+
+    public function User()
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
