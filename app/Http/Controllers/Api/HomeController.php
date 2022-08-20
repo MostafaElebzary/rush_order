@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Resources\BranchsResource;
 use App\Http\Resources\CompanyCategoryResource;
 use App\Http\Resources\CompanyProductResource;
+use App\Http\Resources\CompanyRateResources;
 use App\Http\Resources\MainCategoryResource;
 use App\Http\Resources\SliderResources;
 use App\Models\Activity;
@@ -13,9 +14,11 @@ use App\Models\Branch;
 use App\Models\Company;
 use App\Models\CompanyCategory;
 use App\Models\CompanyProduct;
+use App\Models\CompanyRate;
 use App\Models\Slider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -109,5 +112,43 @@ class HomeController extends Controller
         $data = CompanyProductResource::collection($data)->response()->getData(true);
         return response()->json(msgdata(success(), trans('lang.success'), $data));
 
+    }
+
+    public function CompanyRates(Request $request, $id)
+    {
+        $data = CompanyRate::where('company_id', $id)->paginate(10);
+        $data = CompanyRateResources::collection($data)->response()->getData();
+        return response()->json(msgdata(success(), trans('lang.success'), $data));
+    }
+
+
+    public function RateCompany(Request $request)
+    {
+        $jwt = ($request->hasHeader('jwt') ? $request->header('jwt') : "");
+        $user = check_jwt($jwt);
+        if ($user) {
+            $rule = [
+                'company_id' => 'required|exists:companies,id',
+                'rate' => 'required|numeric',
+                'comment' => 'required|string',
+            ];
+
+            $validate = Validator::make($request->all(), $rule);
+            if ($validate->fails()) {
+                return response()->json(msg(failed(), $validate->messages()->first()));
+            }
+
+            $rate = CompanyRate::create([
+                'rate' => $request->rate,
+                'comment' => $request->comment,
+                'user_name' => $user->first_name . " " . $user->last_name,
+                'company_id' => $request->company_id,
+                'user_id' => $user->id,
+            ]);
+            $data = new CompanyRateResources($rate);
+            return response()->json(msgdata(success(), trans('lang.success'), $data));
+        } else {
+            return msg(failed(), trans('lang.not_authorized'));
+        }
     }
 }

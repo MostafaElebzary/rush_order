@@ -36,6 +36,7 @@ class BranchsResource extends JsonResource
             'location' => (string)$this->Company->location,
             'delivery_price' => (double)$this->Company->delivery_price,
             'rate' => (double)$this->Company->Rates->count() > 0 ? $this->Company->Rates->sum('rate') / $this->Company->Rates->count() : 0.0,
+            'rates_count' => $this->Company->Rates->count() ,
             'delivery_time' => $this->delivery_time,
             'open_time' => $work_time ? Carbon::parse($work_time->open_time)->translatedFormat("h:i a") : null,
             'close_time' => $work_time ? Carbon::parse($work_time->close_time)->translatedFormat("h:i a") : null,

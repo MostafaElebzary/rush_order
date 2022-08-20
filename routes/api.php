@@ -35,6 +35,8 @@ Route::get('/sub-categories/{id}', [HomeController::class, 'SubCategories']);
 Route::get('/branches', [HomeController::class, 'branches']);
 Route::get('/branch-categories/{branch_id}', [HomeController::class, 'branch_Categories']);
 Route::get('/branch-products/{branch_id}', [HomeController::class, 'branch_products']);
+Route::get('/company-rates/{id}', [HomeController::class, 'CompanyRates']);
+Route::post('/rate-company', [HomeController::class, 'RateCompany']);
 // cart
 Route::post('/add-to-cart', [CartController::class, 'AddToCart']);
 Route::post('/update-cart', [CartController::class, 'UpdateCart']);
@@ -47,3 +49,4 @@ Route::get('/decrease-qty/{id}', [CartController::class, 'DecreaseQty']);
 Route::post('/place-order', [OrderController::class, 'PlaceOrder']);
 Route::get('/get-orders', [OrderController::class, 'getOrders']);
 Route::get('/delete-order/{id}', [OrderController::class, 'deleteOrder']);
+
