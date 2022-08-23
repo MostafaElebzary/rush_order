@@ -3,12 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Category;
-use Carbon\Carbon;
+use App\Models\Activity;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Http\Request;
-use App\Models\Page;
+use App\Models\Slider;
 use Validator;
 
 class CategoryController extends Controller
@@ -18,18 +17,19 @@ class CategoryController extends Controller
         //$this->middleware('auth:admin');
     }
 
-    public function index()
+    public function index($id = null)
     {
-        // $query['data'] = Admin::orderBy('id','desc')->get();
-        // $query['data'] = Admin::orderBy('id','desc')->paginate(10);
-
-
-        return view('admin.category.index');
+        $query['data'] = Activity::find($id);
+        return view('admin.category.index', $query);
     }
 
-    public function datatable(Request $request)
+    public function datatable(Request $request, $parent_id = null)
     {
-        $data = Category::orderBy('id', 'asc');
+
+
+        $data = Activity::where('parent_id', $parent_id)->orderBy('id', 'asc');
+
+
         return Datatables::of($data)
             ->addColumn('checkbox', function ($row) {
                 $checkbox = '';
@@ -38,50 +38,60 @@ class CategoryController extends Controller
                                 </div>';
                 return $checkbox;
             })
-            ->editColumn('name', function ($row) {
-                $name = '';
-                $name .= ' <span class="text-gray-800 text-hover-primary mb-1">' . $row->name . '</span>';
-                return $name;
+            ->editColumn('photo', function ($row) {
+                $photo = '';
+                $photo .= ' <a class="d-block overlay h-100" data-fslightbox="lightbox-hot-sales" target="_blank" href="' . $row->image . '">
+                            <!--begin::Image-->
+                            <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-75px h-100" style="background-image:url(' . $row->image . ')"></div>
+                            <!--end::Image-->
+                            <!--begin::Action-->
+                            <div class="overlay-layer card-rounded bg-dark bg-opacity-25">
+                                <i class="bi bi-eye-fill fs-2x text-white"></i>
+                            </div>
+                            <!--end::Action-->
+                        </a>';
+                return $photo;
             })
-            ->editColumn('name_en', function ($row) {
-                $name_en = '';
-                $name_en .= ' <span class="text-gray-800 text-hover-primary mb-1">' . $row->name_en . '</span>';
-                return $name_en;
+            ->editColumn('title_ar', function ($row) {
+                $title = '';
+                $title .= ' <span class="text-gray-800 text-hover-primary mb-1">' . $row->title_ar . '</span>';
+                return $title;
+            })->editColumn('title_en', function ($row) {
+                $title = '';
+                $title .= ' <span class="text-gray-800 text-hover-primary mb-1">' . $row->title_en . '</span>';
+                return $title;
             })
-            ->addColumn('parent', function ($row) {
-                $parent = '';
-                $parent .= ' <span class="text-gray-800 text-hover-primary mb-1">' . $row->Category && $row->parent != 0 ? $row->Category->name : "--" . '</span>';
-                return $parent;
-            })
-            ->editColumn('created_at', function ($row) {
+            ->editColumn('parent_id', function ($row) {
                 $created_at = '';
-                $created_at .= ' <span class="text-gray-800 text-hover-primary mb-1">' . Carbon::parse($row->created_at)->translatedFormat("Y-m-d H:i a") . '</span>';
+                $created_at .= ' <span class="text-gray-800 text-hover-primary mb-1">' . $row->created_at . '</span>';
+                return $created_at;
+            })->editColumn('created_at', function ($row) {
+                $created_at = '';
+                $created_at .= ' <span class="text-gray-800 text-hover-primary mb-1">' . $row->created_at . '</span>';
                 return $created_at;
             })
-            ->addColumn('actions', function ($row) {
-                $actions = ' <a href="' . url("admin/edit-category/" . $row->id) . '" class="btn btn-light-info"><i class="bi bi-pencil-fill"></i> تعديل </a>';
+            ->addColumn('actions', function ($row) use ($parent_id) {
+                $actions = ' <a href="' . url("admin/edit-category/" . $row->id) . '" class="btn btn-light-info"><i class="bi bi-pencil-fill"></i> تعديل</a>';
+                if ($parent_id == null) {
+                    $actions .= ' <a href="' . url("admin/sub-category/" . $row->id) . '" class="btn btn-light-success"><i class="bi bi-eye-fill"></i> التصنيفات </a>';
+                }
                 return $actions;
 
             })
-            ->rawColumns(['actions', 'checkbox', 'name', 'name_en', 'parent', 'created_at'])
+            ->rawColumns(['actions', 'checkbox', 'title_ar', 'title_en', 'photo', 'created_at'])
             ->make();
 
     }
 
-    public function create()
-    {
-        return view('admin.category.create');
-    }
 
     public function store(Request $request)
     {
         $rule = [
-            'name' => 'required|string',
-            'name_en' => 'required|string',
-            'meta_keywords' => 'nullable|string',
-            'meta_description' => 'nullable|string',
-            'parent' => 'nullable',
-            'photo' => 'image|mimes:png,jpg,jpeg|max:2048',
+            'image' => 'required|image|mimes:png,jpg,jpeg|max:2048',
+            'title_ar' => 'required|string',
+            'title_en' => 'required|string',
+            'parent_id' => 'nullable'
+
         ];
         $validate = Validator::make($request->all(), $rule);
         if ($validate->fails()) {
@@ -89,28 +99,24 @@ class CategoryController extends Controller
         }
 
 
-        $data = Category::create([
-            'name' => $request->name,
-            'name_en' => $request->name_en,
-            'meta_keywords' => $request->meta_keywords,
-            'meta_description' => $request->meta_description,
-            'parent' => $request->parent,
-            'photo' => $request->photo,
+        $data = Activity::create([
+            'title_ar' => $request->title_ar,
+            'title_en' => $request->title_en,
+            'image' => $request->image,
+            'parent_id' => $request->parent_id,
+
         ]);
+        if ($request->parent_id) {
+
+            return redirect('admin/sub-category/' . $request->parent_id)->with('message', 'تم الاضافة بنجاح')->with('status', 'success');
+        }
         return redirect('admin/category')->with('message', 'تم الاضافة بنجاح')->with('status', 'success');
     }
-
-//    public function show($id)
-//    {
-//        // $query['data'] = Admin::where('id', $id)->get();
-//        $query['data'] = Admin::find($id);
-//        return view('admin.admin.show', $query);
-//    }
 
     public function edit($id)
     {
         // $query['data'] = Admin::where('id', $id)->get();
-        $query['data'] = Category::find($id);
+        $query['data'] = Activity::findOrFail($id);
         return view('admin.category.edit', $query);
     }
 
@@ -118,30 +124,28 @@ class CategoryController extends Controller
     {
 
         $rule = [
-            'id' => 'required',
-            'name' => 'required|string',
-            'name_en' => 'required|string',
-            'meta_keywords' => 'nullable|string',
-            'meta_description' => 'nullable|string',
-            'parent' => 'nullable',
-            'photo' => 'image|mimes:png,jpg,jpeg|max:2048',
+            'image' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
+            'title_ar' => 'required|string',
+            'title_en' => 'required|string',
+            'parent_id' => 'nullable'
+
         ];
         $validate = Validator::make($request->all(), $rule);
         if ($validate->fails()) {
             return redirect()->back()->with('message', $validate->messages()->first())->with('status', 'error');
         }
 
-        $data = Category::findOrFail($request->id);
-        $data->name = $request->name;
-        $data->name_en = $request->name_en;
-        $data->meta_keywords = $request->meta_keywords;
-        $data->meta_description = $request->meta_description;
-        $data->parent = $request->parent;
-        if(is_file($request->photo)){
-        $data->photo = $request->photo;
+        $row = Activity::findOrFail($request->id);
+        $row->title_ar = $request->title_ar;
+        $row->title_en = $request->title_en;
+        if ($request->image) {
+            $row->image = $request->image;
         }
-        $data->save();
-
+        $row->parent_id = $request->parent_id;
+        $row->save();
+        if ($request->parent_id) {
+            return redirect('admin/sub-category/' . $request->parent_id)->with('message', 'تم الاضافة بنجاح')->with('status', 'success');
+        }
 
         return redirect('admin/category')->with('message', 'تم التعديل بنجاح')->with('status', 'success');
     }
@@ -150,14 +154,8 @@ class CategoryController extends Controller
     {
 
         try {
-            $categories = Category::whereIn('id', $request->id)->delete();
-            $categories = Category::whereIn('parent', $request->id)->update(
-                [
-                    'parent' => 0
-                ]
-            );
+            Activity::whereIn('id', $request->id)->delete();
         } catch (\Exception $e) {
-
             return response()->json(['message' => 'Failed']);
         }
         return response()->json(['message' => 'Success']);

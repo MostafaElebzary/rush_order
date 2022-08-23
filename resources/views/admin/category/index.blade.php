@@ -3,12 +3,14 @@
 @section('css')
     <link href="{{asset('/admin')}}/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet"
           type="text/css"/>
-    <link href="{{asset('/admin')}}/assets/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet"
-          type="text/css"/>
+    <link href="{{asset('/admin')}}/assets/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet" type="text/css"/>
 @endsection
 
 @section('breadcrumb')
-    <h1 class="d-flex flex-column text-dark fw-bolder fs-3 mb-0">التصنيفات</h1>
+    <h1 class="d-flex flex-column text-dark fw-bolder fs-3 mb-0">قائمة القطاعات</h1>
+    @if(request()->route()->getName() != "category")
+        <strong style="color: #0c69f1">{{$data->title}}</strong>
+    @endif
 @endsection
 
 @section('content')
@@ -36,9 +38,9 @@
                                     </div>
                                 </th>
 
-                                <th class="min-w-125px">الاسم</th>
-                                <th class="min-w-125px">الاسم EN</th>
-                                <th class="min-w-125px">متفرع من</th>
+                                <th class="min-w-125px">الصورة</th>
+                                <th class="min-w-125px">الاسم بالعربية</th>
+                                <th class="min-w-125px">الاسم بالانجليزية</th>
                                 <th class="min-w-125px">تاريخ الانشاء</th>
                                 <th class=" min-w-100px">الاجراءات</th>
                             </tr>
@@ -53,7 +55,157 @@
                         <!--end::Table-->
                     </div>
                     <!--end::Card body-->
+                    <div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
+                        <!--begin::Modal dialog-->
+                        <div class="modal-dialog modal-dialog-centered mw-650px">
+                            <!--begin::Modal content-->
+                            <div class="modal-content">
+                                <!--begin::Modal header-->
+                                <div class="modal-header" id="kt_modal_add_user_header">
+                                    <!--begin::Modal title-->
+                                    <h2 class="fw-bolder">اضف جديد</h2>
+                                    <!--end::Modal title-->
+                                    <!--begin::Close-->
+                                    <div class="btn btn-icon btn-sm btn-active-icon-primary"
+                                         data-bs-dismiss="modal">
+                                        <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                                        <span class="svg-icon svg-icon-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                     viewBox="0 0 24 24" fill="none">
+                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                          transform="rotate(-45 6 17.3137)" fill="black"/>
+                                    <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                          transform="rotate(45 7.41422 6)" fill="black"/>
+                                </svg>
+                            </span>
+                                        <!--end::Svg Icon-->
+                                    </div>
+                                    <!--end::Close-->
+                                </div>
+                                <!--end::Modal header-->
+                                <!--begin::Modal body-->
+                                <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                                    <!--begin::Form-->
+                                    <form id="" class="form" method="post" action="{{url('admin/store-category')}}"
+                                          enctype="multipart/form-data">
+                                    @csrf
+                                    <!--begin::Scroll-->
+                                        <div class="d-flex flex-column scroll-y me-n7 pe-7"
+                                             id="kt_modal_add_user_scroll" data-kt-scroll="true"
+                                             data-kt-scroll-activate="{default: false, lg: true}"
+                                             data-kt-scroll-max-height="auto"
+                                             data-kt-scroll-dependencies="#kt_modal_add_user_header"
+                                             data-kt-scroll-wrappers="#kt_modal_add_user_scroll"
+                                             data-kt-scroll-offset="300px">
 
+                                            <div class="fv-row mb-7">
+                                                <!--begin::Label-->
+                                                <label class="col-lg-4 col-form-label fw-bold fs-6">الصورة</label>
+                                                <!--end::Label-->
+                                                <!--begin::Col-->
+                                                <div class="col-lg-8">
+                                                    <!--begin::Image input-->
+                                                    <div class="image-input image-input-outline"
+                                                         data-kt-image-input="true"
+                                                         style="background-image: url('{{asset('/admin')}}/assets/media/svg/avatars/blank.svg')">
+                                                        <!--begin::Preview existing avatar-->
+                                                        <div class="image-input-wrapper w-200px h-200px"
+                                                             style="background-image: url({{asset('/admin')}}/assets/media/avatars/blank.png)"></div>
+                                                        <!--end::Preview existing avatar-->
+                                                        <!--begin::Label-->
+                                                        <label
+                                                            class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                                            data-kt-image-input-action="change" data-bs-toggle="tooltip"
+                                                            title="تعديل">
+                                                            <i class="bi bi-pencil-fill fs-7"></i>
+                                                            <!--begin::Inputs-->
+                                                            <input type="file" name="image" accept=".png, .jpg, .jpeg" required/>
+                                                            <input type="hidden" name="avatar_remove"/>
+                                                            <!--end::Inputs-->
+                                                        </label>
+                                                        <!--end::Label-->
+                                                        <!--begin::Cancel-->
+                                                        <span
+                                                            class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                                            data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
+                                                            title="الغاء">
+                                                        <i class="bi bi-x fs-2"></i>
+                                                    </span>
+                                                        <!--end::Cancel-->
+                                                        <!--begin::Remove-->
+                                                        <span
+                                                            class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
+                                                            data-kt-image-input-action="remove" data-bs-toggle="tooltip"
+                                                            title="حذف">
+                                                        <i class="bi bi-x fs-2"></i>
+                                                    </span>
+                                                        <!--end::Remove-->
+                                                    </div>
+                                                    <!--end::Image input-->
+                                                    <!--begin::Hint-->
+                                                    <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
+                                                    <!--end::Hint-->
+                                                </div>
+                                                <!--end::Col-->
+                                            </div>
+                                            <!--end::Input group-->
+
+                                            <!--begin::Input group-->
+                                            <div class="fv-row mb-7">
+                                                <!--begin::Label-->
+                                                <label class="required fw-bold fs-6 mb-2">الاسم بالعربية</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input type="text" name="title_ar"
+                                                       class="form-control form-control-solid mb-3 mb-lg-0"
+                                                       placeholder="الاسم بالعربية" value="{{old('title_ar')}}"
+                                                       required/>
+
+                                                @if(request()->route()->getName() != "category")
+                                                    @php
+                                                        $id = Request::segment(3);
+                                                    @endphp
+                                                    <input type="hidden" name="parent_id" value="{{$id}}">
+                                            @endif
+                                            <!--end::Input-->
+                                            </div>
+                                            <div class="fv-row mb-7">
+                                                <!--begin::Label-->
+                                                <label class="required fw-bold fs-6 mb-2">الاسم بالانجليزية</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input type="text" name="title_en"
+                                                       class="form-control form-control-solid mb-3 mb-lg-0"
+                                                       placeholder="الاسم بالانجليزية" value="{{old('title_en')}}"
+                                                       required/>
+                                                <!--end::Input-->
+                                            </div>
+
+
+                                        </div>
+                                        <!--end::Scroll-->
+                                        <!--begin::Actions-->
+                                        <div class="text-center pt-15">
+                                            <button type="reset" class="btn btn-light me-3"
+                                                    data-bs-dismiss="modal">ألغاء
+                                            </button>
+                                            <button type="submit" class="btn btn-primary"
+                                                    data-kt-users-modal-action="submit">
+                                                <span class="indicator-label">حفظ</span>
+                                                <span class="indicator-progress">برجاء الانتظار
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                            </button>
+                                        </div>
+                                        <!--end::Actions-->
+                                    </form>
+                                    <!--end::Form-->
+                                </div>
+                                <!--end::Modal body-->
+                            </div>
+                            <!--end::Modal content-->
+                        </div>
+                        <!--end::Modal dialog-->
+                    </div>
                 </div>
                 <!--end::Card-->
             </div>
@@ -67,6 +219,15 @@
 @section('js')
     <script src="{{asset('/admin')}}/assets/plugins/custom/datatables/datatables.bundle.js"></script>
     <script type="text/javascript">
+        @if($data)
+        @php
+            $id = $data->id
+        @endphp
+        @else
+        @php
+            $id = null;
+        @endphp
+        @endif
         $(function () {
             var table = $('#data_table').DataTable({
                 processing: true,
@@ -95,15 +256,19 @@
                     // {extend: 'colvis', className: 'btn secondary', text: 'إظهار / إخفاء الأعمدة '}
                 ],
                 ajax: {
+                    @if(!$data)
                     url: '{{ route('category.datatable.data') }}',
+                    @else
+                    url: '{{ route('category.datatable.data',$id) }}',
+                    @endif
                     data: {}
                 },
                 columns: [
                     {data: 'checkbox', name: 'checkbox', "searchable": false, "orderable": false},
-                    {data: 'name', name: 'name', "searchable": true, "orderable": true},
-                    {data: 'name_en', name: 'name_en', "searchable": true, "orderable": true},
-                    {data: 'parent', name: 'parent', "searchable": true, "orderable": true},
-                    {data: 'created_at', name: 'created_at', "searchable": true, "orderable": true},
+                    {data: 'photo', name: 'photo', "searchable": true, "orderable": true},
+                    {data: 'title_ar', name: 'title_ar', "searchable": true, "orderable": true},
+                    {data: 'title_en', name: 'title_en', "searchable": true, "orderable": true},
+                    {data: 'created_at', name: 'is_active', "searchable": true, "orderable": true},
                     {data: 'actions', name: 'actions', "searchable": false, "orderable": false},
                 ]
             });

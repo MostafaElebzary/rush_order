@@ -2,9 +2,10 @@
 
     <!--end::Filter-->
     <!--begin::Add user-->
-    <a href="{{url('admin/create-category')}}" class="btn btn-light-primary me-3">
+    <button type="button" class="btn btn-light-primary me-3" data-bs-toggle="modal"
+            data-bs-target="#kt_modal_add_user">
         <i class="bi bi-plus-circle-fill fs-2x"></i>
-    </a>
+    </button>
 
     <!--end::Add user-->
     <button id="delete" class="btn btn-light-danger me-3 font-weight-bolder">

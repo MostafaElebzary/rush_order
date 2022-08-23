@@ -112,7 +112,9 @@
                                                         <!--begin::Preview existing avatar-->
 
                                                         @if ($data->image)
-                                                            <img class="img-thumbnail" id="get_photo_link" style="width: 200px;" src="{{$data->image}}" data-holder-rendered="true">
+{{--                                                            <img class="img-thumbnail" id="get_photo_link" style="width: 200px;" src="{{$data->image}}" data-holder-rendered="true">--}}
+                                                            <div class="image-input-wrapper w-200px h-200px"
+                                                                 style="background-image: url({{$data->image}})"></div>
                                                         @else
                                                         <div class="image-input-wrapper w-125px h-125px" style="background-image: url({{asset('/admin')}}/assets/media/avatars/blank.png)"></div>
                                                         @endif
