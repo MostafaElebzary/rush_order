@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<html lang="ar" direction="rtl" dir="rtl" style="direction: rtl">
+<html lang="ar"  dir="rtl" >
 	<!--begin::Head-->
 	<head><base href="">
 		<title>Rush order</title>

@@ -92,6 +92,27 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
         return view('admin/user/button');
     });
 
+    Route::get('/copoun', 'CopounController@index')->name('copouns');
+    Route::get('copoun_datatable', 'CopounController@datatable')->name('copouns.datatable.data');
+    Route::get('delete-copoun', 'CopounController@destroy');
+    Route::get('show-copoun/{id}', 'CopounController@show')->name('copouns.show');
+    Route::post('store-copoun', 'CopounController@store');
+    Route::get('edit-copoun/{id}', 'CopounController@edit');
+    Route::post('update-copoun', 'CopounController@update');
+    Route::get('add-copoun-button', function () {
+        return view('admin/copoun/button');
+    });
+
+    Route::get('/wallet', 'WalletController@index')->name('wallet');
+    Route::get('wallet_datatable', 'WalletController@datatable')->name('wallet.datatable.data');
+    Route::get('delete-wallet', 'WalletController@destroy');
+    Route::post('store-wallet', 'WalletController@store');
+    Route::get('edit-wallet/{id}', 'WalletController@edit');
+    Route::post('update-wallet', 'WalletController@update');
+    Route::get('add-wallet-button', function () {
+        return view('admin/wallet/button');
+    });
+
 
 });
 

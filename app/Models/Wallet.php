@@ -10,11 +10,20 @@ class Wallet extends Model
     use HasFactory;
 
     protected $fillable = [
-        'from_id',
-        'from_type',
-        'to_id',
-        'to_type',
         'price',
+        'type',
+        'company_id',
+        'order_id',
         'description',
     ];
+
+    public function Company()
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
+
+    public function Order()
+    {
+        return $this->belongsTo(Order::class, 'order_id');
+    }
 }

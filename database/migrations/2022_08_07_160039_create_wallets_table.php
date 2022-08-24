@@ -15,13 +15,11 @@ class CreateWalletsTable extends Migration
     {
         Schema::create('wallets', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('from_id');
-            $table->enum('from_type', ['User', 'Client'])->default('User');
-            $table->bigInteger('to_id');
-            $table->enum('to_type', ['User', 'Client'])->default('Client');
             $table->double('price');
+            $table->enum('type',['withdrawal','deposit']);
+            $table->foreignId('company_id')->nullable()->constrained('companies')->onDelete('restrict');
+            $table->foreignId('order_id')->nullable()->constrained('orders')->onDelete('restrict');
             $table->longText('description')->nullable();
-
             $table->timestamps();
         });
     }

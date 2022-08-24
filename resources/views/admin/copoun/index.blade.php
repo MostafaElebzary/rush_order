@@ -7,7 +7,7 @@
 @endsection
 
 @section('breadcrumb')
-    <h1 class="d-flex flex-column text-dark fw-bolder fs-3 mb-0">العملاء </h1>
+    <h1 class="d-flex flex-column text-dark fw-bolder fs-3 mb-0">كوبونات الخصم </h1>
 @endsection
 
 @section('content')
@@ -35,11 +35,13 @@
                                     </div>
                                 </th>
 
-                                <th class="min-w-125px">صورة</th>
-                                <th class="min-w-125px">العميل</th>
-                                <th class="min-w-125px">البريد الالكترونى</th>
-                                <th class="min-w-125px">رقم الجوال</th>
-                                <th class="min-w-125px">مفعل</th>
+                                <th class="min-w-125px">الكود</th>
+                                <th class="min-w-125px">من تاريخ</th>
+                                <th class="min-w-125px">الى تاريخ</th>
+                                <th class="min-w-125px">قيمة الخصم</th>
+                                <th class="min-w-125px">نوع الخصم</th>
+                                <th class="min-w-125px">مفعل/غيرمفعل</th>
+                                <th class="min-w-125px">مرات الاستعمال</th>
                                 <th class=" min-w-100px">الاجراءات</th>
                             </tr>
                             <!--end::Table row-->
@@ -86,7 +88,7 @@
                                 <!--begin::Modal body-->
                                 <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                                     <!--begin::Form-->
-                                    <form id="" class="form" method="post" action="{{url('admin/store-user')}}"
+                                    <form id="" class="form" method="post" action="{{url('admin/store-copoun')}}"
                                           enctype="multipart/form-data">
                                     @csrf
                                     <!--begin::Scroll-->
@@ -98,124 +100,68 @@
                                              data-kt-scroll-wrappers="#kt_modal_add_user_scroll"
                                              data-kt-scroll-offset="300px">
 
-                                            <div class="fv-row mb-7">
-                                                <!--begin::Label-->
-                                                <label class="col-lg-4 col-form-label fw-bold fs-6">صورة
-                                                    العميل</label>
-                                                <!--end::Label-->
-                                                <!--begin::Col-->
-                                                <div class="col-lg-8">
-                                                    <!--begin::Image input-->
-                                                    <div class="image-input image-input-outline"
-                                                         data-kt-image-input="true"
-                                                         style="background-image: url('{{asset('/admin')}}/assets/media/svg/avatars/blank.svg')">
-                                                        <!--begin::Preview existing avatar-->
-                                                        <div class="image-input-wrapper w-225px h-225px"
-                                                             style="background-image: url({{asset('/admin')}}/assets/media/avatars/blank.png)"></div>
-                                                        <!--end::Preview existing avatar-->
-                                                        <!--begin::Label-->
-                                                        <label
-                                                            class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                            data-kt-image-input-action="change" data-bs-toggle="tooltip"
-                                                            title="تعديل">
-                                                            <i class="bi bi-pencil-fill fs-7"></i>
-                                                            <!--begin::Inputs-->
-                                                            <input type="file" name="image"
-                                                                   accept=".png, .jpg, .jpeg"/>
-                                                            <input type="hidden" name="avatar_remove"/>
-                                                            <!--end::Inputs-->
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Cancel-->
-                                                        <span
-                                                            class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                            data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
-                                                            title="الغاء">
-                                                        <i class="bi bi-x fs-2"></i>
-                                                    </span>
-                                                        <!--end::Cancel-->
-                                                        <!--begin::Remove-->
-                                                        <span
-                                                            class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                            data-kt-image-input-action="remove" data-bs-toggle="tooltip"
-                                                            title="حذف">
-                                                        <i class="bi bi-x fs-2"></i>
-                                                    </span>
-                                                        <!--end::Remove-->
-                                                    </div>
-                                                    <!--end::Image input-->
-                                                    <!--begin::Hint-->
-                                                    <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-                                                    <!--end::Hint-->
-                                                </div>
-                                                <!--end::Col-->
-                                            </div>
+
                                             <!--end::Input group-->
 
                                             <!--begin::Input group-->
                                             <div class="fv-row mb-7">
                                                 <!--begin::Label-->
-                                                <label class="required fw-bold fs-6 mb-2">الاسم الاول</label>
+                                                <label class="required fw-bold fs-6 mb-2">الكود</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" name="first_name"
+                                                <input type="text" name="code"
                                                        class="form-control form-control-solid mb-3 mb-lg-0"
-                                                       placeholder="الاسم الاول" value="{{old('first_name')}}" required/>
+                                                       placeholder="code" value="{{old('code')}}" required/>
                                                 <!--end::Input-->
                                             </div>
                                             <div class="fv-row mb-7">
                                                 <!--begin::Label-->
-                                                <label class="required fw-bold fs-6 mb-2">الاسم الثاني</label>
+                                                <label class="required fw-bold fs-6 mb-2">من تاريخ</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" name="last_name"
+                                                <input type="date" name="from_date"
                                                        class="form-control form-control-solid mb-3 mb-lg-0"
-                                                       placeholder="الاسم الثاني" value="{{old('last_name')}}" required/>
+                                                       placeholder="من تاريخ" value="{{old('from_date')}}" required/>
                                                 <!--end::Input-->
                                             </div>
                                             <!--end::Input group-->  <!--begin::Input group-->
                                             <div class="fv-row mb-7">
                                                 <!--begin::Label-->
-                                                <label class="fw-bold fs-6 mb-2">البريد الالكترونى</label>
+                                                <label class="fw-bold fs-6 mb-2">الى تاريخ</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="email" name="email"
+                                                <input type="date" name="to_date"
                                                        class="form-control form-control-solid mb-3 mb-lg-0"
-                                                       placeholder="البريد الالكتروني" value="{{old('email')}}"
-                                                />
+                                                       placeholder="الى تاريخ" value="{{old('to_date')}}"
+                                               required />
                                                 <!--end::Input-->
                                             </div>
                                             <!--end::Input group-->
                                             <div class="fv-row mb-7">
                                                 <!--begin::Label-->
-                                                <label class="required fw-bold fs-6 mb-2">رقم الجوال</label>
+                                                <label class="required fw-bold fs-6 mb-2">قيمة الخصم</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="tel" name="phone"
+                                                <input type="number" name="amount"
                                                        class="form-control form-control-solid mb-3 mb-lg-0"
-                                                       placeholder="رقم الجوال" value="{{old('phone')}}" required/>
+                                                       placeholder="قيمة الخصم" value="{{old('amount')}}" required/>
                                                 <!--end::Input-->
                                             </div>
+
                                             <div class="fv-row mb-7">
                                                 <!--begin::Label-->
-                                                <label class="required fw-bold fs-6 mb-2">كلمة المرور</label>
+                                                <label class="required fw-bold fs-6 mb-2">نوع الخصم</label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="password" name="password"
-                                                       class="form-control form-control-solid mb-3 mb-lg-0"
-                                                       placeholder="كلمة المرور" value="" required/>
+                                                <select class="form-control form-control-solid mb-3 mb-lg-0"
+                                                        name="discount_type" id="discount_type">
+                                                    <option value="Ratio">نسبة %</option>
+                                                    <option value="Amount">مبلغ $</option>
+                                                </select>
                                                 <!--end::Input-->
                                             </div>
-                                            <div class="fv-row mb-7">
-                                                <!--begin::Label-->
-                                                <label class="required fw-bold fs-6 mb-2">تأكيد كلمة المرور</label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="password" name="password_confirmation"
-                                                       class="form-control form-control-solid mb-3 mb-lg-0"
-                                                       placeholder="تأكيد كلمة المرور" value="" required/>
-                                                <!--end::Input-->
-                                            </div>
+
+
                                             <!--end::Input group-->
 
                                             <div class="fv-row mb-7">
@@ -223,11 +169,11 @@
                                                     class="form-check form-switch form-check-custom form-check-solid">
                                                     <label class="form-check-label" for="flexSwitchDefault">مفعل
                                                         ؟</label>
-                                                    <input class="form-check-input" name="is_active" type="hidden"
+                                                    <input class="form-check-input" name="active" type="hidden"
                                                            value="0" id="flexSwitchDefault"/>
                                                     <input
                                                         class="form-check-input form-control form-control-solid mb-3 mb-lg-0"
-                                                        name="is_active" type="checkbox"
+                                                        name="active" type="checkbox"
                                                         value="1" id="flexSwitchDefault"/>
                                                 </div>
                                             </div>
@@ -290,34 +236,36 @@
                         extend: 'print',
                         className: 'btn btn-light-primary me-3',
                         text: '<i class="bi bi-printer-fill fs-2x"></i>',
-                        title: 'المستخدمين'
+                        title: 'كوبونات الخصم'
                     },
                     // {extend: 'pdf', className: 'btn btn-raised btn-danger', text: 'PDF'},
                     {
                         extend: 'excel',
                         className: 'btn btn-light-primary me-3',
                         text: '<i class="bi bi-file-earmark-spreadsheet-fill fs-2x"></i>',
-                        title: 'المستخدمين'
+                        title: 'كوبونات الخصم'
                     },
                     // {extend: 'colvis', className: 'btn secondary', text: 'إظهار / إخفاء الأعمدة '}
                 ],
                 ajax: {
-                    url: '{{ route('users.datatable.data') }}',
+                    url: '{{ route('copouns.datatable.data') }}',
                     data: {}
                 },
                 columns: [
                     {data: 'checkbox', name: 'checkbox', "searchable": false, "orderable": false},
-                    {data: 'photo', name: 'photo', "searchable": false, "orderable": false},
-                    {data: 'name', name: 'name', "searchable": true, "orderable": true},
-                    {data: 'email', name: 'email', "searchable": true, "orderable": true},
-                    {data: 'phone', name: 'phone', "searchable": true, "orderable": true},
-                    {data: 'is_active', name: 'is_active', "searchable": true, "orderable": true},
+                    {data: 'code', name: 'code', "searchable": true, "orderable": true},
+                    {data: 'from_date', name: 'from_date', "searchable": true, "orderable": true},
+                    {data: 'to_date', name: 'to_date', "searchable": true, "orderable": true},
+                    {data: 'amount', name: 'amount', "searchable": true, "orderable": true},
+                    {data: 'discount_type', name: 'discount_type', "searchable": true, "orderable": true},
+                    {data: 'active', name: 'active', "searchable": true, "orderable": true},
+                    {data: 'usage_count', name: 'usage_count', "searchable": true, "orderable": true},
                     {data: 'actions', name: 'actions', "searchable": false, "orderable": false},
 
                 ]
             });
             $.ajax({
-                url: "{{ URL::to('admin/add-user-button')}}",
+                url: "{{ URL::to('admin/add-copoun-button')}}",
                 success: function (data) {
                     $('.add_button').append(data);
                 },
