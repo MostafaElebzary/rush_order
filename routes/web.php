@@ -81,6 +81,17 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
         return view('admin/client/button');
     });
 
+    Route::get('/user', 'UserController@index')->name('users');
+    Route::get('user_datatable', 'UserController@datatable')->name('users.datatable.data');
+    Route::get('delete-user', 'UserController@destroy');
+    Route::get('show-user/{id}', 'UserController@show')->name('users.show');
+    Route::post('store-user', 'UserController@store');
+    Route::get('edit-user/{id}', 'UserController@edit');
+    Route::post('update-user', 'UserController@update');
+    Route::get('add-user-button', function () {
+        return view('admin/user/button');
+    });
+
 
 });
 
