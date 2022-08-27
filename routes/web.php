@@ -113,6 +113,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
         return view('admin/wallet/button');
     });
 
+    Route::get('/settings', 'SettingsController@index')->name('settings');
+    Route::get('settings_datatable', 'SettingsController@datatable')->name('settings.datatable.data');
+    Route::get('delete-settings', 'SettingsController@destroy');
+    Route::post('store-settings', 'SettingsController@store');
+    Route::get('edit-settings/{id}', 'SettingsController@edit');
+    Route::post('update-settings', 'SettingsController@update');
+    Route::get('add-settings-button', function () {
+        return view('admin/settings/button');
+    });
+
 
 });
 
