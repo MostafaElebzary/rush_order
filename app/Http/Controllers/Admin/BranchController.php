@@ -94,6 +94,7 @@ class BranchController extends Controller
         $query['data'] = Company::findOrFail($id);
         return view('admin/company/branch/button', $query);
     }
+
     public function show($id)
     {
         // $query['data'] = Admin::where('id', $id)->get();
@@ -127,7 +128,6 @@ class BranchController extends Controller
         }
 
 
-
         $data = Branch::where('id', $request->id)->update([
             'lat' => $request->lat,
             'lng' => $request->lng,
@@ -138,14 +138,11 @@ class BranchController extends Controller
 
         ]);
 
-        return redirect(url('admin/edit-company/'.$request->id))->with('message', 'تم التعديل بنجاح')->with('status', 'success');
+        return redirect(url('admin/edit-company/' . $request->id))->with('message', 'تم التعديل بنجاح')->with('status', 'success');
     }
 
     public function destroy(Request $request)
     {
-
-
-
         try {
             Branch::whereIn('id', $request->id)->delete();
         } catch (\Exception $e) {
