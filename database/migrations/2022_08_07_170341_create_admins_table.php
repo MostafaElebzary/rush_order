@@ -20,7 +20,7 @@ class CreateAdminsTable extends Migration
             $table->string('phone')->unique();
             $table->string('password');
             $table->text('image')->nullable();
-            $table->tinyInteger('is_active');
+            $table->tinyInteger('is_active')->default(1);
             $table->rememberToken();
 
             $table->timestamps();

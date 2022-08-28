@@ -33,6 +33,7 @@ class Company extends Model
         'is_active',
         'expire_date',
         'delivery_price',
+        'commercial_file'
     ];
 
     public function getLogoAttribute($image)
@@ -47,7 +48,7 @@ class Company extends Model
     {
         if (is_file($image)) {
             $imageFields = upload($image, 'logos');
-            $this->attributes['image'] = $imageFields;
+            $this->attributes['logo'] = $imageFields;
         }
         return "";
     }
@@ -64,7 +65,24 @@ class Company extends Model
     {
         if (is_file($image)) {
             $imageFields = upload($image, 'banners');
-            $this->attributes['image'] = $imageFields;
+            $this->attributes['banner'] = $imageFields;
+        }
+        return "";
+    }
+
+    public function getCommercialFileAttribute($image)
+    {
+        if (!empty($image)) {
+            return asset('uploads/commercial_files') . '/' . $image;
+        }
+        return "";
+    }
+
+    public function setCommercialFileAttribute($image)
+    {
+        if (is_file($image)) {
+            $imageFields = upload($image, 'commercial_files');
+            $this->attributes['commercial_file'] = $imageFields;
         }
         return "";
     }

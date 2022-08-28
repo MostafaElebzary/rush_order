@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Activity;
+use App\Models\Admin;
 use App\Models\Branch;
 use App\Models\Company;
 use App\Models\Copoun;
@@ -33,6 +34,22 @@ class CompanySeed extends Seeder
         }
 
         $data = [
+
+            [
+                'name' => "admin",
+                'email' => "admin@admin.com",
+                'image' => '1.jpg',
+                'phone' => '010101010101010',
+                'password' => '123456',
+
+
+            ],
+        ];
+        foreach ($data as $row) {
+            Admin::updateOrCreate($row);
+        }
+
+        $data = [
             [
                 'title_ar' => 'شركة 1',
                 'title_en' => 'company 1',
@@ -48,7 +65,7 @@ class CompanySeed extends Seeder
                 'owner_phone' => '010101010',
                 'ceo_name' => 'ceo',
                 'ceo_phone' => '01010',
-                'commercial_file' => '0',
+                'commercial_file' => '0.pdf',
                 'branches_count' => '0',
                 'maroof_id' => null,
                 'lat' => '18.1725',
@@ -56,6 +73,7 @@ class CompanySeed extends Seeder
                 'is_active' => 1,
                 'expire_date' => '2022-09-01',
                 'delivery_price' => 15.30,
+
 
             ],
             [
@@ -73,7 +91,7 @@ class CompanySeed extends Seeder
                 'owner_phone' => '01010102210',
                 'ceo_name' => 'ceo2',
                 'ceo_phone' => '0101220',
-                'commercial_file' => '2',
+                'commercial_file' => '2.pdf',
                 'branches_count' => '2',
                 'maroof_id' => null,
                 'lat' => '18.1725',
@@ -98,7 +116,7 @@ class CompanySeed extends Seeder
                 'owner_phone' => '010101302210',
                 'ceo_name' => 'ceo32',
                 'ceo_phone' => '01013220',
-                'commercial_file' => '3',
+                'commercial_file' => '3.pdf',
                 'branches_count' => '3',
                 'maroof_id' => null,
                 'lat' => '18.1725',
@@ -106,6 +124,7 @@ class CompanySeed extends Seeder
                 'is_active' => 1,
                 'expire_date' => '2022-09-01',
                 'delivery_price' => 15.30,
+
 
             ],
 

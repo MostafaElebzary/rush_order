@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 15, 2022 at 09:44 PM
+-- Generation Time: Aug 28, 2022 at 01:03 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -42,8 +42,7 @@ CREATE TABLE `activities` (
 --
 
 INSERT INTO `activities` (`id`, `title_ar`, `title_en`, `image`, `parent_id`, `created_at`, `updated_at`) VALUES
-(1, 'مطاعم', 'resturants', NULL, NULL, '2022-08-09 12:12:53', '2022-08-09 12:12:53'),
-(2, 'برجر', 'burger', NULL, 1, NULL, NULL);
+(1, 'مطاعم', 'resturants', NULL, NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02');
 
 -- --------------------------------------------------------
 
@@ -58,11 +57,18 @@ CREATE TABLE `admins` (
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `image` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `is_active` tinyint(4) NOT NULL,
+  `is_active` tinyint(4) NOT NULL DEFAULT 1,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `admins`
+--
+
+INSERT INTO `admins` (`id`, `name`, `email`, `phone`, `password`, `image`, `is_active`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'admin', 'admin@admin.com', '010101010101010', '$2y$10$vp2W7Vd/ZrXJL0E7TOfFBOBBQCIyTiTg1bPfpXI6DQ.R4nEa0qK0C', NULL, 1, NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02');
 
 -- --------------------------------------------------------
 
@@ -78,7 +84,7 @@ CREATE TABLE `branches` (
   `city_id` bigint(20) DEFAULT NULL,
   `title_ar` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `title_en` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `delivery_time` varchar(191) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '30-60 ',
+  `delivery_time` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -88,12 +94,8 @@ CREATE TABLE `branches` (
 --
 
 INSERT INTO `branches` (`id`, `company_id`, `lat`, `lng`, `city_id`, `title_ar`, `title_en`, `delivery_time`, `created_at`, `updated_at`) VALUES
-(1, 1, '18.1725', '11.1851', 1, 'branch 1', 'branch 1', '30-60 ', '2022-08-09 12:12:53', '2022-08-09 12:12:53'),
-(2, 1, '35.1725', '18.1851', 1, 'branch 2', 'branch 2', '30-60 ', '2022-08-09 12:12:53', '2022-08-09 12:12:53'),
-(3, 1, '25.1725', '38.1851', 1, 'branch 3', 'branch 3', '30-60 ', '2022-08-09 12:12:53', '2022-08-09 12:12:53'),
-(4, 2, '18.1725', '11.1851', 1, 'branch 1', 'branch 1', '30-60 ', '2022-08-09 12:12:53', '2022-08-09 12:12:53'),
-(5, 2, '35.1725', '18.1851', 1, 'branch 2', 'branch 2', '30-60 ', '2022-08-09 12:12:53', '2022-08-09 12:12:53'),
-(6, 2, '25.1725', '38.1851', 1, 'branch 3', 'branch 3', '30-60 ', '2022-08-09 12:12:53', '2022-08-09 12:12:53');
+(7, 9, NULL, NULL, 1, 'test ', 'test', 'test', NULL, NULL),
+(9, 9, '20.0217407', '41.4712733', 18, 'لا تؤذ اطفالك باخراجهم من نوافذ المركبة', 'Eye Condition Treatment', '1515', '2022-08-28 11:56:21', '2022-08-28 12:01:03');
 
 -- --------------------------------------------------------
 
@@ -115,36 +117,25 @@ CREATE TABLE `carts` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `carts`
---
-
-INSERT INTO `carts` (`id`, `user_id`, `company_id`, `product_id`, `qty`, `attributes`, `additions`, `drinks`, `notes`, `created_at`, `updated_at`) VALUES
-(11, 1, 1, 1, 1, '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"cola\",\"drink_name_en\":\"\\u0643\\u0648\\u0644\\u0627\",\"drink_price\":\"10\"}]', NULL, '2022-08-15 16:54:45', '2022-08-15 16:54:45'),
-(12, 1, 1, 1, 1, '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"cola\",\"drink_name_en\":\"\\u0643\\u0648\\u0644\\u0627\",\"drink_price\":\"10\"}]', NULL, '2022-08-15 16:54:45', '2022-08-15 16:54:45'),
-(13, 1, 1, 1, 1, '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"cola\",\"drink_name_en\":\"\\u0643\\u0648\\u0644\\u0627\",\"drink_price\":\"10\"}]', NULL, '2022-08-15 16:54:46', '2022-08-15 16:54:46'),
-(14, 1, 1, 1, 1, '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"cola\",\"drink_name_en\":\"\\u0643\\u0648\\u0644\\u0627\",\"drink_price\":\"10\"}]', NULL, '2022-08-15 16:54:46', '2022-08-15 16:54:46'),
-(16, 1, 2, 1, 1, NULL, NULL, NULL, NULL, '2022-08-15 16:55:38', '2022-08-15 16:56:10');
-
 -- --------------------------------------------------------
 
 --
--- Table structure for table `cities`
+-- Table structure for table `city`
 --
 
-CREATE TABLE `cities` (
+CREATE TABLE `city` (
   `id` int(11) NOT NULL,
   `title` varchar(32) NOT NULL,
   `nameEn` varchar(32) NOT NULL,
-  `state_id` int(11) NOT NULL,
+  `provinceId` int(11) NOT NULL,
   `is_active` int(11) NOT NULL DEFAULT 1
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='SA cities';
 
 --
--- Dumping data for table `cities`
+-- Dumping data for table `city`
 --
 
-INSERT INTO `cities` (`id`, `title`, `nameEn`, `state_id`, `is_active`) VALUES
+INSERT INTO `city` (`id`, `title`, `nameEn`, `provinceId`, `is_active`) VALUES
 (1, 'تبوك', 'Tabuk', 3, 1),
 (3, 'الرياض', 'Riyadh', 6, 1),
 (5, 'الطائف', 'At Taif', 11, 1),
@@ -227,7 +218,7 @@ INSERT INTO `cities` (`id`, `title`, `nameEn`, `state_id`, `is_active`) VALUES
 (3525, 'ابو عريش', 'Abu Arish', 10, 1),
 (3542, 'صامطة', 'Samtah', 10, 1),
 (3652, 'احد المسارحة', 'Ahad Al Musarihah', 10, 1),
-(3666, 'مدينة الملك عبدالله الاقتصادية', 'King Abdullah Economic city', 11, 1);
+(3666, 'مدينة الملك عبدالله الاقتصادية', 'King Abdullah Economic City', 11, 1);
 
 -- --------------------------------------------------------
 
@@ -252,6 +243,13 @@ CREATE TABLE `clients` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `clients`
+--
+
+INSERT INTO `clients` (`id`, `name`, `image`, `email`, `phone`, `address`, `is_active`, `company_id`, `type`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
+(1, 'لا تؤذ اطفالك باخراجهم من نوافذ المركبة', NULL, 'admin@admin.com', '0512345678', 'https://mail.google.com/mail/u/0/#inbox', 1, 9, 'Manager', NULL, '$2y$10$09MeCg2lWRzf7wJYCnj9heCAa3Zf22pChxhMlebmYkzlrvpLwSoZ6', NULL, '2022-08-28 10:38:06', '2022-08-28 10:38:06');
+
 -- --------------------------------------------------------
 
 --
@@ -274,7 +272,7 @@ CREATE TABLE `companies` (
   `owner_phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ceo_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `ceo_phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `commercial_file` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `commercial_file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `branches_count` bigint(20) NOT NULL DEFAULT 0,
   `maroof_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `lat` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
@@ -291,9 +289,7 @@ CREATE TABLE `companies` (
 --
 
 INSERT INTO `companies` (`id`, `title_ar`, `title_en`, `logo`, `banner`, `location`, `phone1`, `phone2`, `email1`, `email2`, `activity_id`, `owner_name`, `owner_phone`, `ceo_name`, `ceo_phone`, `commercial_file`, `branches_count`, `maroof_id`, `lat`, `lng`, `is_active`, `expire_date`, `delivery_price`, `created_at`, `updated_at`) VALUES
-(1, 'شركة 1', 'company 1', NULL, NULL, 'www.googlemap.com', '0101010101010', '0151515151515', 'c1@gmail.com', 'c1@gmail.com', 1, 'owner', '010101010', 'ceo', '01010', '0', 0, NULL, '18.1725', '10.1851', 1, '2022-09-01', '15.3', '2022-08-09 12:12:53', '2022-08-09 12:12:53'),
-(2, 'شركة 2', 'company 2', NULL, NULL, 'www.googlemap2.com', '01022220101010', '01512215151515', 'c2@gmail.com', 'c2@gmail.com', 1, 'owner2', '01010102210', 'ceo2', '0101220', '2', 2, NULL, '18.1725', '11.1851', 1, '2022-09-01', '15.3', '2022-08-09 12:12:53', '2022-08-09 12:12:53'),
-(3, 'شركة 3', 'company 3', NULL, NULL, 'www.googlemap3.com', '01022220333330', '01512215131515', 'c23@gmail.com', 'c23@gmail.com', 1, 'owner23', '010101302210', 'ceo32', '01013220', '3', 3, NULL, '18.1725', '11.1851', 1, '2022-09-01', '15.3', '2022-08-09 12:12:53', '2022-08-09 12:12:53');
+(9, 'لا تؤذ اطفالك باخراجهم من نوافذ المركبة', 'Eye Condition Treatment', '1661679486630b377e83f66.png', '1661679486630b377e842e0.png', 'https://mail.google.com/mail/u/0/#inbox', '0512345678', '+966515975365', 'admin@admin.com', '4msystems400@gmail.com', 1, 'مصطفى عبدالله مصطفى', '+966515975365', 'sasasa', '+966515975365', '1661679486630b377e84614.pdf', 0, '111', '30.035786632584', '32.015902987076295', 1, '2022-08-28', '10', '2022-08-28 10:38:06', '2022-08-28 10:38:06');
 
 -- --------------------------------------------------------
 
@@ -310,15 +306,6 @@ CREATE TABLE `company_categories` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `company_categories`
---
-
-INSERT INTO `company_categories` (`id`, `title_ar`, `title_en`, `image`, `company_id`, `created_at`, `updated_at`) VALUES
-(1, 'تيست', 'test', NULL, 1, NULL, NULL),
-(2, 'تيست', 'test', NULL, 2, NULL, NULL),
-(3, 'تيست', 'test', NULL, 3, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -345,14 +332,6 @@ CREATE TABLE `company_products` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `company_products`
---
-
-INSERT INTO `company_products` (`id`, `company_id`, `company_category_id`, `title_ar`, `title_en`, `content_ar`, `content_en`, `price`, `image`, `preparation_time`, `attributes`, `additions`, `drinks`, `type`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'تيست', 'test', 'testtesttesttesttesttesttesttesttesttesttesttesttest', 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest', 150, '1.jpg', NULL, '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"0\"} , {\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u0627\\u0636\\u0627\\u0641\\u0629 \\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"\\u0627\\u0636\\u0627\\u0641\\u0629 \\u062c\\u0628\\u0646\\u0629\",\"drink_name_en\":\"cheese\",\"addittion_price\":\"15\"},{\"drink_name_ar\":\"\\u0627\\u0636\\u0627\\u0641\\u0629 \\u062c\\u0628\\u0646\\u0629\",\"drink_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', 'Normal', NULL, NULL),
-(2, 1, 2, 'تيست', 'test', 'testtesttesttesttesttesttesttesttesttesttesttesttest', 'testtesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttesttest', 150, '1.jpg', NULL, '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"0\"} , {\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u0627\\u0636\\u0627\\u0641\\u0629 \\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"\\u0627\\u0636\\u0627\\u0641\\u0629 \\u062c\\u0628\\u0646\\u0629\",\"drink_name_en\":\"cheese\",\"addittion_price\":\"15\"},{\"drink_name_ar\":\"\\u0627\\u0636\\u0627\\u0641\\u0629 \\u062c\\u0628\\u0646\\u0629\",\"drink_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', 'Normal', NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -370,14 +349,6 @@ CREATE TABLE `company_rates` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `company_rates`
---
-
-INSERT INTO `company_rates` (`id`, `rate`, `comment`, `user_name`, `company_id`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 3, 'aqsasa', 'asassasasasasasa', 2, NULL, NULL, NULL),
-(2, 4, 'aqsasa', 'asassasasasasasa', 2, NULL, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -392,13 +363,23 @@ CREATE TABLE `company_sub_activities` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `company_sub_activities`
+-- Table structure for table `company_users`
 --
 
-INSERT INTO `company_sub_activities` (`id`, `company_id`, `activity_id`, `created_at`, `updated_at`) VALUES
-(1, 1, 2, NULL, NULL),
-(3, 2, 2, NULL, NULL);
+CREATE TABLE `company_users` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `is_active` tinyint(4) NOT NULL,
+  `company_id` bigint(20) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
 
@@ -416,13 +397,6 @@ CREATE TABLE `company_work_times` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `company_work_times`
---
-
-INSERT INTO `company_work_times` (`id`, `company_id`, `day`, `open_time`, `close_time`, `created_at`, `updated_at`) VALUES
-(1, 1, 'Tuesday', '07:15:24', '23:15:24', NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -435,9 +409,36 @@ CREATE TABLE `contacts` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `msg` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `type` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0->complain 1->suggestion',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `copouns`
+--
+
+CREATE TABLE `copouns` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `code` varchar(6) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `from_date` date NOT NULL,
+  `to_date` date NOT NULL,
+  `amount` double NOT NULL,
+  `discount_type` enum('Ratio','Amount') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Amount',
+  `active` int(11) NOT NULL DEFAULT 1,
+  `usage_count` int(11) NOT NULL DEFAULT 0,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `copouns`
+--
+
+INSERT INTO `copouns` (`id`, `code`, `from_date`, `to_date`, `amount`, `discount_type`, `active`, `usage_count`, `created_at`, `updated_at`) VALUES
+(1, 'rush60', '2022-08-01', '2022-09-01', 60, 'Ratio', 1, 0, '2022-08-28 10:24:02', '2022-08-28 10:24:02');
 
 -- --------------------------------------------------------
 
@@ -472,31 +473,35 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(469, '2014_10_12_000000_create_users_table', 1),
-(470, '2014_10_12_100000_create_password_resets_table', 1),
-(471, '2019_08_19_000000_create_failed_jobs_table', 1),
-(472, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(473, '2022_08_07_095219_create_activities_table', 1),
-(474, '2022_08_07_133028_create_user_addresses_table', 1),
-(475, '2022_08_07_134031_create_companies_table', 1),
-(476, '2022_08_07_143031_create_notifications_table', 1),
-(477, '2022_08_07_144549_create_clients_table', 1),
-(478, '2022_08_07_150556_create_company_rates_table', 1),
-(479, '2022_08_07_151514_create_company_work_times_table', 1),
-(480, '2022_08_07_152713_create_company_categories_table', 1),
-(481, '2022_08_07_154233_create_company_products_table', 1),
-(482, '2022_08_07_160039_create_wallets_table', 1),
-(483, '2022_08_07_163937_create_states_table', 1),
-(484, '2022_08_07_163954_create_cities_table', 1),
-(485, '2022_08_07_164255_create_sliders_table', 1),
-(486, '2022_08_07_164822_create_pages_table', 1),
-(487, '2022_08_07_165822_create_contacts_table', 1),
-(488, '2022_08_07_170341_create_admins_table', 1),
-(489, '2022_08_07_171357_create_company_sub_activities_table', 1),
-(490, '2022_08_07_172526_create_branches_table', 1),
-(491, '2022_08_07_173448_create_carts_table', 1),
-(492, '2022_08_08_123424_create_orders_table', 1),
-(493, '2022_08_08_124828_create_order_products_table', 1);
+(175, '2014_10_12_000000_create_users_table', 1),
+(176, '2014_10_12_100000_create_password_resets_table', 1),
+(177, '2019_08_19_000000_create_failed_jobs_table', 1),
+(178, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(179, '2022_08_07_095219_create_activities_table', 1),
+(180, '2022_08_07_133028_create_user_addresses_table', 1),
+(181, '2022_08_07_134031_create_companies_table', 1),
+(182, '2022_08_07_143031_create_notifications_table', 1),
+(183, '2022_08_07_144549_create_clients_table', 1),
+(184, '2022_08_07_150556_create_company_rates_table', 1),
+(185, '2022_08_07_151514_create_company_work_times_table', 1),
+(186, '2022_08_07_152713_create_company_categories_table', 1),
+(187, '2022_08_07_154233_create_company_products_table', 1),
+(188, '2022_08_07_163937_create_states_table', 1),
+(189, '2022_08_07_163954_create_cities_table', 1),
+(190, '2022_08_07_164255_create_sliders_table', 1),
+(191, '2022_08_07_164822_create_pages_table', 1),
+(192, '2022_08_07_165822_create_contacts_table', 1),
+(193, '2022_08_07_170341_create_admins_table', 1),
+(194, '2022_08_07_171357_create_company_sub_activities_table', 1),
+(195, '2022_08_07_172526_create_branches_table', 1),
+(196, '2022_08_07_173448_create_carts_table', 1),
+(197, '2022_08_08_123424_create_orders_table', 1),
+(198, '2022_08_08_124828_create_order_products_table', 1),
+(199, '2022_08_19_002939_create_copouns_table', 1),
+(200, '2022_08_20_173227_create_settings_table', 1),
+(201, '2022_08_23_235754_update_contact_types', 1),
+(202, '2022_08_28_003503_create_company_users_table', 1),
+(203, '2023_08_024_160039_create_wallets_table', 1);
 
 -- --------------------------------------------------------
 
@@ -527,9 +532,17 @@ CREATE TABLE `orders` (
   `user_state` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_city` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `user_address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_address_id` bigint(20) UNSIGNED DEFAULT NULL,
   `payment_type` enum('Cash','Online') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Cash',
+  `delivery_price` double NOT NULL DEFAULT 0,
+  `order_price` double NOT NULL,
   `total_price` double NOT NULL,
   `status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '0->pending , 1->accepted , 2->processing , 3->delivered , 4->cancelled',
+  `deliver_type` enum('Delivery','OnSite','ByCar') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Delivery',
+  `car_type` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `car_color` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `car_num` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `car_notes` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -604,6 +617,69 @@ CREATE TABLE `personal_access_tokens` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `province`
+--
+
+CREATE TABLE `province` (
+  `id` int(11) NOT NULL,
+  `title` varchar(64) NOT NULL,
+  `nameEn` varchar(64) NOT NULL,
+  `is_active` int(11) NOT NULL DEFAULT 1
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='SA provinces';
+
+--
+-- Dumping data for table `province`
+--
+
+INSERT INTO `province` (`id`, `title`, `nameEn`, `is_active`) VALUES
+(1, ' الحدود الشمالية', 'Northern Frontier ', 1),
+(2, ' الجوف', 'Al Jawf ', 1),
+(3, ' تبوك', 'Tabuk ', 1),
+(4, ' حائل', 'Hail ', 1),
+(5, ' القصيم', 'Al Qassim ', 1),
+(6, ' الرياض', 'Ar Riyadh ', 1),
+(7, ' المدينة المنورة', 'Al Madinah Al Munawwarah ', 1),
+(8, ' عسير', 'Asir ', 1),
+(9, ' الباحة', 'Al Baha ', 1),
+(10, ' جازان', 'Jazan ', 1),
+(11, ' مكة المكرمة', 'Makkah Al Mukarramah ', 1),
+(12, ' نجران', 'Najran ', 1),
+(13, 'الشرقية', 'Eastern ', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `settings`
+--
+
+CREATE TABLE `settings` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `key` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `value` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `file` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `settings`
+--
+
+INSERT INTO `settings` (`id`, `key`, `value`, `file`, `created_at`, `updated_at`) VALUES
+(1, 'aboutus_ar', 'aboutus_ar', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
+(2, 'aboutus_en', 'aboutus_en', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
+(3, 'email', 'email@email.com', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
+(4, 'phone', '966505505050', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
+(5, 'whatsapp', '966505509090', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
+(6, 'facebook', 'www.facebook.com/rush-order', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
+(7, 'twiter', 'www.twitter.com/rush-order', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
+(8, 'instagram', 'www.instagram.com/rush-order', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
+(9, 'privacy', 'privacy', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
+(10, 'terms', 'terms', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sliders`
 --
 
@@ -618,38 +694,6 @@ CREATE TABLE `sliders` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `states`
---
-
-CREATE TABLE `states` (
-  `id` int(11) NOT NULL,
-  `title` varchar(64) NOT NULL,
-  `nameEn` varchar(64) NOT NULL,
-  `is_active` int(11) NOT NULL DEFAULT 1
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='SA statess';
-
---
--- Dumping data for table `states`
---
-
-INSERT INTO `states` (`id`, `title`, `nameEn`, `is_active`) VALUES
-(1, ' الحدود الشمالية', 'Northern Frontier ', 1),
-(2, ' الجوف', 'Al Jawf ', 1),
-(3, ' تبوك', 'Tabuk ', 1),
-(4, ' حائل', 'Hail ', 1),
-(5, ' القصيم', 'Al Qassim ', 1),
-(6, ' الرياض', 'Ar Riyadh ', 1),
-(7, ' المدينة المنورة', 'Al Madinah Al Munawwarah ', 1),
-(8, ' عسير', 'Asir ', 1),
-(9, ' الباحة', 'Al Baha ', 1),
-(10, ' جازان', 'Jazan ', 1),
-(11, ' مكة المكرمة', 'Makkah Al Mukarramah ', 1),
-(12, ' نجران', 'Najran ', 1),
-(13, 'الشرقية', 'Eastern ', 1);
 
 -- --------------------------------------------------------
 
@@ -673,13 +717,6 @@ CREATE TABLE `users` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `users`
---
-
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `image`, `email`, `phone`, `email_verified_at`, `password`, `fcm_token`, `jwt`, `is_active`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'mohamed', 'ahmed', NULL, 'mo@gmail.com', '966505505050', NULL, '$2y$10$dysyEkxc9x5cKaKDyjcA2u9zqNcMHlFjTFDudUsOxQ8m8fG.BUoS6', 'asasasas', 'DxIrQ1NXtQQ9VXO94rQ42iBhTxujlybTjbjlozhkS2dEYxJ7M90ezpHXQeaV', 1, NULL, '2022-08-15 12:56:56', '2022-08-15 12:57:17');
 
 -- --------------------------------------------------------
 
@@ -707,11 +744,10 @@ CREATE TABLE `user_addresses` (
 
 CREATE TABLE `wallets` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `from_id` bigint(20) NOT NULL,
-  `from_type` enum('User','Client') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'User',
-  `to_id` bigint(20) NOT NULL,
-  `to_type` enum('User','Client') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Client',
   `price` double NOT NULL,
+  `type` enum('withdrawal','deposit') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `company_id` bigint(20) UNSIGNED DEFAULT NULL,
+  `order_id` bigint(20) UNSIGNED DEFAULT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
@@ -753,11 +789,11 @@ ALTER TABLE `carts`
   ADD KEY `carts_product_id_foreign` (`product_id`);
 
 --
--- Indexes for table `cities`
+-- Indexes for table `city`
 --
-ALTER TABLE `cities`
+ALTER TABLE `city`
   ADD UNIQUE KEY `id` (`id`),
-  ADD KEY `state_id` (`state_id`);
+  ADD KEY `provinceId` (`provinceId`);
 
 --
 -- Indexes for table `clients`
@@ -807,6 +843,15 @@ ALTER TABLE `company_sub_activities`
   ADD KEY `company_sub_activities_activity_id_foreign` (`activity_id`);
 
 --
+-- Indexes for table `company_users`
+--
+ALTER TABLE `company_users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `company_users_phone_unique` (`phone`),
+  ADD UNIQUE KEY `company_users_email_unique` (`email`),
+  ADD KEY `company_users_company_id_foreign` (`company_id`);
+
+--
 -- Indexes for table `company_work_times`
 --
 ALTER TABLE `company_work_times`
@@ -818,6 +863,13 @@ ALTER TABLE `company_work_times`
 --
 ALTER TABLE `contacts`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `copouns`
+--
+ALTER TABLE `copouns`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `copouns_code_unique` (`code`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -845,7 +897,8 @@ ALTER TABLE `notifications`
 ALTER TABLE `orders`
   ADD PRIMARY KEY (`id`),
   ADD KEY `orders_user_id_foreign` (`user_id`),
-  ADD KEY `orders_company_id_foreign` (`company_id`);
+  ADD KEY `orders_company_id_foreign` (`company_id`),
+  ADD KEY `orders_user_address_id_foreign` (`user_address_id`);
 
 --
 -- Indexes for table `order_products`
@@ -876,16 +929,23 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `province`
+--
+ALTER TABLE `province`
+  ADD UNIQUE KEY `id` (`id`);
+
+--
+-- Indexes for table `settings`
+--
+ALTER TABLE `settings`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `settings_key_unique` (`key`);
+
+--
 -- Indexes for table `sliders`
 --
 ALTER TABLE `sliders`
   ADD PRIMARY KEY (`id`);
-
---
--- Indexes for table `states`
---
-ALTER TABLE `states`
-  ADD UNIQUE KEY `id` (`id`);
 
 --
 -- Indexes for table `users`
@@ -906,7 +966,9 @@ ALTER TABLE `user_addresses`
 -- Indexes for table `wallets`
 --
 ALTER TABLE `wallets`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `wallets_company_id_foreign` (`company_id`),
+  ADD KEY `wallets_order_id_foreign` (`order_id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -916,73 +978,85 @@ ALTER TABLE `wallets`
 -- AUTO_INCREMENT for table `activities`
 --
 ALTER TABLE `activities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `company_categories`
 --
 ALTER TABLE `company_categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `company_products`
 --
 ALTER TABLE `company_products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `company_rates`
 --
 ALTER TABLE `company_rates`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `company_sub_activities`
 --
 ALTER TABLE `company_sub_activities`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `company_users`
+--
+ALTER TABLE `company_users`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `company_work_times`
 --
 ALTER TABLE `company_work_times`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `copouns`
+--
+ALTER TABLE `copouns`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -994,7 +1068,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=494;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -1027,6 +1101,12 @@ ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `settings`
+--
+ALTER TABLE `settings`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- AUTO_INCREMENT for table `sliders`
 --
 ALTER TABLE `sliders`
@@ -1036,7 +1116,7 @@ ALTER TABLE `sliders`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `user_addresses`
@@ -1114,6 +1194,12 @@ ALTER TABLE `company_sub_activities`
   ADD CONSTRAINT `company_sub_activities_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
 
 --
+-- Constraints for table `company_users`
+--
+ALTER TABLE `company_users`
+  ADD CONSTRAINT `company_users_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
+
+--
 -- Constraints for table `company_work_times`
 --
 ALTER TABLE `company_work_times`
@@ -1130,6 +1216,7 @@ ALTER TABLE `notifications`
 --
 ALTER TABLE `orders`
   ADD CONSTRAINT `orders_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `orders_user_address_id_foreign` FOREIGN KEY (`user_address_id`) REFERENCES `user_addresses` (`id`) ON DELETE SET NULL,
   ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE SET NULL;
 
 --
@@ -1144,6 +1231,13 @@ ALTER TABLE `order_products`
 --
 ALTER TABLE `user_addresses`
   ADD CONSTRAINT `user_addresses_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `wallets`
+--
+ALTER TABLE `wallets`
+  ADD CONSTRAINT `wallets_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`),
+  ADD CONSTRAINT `wallets_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

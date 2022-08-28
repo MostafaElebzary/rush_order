@@ -221,7 +221,7 @@ function upload_multiple($file, $dir)
 {
     $image = time() . uniqid() . '.' . $file->getClientOriginalExtension();
     $destinationPath = $dir;
-    $file->storeAs($destinationPath, $image, 'my_upload');
+    $file->storeAs($destinationPath, $image);
     return $image;
 }
 

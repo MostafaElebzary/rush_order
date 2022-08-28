@@ -69,17 +69,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 
     Route::get('/sub-category/{parent_id}', 'CategoryController@index')->name('subcategory');
 
-    Route::get('/client', 'ClientController@index');
-    Route::get('client_datatable', 'ClientController@datatable')->name('client.datatable.data');
-    Route::get('delete-client', 'ClientController@destroy');
-    Route::get('show-client/{id}', 'ClientController@show');
-    Route::get('create-client', 'ClientController@create');
-    Route::post('store-client', 'ClientController@store');
-    Route::get('edit-client/{id}', 'ClientController@edit');
-    Route::post('update-client', 'ClientController@update');
-    Route::get('add-client-button', function () {
-        return view('admin/client/button');
-    });
+
 
     Route::get('/user', 'UserController@index')->name('users');
     Route::get('user_datatable', 'UserController@datatable')->name('users.datatable.data');
@@ -123,6 +113,42 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
         return view('admin/settings/button');
     });
 
+
+    Route::get('/contact', 'ContactController@index')->name('contact');
+    Route::get('contact_datatable', 'ContactController@datatable')->name('contact.datatable.data');
+    Route::get('delete-contact', 'ContactController@destroy');
+    Route::get('show-contact/{id}', 'ContactController@show')->name('contact.show');
+    Route::post('store-contact', 'ContactController@store');
+    Route::get('edit-contact/{id}', 'ContactController@edit');
+    Route::post('update-contact', 'ContactController@update');
+    Route::get('add-contact-button', function () {
+        return view('admin/contact/button');
+    });
+
+
+    Route::get('/company', 'CompanyController@index')->name('company');
+    Route::get('company_datatable', 'CompanyController@datatable')->name('company.datatable.data');
+    Route::get('delete-company', 'CompanyController@destroy');
+    Route::get('show-company/{id}', 'CompanyController@show');
+    Route::get('create-company', 'CompanyController@create');
+    Route::post('store-company', 'CompanyController@store');
+    Route::get('edit-company/{id}', 'CompanyController@edit');
+    Route::post('update-company', 'CompanyController@update');
+    Route::get('add-company-button', function () {
+        return view('admin/company/button');
+    });
+
+
+
+    Route::get('branch_datatable/{company_id}', 'BranchController@datatable')->name('branch.datatable.data');
+    Route::get('delete-branch', 'BranchController@destroy');
+    Route::get('show-branch/{id}', 'BranchController@show');
+    Route::get('create-branch', 'BranchController@create');
+    Route::post('store-branch', 'BranchController@store');
+    Route::get('edit-branch/{id}', 'BranchController@edit');
+    Route::post('update-branch', 'BranchController@update');
+
+    Route::get('add-branch-button/{company_id}', 'BranchController@button');
 
 });
 

@@ -10,15 +10,15 @@ class state extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title','nameEn','is_active'];
-
+    protected $fillable = ['title', 'nameEn', 'is_active'];
+    protected $table = "province";
 
     public function getTitleAttribute()
     {
         if ($locale = App::currentLocale() == "en") {
             return $this->nameEn;
         } else {
-            return $this->title_ar;
+            return $this->title;
         }
     }
 

@@ -10,15 +10,17 @@ class City extends Model
 {
     use HasFactory;
 
+    protected $table = 'city';
     protected $fillable = ['title', 'nameEn', 'is_active', 'state_id '];
 
+    protected $appends = ['name'];
 
-    public function getTitleAttribute()
+    public function getNameAttribute()
     {
         if ($locale = App::currentLocale() == "en") {
             return $this->nameEn;
         } else {
-            return $this->title_ar;
+            return $this->title;
         }
     }
 

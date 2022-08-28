@@ -10,4 +10,9 @@
 <link href="{{asset('/admin/assets/css/style.bundle.rtl.css')}}" rel="stylesheet" type="text/css" />
 <!--end::Global Stylesheets Bundle-->
 
+<style>
+    .pac-container {
+        z-index: 100000 !important;
+    }
+</style>
 @yield('style')

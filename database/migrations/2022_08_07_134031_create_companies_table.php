@@ -29,7 +29,7 @@ class CreateCompaniesTable extends Migration
             $table->string('owner_phone');
             $table->string('ceo_name');
             $table->string('ceo_phone');
-            $table->string('commercial_file');
+            $table->string('commercial_file')->nullable();
             $table->bigInteger('branches_count')->default(0);
             $table->string('maroof_id')->nullable();
             $table->string('lat')->nullable();
