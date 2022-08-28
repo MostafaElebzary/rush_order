@@ -70,7 +70,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
     Route::get('/sub-category/{parent_id}', 'CategoryController@index')->name('subcategory');
 
 
-
     Route::get('/user', 'UserController@index')->name('users');
     Route::get('user_datatable', 'UserController@datatable')->name('users.datatable.data');
     Route::get('delete-user', 'UserController@destroy');
@@ -139,6 +138,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
     });
 
 
+    //todo::repeate this for subActivity , WorkTimes ,  Categories , Products , Orders and  Clients[Company , Branch]
 
     Route::get('branch_datatable/{company_id}', 'BranchController@datatable')->name('branch.datatable.data');
     Route::get('delete-branch', 'BranchController@destroy');

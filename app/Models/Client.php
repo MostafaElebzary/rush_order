@@ -54,40 +54,10 @@ class Client extends Authenticatable
         return $this->belongsTo(Company::class, 'company_id');
     }
 
-
-    public function getAttributesAttribute()
+    public function Branch()
     {
-        $res = null;
-        if ($this->attributes['attributes'] != null) {
-
-            $res = json_decode($this->attributes['attributes']);
-
-        }
-
-        return $res;
+        return $this->belongsTo(Branch::class, 'branch_id');
     }
 
-    public function getAdditionsAttribute()
-    {
-        $res = null;
-        if ($this->attributes['additions'] != null) {
 
-            $res = json_decode($this->attributes['additions']);
-
-        }
-
-        return $res;
-    }
-
-    public function getDrinksAttribute()
-    {
-        $res = null;
-        if ($this->attributes['drinks'] != null) {
-
-            $res = json_decode($this->attributes['drinks']);
-
-        }
-
-        return $res;
-    }
 }

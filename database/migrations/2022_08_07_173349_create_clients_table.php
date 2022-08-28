@@ -22,6 +22,7 @@ class CreateClientsTable extends Migration
             $table->string('address')->nullable();
             $table->tinyInteger('is_active')->default(1);
             $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
+            $table->foreignId('branch_id')->nullable()->constrained('branches')->onDelete('cascade');
             $table->enum('type', ['Manager', 'Employee'])->default('Manager');
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

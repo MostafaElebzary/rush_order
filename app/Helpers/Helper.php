@@ -37,8 +37,17 @@ function send_notification($title, $body, $details, $image, $data, $token)
 if (!function_exists('settings')) {
     function settings($key)
     {
-        $result = App\Models\Setting::select('id', 'key', 'value')->where('key', $key)->first();
+        $result = App\Models\Setting::where('key', $key)->first();
         return $result['value'];
+    }
+}
+
+
+if (!function_exists('settings_image')) {
+    function settings_image($key)
+    {
+        $result = App\Models\Setting::where('key', $key)->first();
+        return $result['file'];
     }
 }
 

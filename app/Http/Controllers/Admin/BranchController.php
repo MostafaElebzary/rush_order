@@ -149,7 +149,6 @@ class BranchController extends Controller
             return response()->json(['message' => 'Failed']);
         }
         return response()->json(['message' => 'Success']);
-
     }
 
 }
