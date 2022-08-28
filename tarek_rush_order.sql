@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 28, 2022 at 01:03 PM
+-- Generation Time: Aug 28, 2022 at 03:32 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -42,7 +42,7 @@ CREATE TABLE `activities` (
 --
 
 INSERT INTO `activities` (`id`, `title_ar`, `title_en`, `image`, `parent_id`, `created_at`, `updated_at`) VALUES
-(1, 'مطاعم', 'resturants', NULL, NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02');
+(1, 'مطاعم', 'resturants', NULL, NULL, '2022-08-28 14:31:11', '2022-08-28 14:31:11');
 
 -- --------------------------------------------------------
 
@@ -68,7 +68,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `phone`, `password`, `image`, `is_active`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'admin@admin.com', '010101010101010', '$2y$10$vp2W7Vd/ZrXJL0E7TOfFBOBBQCIyTiTg1bPfpXI6DQ.R4nEa0qK0C', NULL, 1, NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02');
+(1, 'admin', 'admin@admin.com', '010101010101010', '$2y$10$qfIjq56dGo2qoGWPUJlX7uicOKztIOQ0J3pZbjUNJLuREck0nphT.', NULL, 1, NULL, '2022-08-28 14:31:11', '2022-08-28 14:31:11');
 
 -- --------------------------------------------------------
 
@@ -94,8 +94,12 @@ CREATE TABLE `branches` (
 --
 
 INSERT INTO `branches` (`id`, `company_id`, `lat`, `lng`, `city_id`, `title_ar`, `title_en`, `delivery_time`, `created_at`, `updated_at`) VALUES
-(7, 9, NULL, NULL, 1, 'test ', 'test', 'test', NULL, NULL),
-(9, 9, '20.0217407', '41.4712733', 18, 'لا تؤذ اطفالك باخراجهم من نوافذ المركبة', 'Eye Condition Treatment', '1515', '2022-08-28 11:56:21', '2022-08-28 12:01:03');
+(1, 1, '18.1725', '11.1851', 1, 'branch 1', 'branch 1', '30-60', '2022-08-28 14:31:11', '2022-08-28 14:31:11'),
+(2, 1, '35.1725', '18.1851', 1, 'branch 2', 'branch 2', '30-60', '2022-08-28 14:31:11', '2022-08-28 14:31:11'),
+(3, 1, '25.1725', '38.1851', 1, 'branch 3', 'branch 3', '30-60', '2022-08-28 14:31:12', '2022-08-28 14:31:12'),
+(4, 2, '18.1725', '11.1851', 1, 'branch 1', 'branch 1', '30-60', '2022-08-28 14:31:12', '2022-08-28 14:31:12'),
+(5, 2, '35.1725', '18.1851', 1, 'branch 2', 'branch 2', '30-60', '2022-08-28 14:31:12', '2022-08-28 14:31:12'),
+(6, 2, '25.1725', '38.1851', 1, 'branch 3', 'branch 3', '30-60', '2022-08-28 14:31:12', '2022-08-28 14:31:12');
 
 -- --------------------------------------------------------
 
@@ -235,6 +239,7 @@ CREATE TABLE `clients` (
   `address` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `is_active` tinyint(4) NOT NULL DEFAULT 1,
   `company_id` bigint(20) UNSIGNED NOT NULL,
+  `branch_id` bigint(20) UNSIGNED DEFAULT NULL,
   `type` enum('Manager','Employee') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'Manager',
   `email_verified_at` timestamp NULL DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
@@ -242,13 +247,6 @@ CREATE TABLE `clients` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `clients`
---
-
-INSERT INTO `clients` (`id`, `name`, `image`, `email`, `phone`, `address`, `is_active`, `company_id`, `type`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'لا تؤذ اطفالك باخراجهم من نوافذ المركبة', NULL, 'admin@admin.com', '0512345678', 'https://mail.google.com/mail/u/0/#inbox', 1, 9, 'Manager', NULL, '$2y$10$09MeCg2lWRzf7wJYCnj9heCAa3Zf22pChxhMlebmYkzlrvpLwSoZ6', NULL, '2022-08-28 10:38:06', '2022-08-28 10:38:06');
 
 -- --------------------------------------------------------
 
@@ -289,7 +287,9 @@ CREATE TABLE `companies` (
 --
 
 INSERT INTO `companies` (`id`, `title_ar`, `title_en`, `logo`, `banner`, `location`, `phone1`, `phone2`, `email1`, `email2`, `activity_id`, `owner_name`, `owner_phone`, `ceo_name`, `ceo_phone`, `commercial_file`, `branches_count`, `maroof_id`, `lat`, `lng`, `is_active`, `expire_date`, `delivery_price`, `created_at`, `updated_at`) VALUES
-(9, 'لا تؤذ اطفالك باخراجهم من نوافذ المركبة', 'Eye Condition Treatment', '1661679486630b377e83f66.png', '1661679486630b377e842e0.png', 'https://mail.google.com/mail/u/0/#inbox', '0512345678', '+966515975365', 'admin@admin.com', '4msystems400@gmail.com', 1, 'مصطفى عبدالله مصطفى', '+966515975365', 'sasasa', '+966515975365', '1661679486630b377e84614.pdf', 0, '111', '30.035786632584', '32.015902987076295', 1, '2022-08-28', '10', '2022-08-28 10:38:06', '2022-08-28 10:38:06');
+(1, 'شركة 1', 'company 1', NULL, NULL, 'www.googlemap.com', '0101010101010', '0151515151515', 'c1@gmail.com', 'c1@gmail.com', 1, 'owner', '010101010', 'ceo', '01010', NULL, 0, NULL, '18.1725', '10.1851', 1, '2022-09-01', '15.3', '2022-08-28 14:31:11', '2022-08-28 14:31:11'),
+(2, 'شركة 2', 'company 2', NULL, NULL, 'www.googlemap2.com', '01022220101010', '01512215151515', 'c2@gmail.com', 'c2@gmail.com', 1, 'owner2', '01010102210', 'ceo2', '0101220', NULL, 2, NULL, '18.1725', '11.1851', 1, '2022-09-01', '15.3', '2022-08-28 14:31:11', '2022-08-28 14:31:11'),
+(3, 'شركة 3', 'company 3', NULL, NULL, 'www.googlemap3.com', '01022220333330', '01512215131515', 'c23@gmail.com', 'c23@gmail.com', 1, 'owner23', '010101302210', 'ceo32', '01013220', NULL, 3, NULL, '18.1725', '11.1851', 1, '2022-09-01', '15.3', '2022-08-28 14:31:11', '2022-08-28 14:31:11');
 
 -- --------------------------------------------------------
 
@@ -438,7 +438,7 @@ CREATE TABLE `copouns` (
 --
 
 INSERT INTO `copouns` (`id`, `code`, `from_date`, `to_date`, `amount`, `discount_type`, `active`, `usage_count`, `created_at`, `updated_at`) VALUES
-(1, 'rush60', '2022-08-01', '2022-09-01', 60, 'Ratio', 1, 0, '2022-08-28 10:24:02', '2022-08-28 10:24:02');
+(1, 'rush60', '2022-08-01', '2022-09-01', 60, 'Ratio', 1, 0, '2022-08-28 14:31:12', '2022-08-28 14:31:12');
 
 -- --------------------------------------------------------
 
@@ -473,35 +473,35 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(175, '2014_10_12_000000_create_users_table', 1),
-(176, '2014_10_12_100000_create_password_resets_table', 1),
-(177, '2019_08_19_000000_create_failed_jobs_table', 1),
-(178, '2019_12_14_000001_create_personal_access_tokens_table', 1),
-(179, '2022_08_07_095219_create_activities_table', 1),
-(180, '2022_08_07_133028_create_user_addresses_table', 1),
-(181, '2022_08_07_134031_create_companies_table', 1),
-(182, '2022_08_07_143031_create_notifications_table', 1),
-(183, '2022_08_07_144549_create_clients_table', 1),
-(184, '2022_08_07_150556_create_company_rates_table', 1),
-(185, '2022_08_07_151514_create_company_work_times_table', 1),
-(186, '2022_08_07_152713_create_company_categories_table', 1),
-(187, '2022_08_07_154233_create_company_products_table', 1),
-(188, '2022_08_07_163937_create_states_table', 1),
-(189, '2022_08_07_163954_create_cities_table', 1),
-(190, '2022_08_07_164255_create_sliders_table', 1),
-(191, '2022_08_07_164822_create_pages_table', 1),
-(192, '2022_08_07_165822_create_contacts_table', 1),
-(193, '2022_08_07_170341_create_admins_table', 1),
-(194, '2022_08_07_171357_create_company_sub_activities_table', 1),
-(195, '2022_08_07_172526_create_branches_table', 1),
-(196, '2022_08_07_173448_create_carts_table', 1),
-(197, '2022_08_08_123424_create_orders_table', 1),
-(198, '2022_08_08_124828_create_order_products_table', 1),
-(199, '2022_08_19_002939_create_copouns_table', 1),
-(200, '2022_08_20_173227_create_settings_table', 1),
-(201, '2022_08_23_235754_update_contact_types', 1),
-(202, '2022_08_28_003503_create_company_users_table', 1),
-(203, '2023_08_024_160039_create_wallets_table', 1);
+(1, '2014_10_12_000000_create_users_table', 1),
+(2, '2014_10_12_100000_create_password_resets_table', 1),
+(3, '2019_08_19_000000_create_failed_jobs_table', 1),
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2022_08_07_095219_create_activities_table', 1),
+(6, '2022_08_07_133028_create_user_addresses_table', 1),
+(7, '2022_08_07_134031_create_companies_table', 1),
+(8, '2022_08_07_143031_create_notifications_table', 1),
+(9, '2022_08_07_150556_create_company_rates_table', 1),
+(10, '2022_08_07_151514_create_company_work_times_table', 1),
+(11, '2022_08_07_152713_create_company_categories_table', 1),
+(12, '2022_08_07_154233_create_company_products_table', 1),
+(13, '2022_08_07_163937_create_states_table', 1),
+(14, '2022_08_07_163954_create_cities_table', 1),
+(15, '2022_08_07_164255_create_sliders_table', 1),
+(16, '2022_08_07_164822_create_pages_table', 1),
+(17, '2022_08_07_165822_create_contacts_table', 1),
+(18, '2022_08_07_170341_create_admins_table', 1),
+(19, '2022_08_07_171357_create_company_sub_activities_table', 1),
+(20, '2022_08_07_172526_create_branches_table', 1),
+(21, '2022_08_07_173349_create_clients_table', 1),
+(22, '2022_08_07_173448_create_carts_table', 1),
+(23, '2022_08_08_123424_create_orders_table', 1),
+(24, '2022_08_08_124828_create_order_products_table', 1),
+(25, '2022_08_19_002939_create_copouns_table', 1),
+(26, '2022_08_20_173227_create_settings_table', 1),
+(27, '2022_08_23_235754_update_contact_types', 1),
+(28, '2022_08_28_003503_create_company_users_table', 1),
+(29, '2023_08_024_160039_create_wallets_table', 1);
 
 -- --------------------------------------------------------
 
@@ -666,16 +666,16 @@ CREATE TABLE `settings` (
 --
 
 INSERT INTO `settings` (`id`, `key`, `value`, `file`, `created_at`, `updated_at`) VALUES
-(1, 'aboutus_ar', 'aboutus_ar', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
-(2, 'aboutus_en', 'aboutus_en', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
-(3, 'email', 'email@email.com', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
-(4, 'phone', '966505505050', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
-(5, 'whatsapp', '966505509090', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
-(6, 'facebook', 'www.facebook.com/rush-order', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
-(7, 'twiter', 'www.twitter.com/rush-order', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
-(8, 'instagram', 'www.instagram.com/rush-order', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
-(9, 'privacy', 'privacy', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02'),
-(10, 'terms', 'terms', NULL, '2022-08-28 10:24:02', '2022-08-28 10:24:02');
+(1, 'aboutus_ar', 'aboutus_ar', NULL, '2022-08-28 14:31:12', '2022-08-28 14:31:12'),
+(2, 'aboutus_en', 'aboutus_en', NULL, '2022-08-28 14:31:12', '2022-08-28 14:31:12'),
+(3, 'email', 'email@email.com', NULL, '2022-08-28 14:31:12', '2022-08-28 14:31:12'),
+(4, 'phone', '966505505050', NULL, '2022-08-28 14:31:12', '2022-08-28 14:31:12'),
+(5, 'whatsapp', '966505509090', NULL, '2022-08-28 14:31:12', '2022-08-28 14:31:12'),
+(6, 'facebook', 'www.facebook.com/rush-order', NULL, '2022-08-28 14:31:12', '2022-08-28 14:31:12'),
+(7, 'twiter', 'www.twitter.com/rush-order', NULL, '2022-08-28 14:31:12', '2022-08-28 14:31:12'),
+(8, 'instagram', 'www.instagram.com/rush-order', NULL, '2022-08-28 14:31:12', '2022-08-28 14:31:12'),
+(9, 'privacy', 'privacy', NULL, '2022-08-28 14:31:12', '2022-08-28 14:31:12'),
+(10, 'terms', 'terms', NULL, '2022-08-28 14:31:12', '2022-08-28 14:31:12');
 
 -- --------------------------------------------------------
 
@@ -802,7 +802,8 @@ ALTER TABLE `clients`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `clients_email_unique` (`email`),
   ADD UNIQUE KEY `clients_phone_unique` (`phone`),
-  ADD KEY `clients_company_id_foreign` (`company_id`);
+  ADD KEY `clients_company_id_foreign` (`company_id`),
+  ADD KEY `clients_branch_id_foreign` (`branch_id`);
 
 --
 -- Indexes for table `companies`
@@ -990,7 +991,7 @@ ALTER TABLE `admins`
 -- AUTO_INCREMENT for table `branches`
 --
 ALTER TABLE `branches`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `carts`
@@ -1002,13 +1003,13 @@ ALTER TABLE `carts`
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `companies`
 --
 ALTER TABLE `companies`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `company_categories`
@@ -1068,7 +1069,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=204;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `notifications`
@@ -1158,6 +1159,7 @@ ALTER TABLE `carts`
 -- Constraints for table `clients`
 --
 ALTER TABLE `clients`
+  ADD CONSTRAINT `clients_branch_id_foreign` FOREIGN KEY (`branch_id`) REFERENCES `branches` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `clients_company_id_foreign` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`) ON DELETE CASCADE;
 
 --
