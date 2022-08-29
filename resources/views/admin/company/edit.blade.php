@@ -50,13 +50,13 @@
 
                         <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
-                               href="#payment" onclick="payment()">المدفوعات</a>
+                               href="#payment" onclick="payment()">الطلبيات</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
-                               href="#notification" onclick="notification()">الاشعارات</a>
-                        </li>
+{{--                        <li class="nav-item">--}}
+{{--                            <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"--}}
+{{--                               href="#notification" onclick="notification()">الاشعارات</a>--}}
+{{--                        </li>--}}
                         <!--end:::Tab item-->
                         <!--begin:::Tab item-->
 
@@ -613,19 +613,11 @@
                                             <!--begin::Table row-->
 
                                             <tr class="text-start text-muted fw-bolder fs-5 text-uppercase gs-0">
-                                                <th class="w-10px pe-2">
-                                                    <div
-                                                        class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                                        <input class="form-check-input" type="checkbox"
-                                                               data-kt-check="true"
-                                                               data-kt-check-target="#data_table_payment .form-check-input"
-                                                               value=""/>
-                                                    </div>
-                                                </th>
-
-                                                <th class="min-w-125px">التاريخ</th>
-                                                <th class="min-w-125px">المبلغ</th>
-                                                <th class="min-w-125px">تاريخ الانشاء</th>
+                                                <th class="min-w-125px">رقم الفاتورة</th>
+                                                <th class="min-w-125px">اسم العميل</th>
+                                                <th class="min-w-125px">رقم جوال العميل</th>
+                                                <th class="min-w-125px">السعر</th>
+                                                <th class="min-w-125px">الحالة</th>
                                                 <th class="min-w-125px">الاجرائات</th>
 
                                             </tr>
@@ -1086,9 +1078,10 @@
                                                 <div class="col-lg-12">
                                                     <br>
                                                     <div class="col-lg-4">
-                                                        <button class="form-control col-6 btn btn-light-dark add-attribute"
-                                                                type="button"
-                                                                onclick="add_new_addition()">اضافة
+                                                        <button
+                                                            class="form-control col-6 btn btn-light-dark add-attribute"
+                                                            type="button"
+                                                            onclick="add_new_addition()">اضافة
                                                             اضافات
                                                             <i class="fa fa-plus"></i></button>
                                                     </div>
@@ -1104,9 +1097,10 @@
                                                 <div class="col-lg-12">
                                                     <br>
                                                     <div class="col-lg-4">
-                                                        <button class="form-control col-6 btn btn-secondary add-attribute"
-                                                                type="button"
-                                                                onclick="add_new_drink()">اضافة
+                                                        <button
+                                                            class="form-control col-6 btn btn-secondary add-attribute"
+                                                            type="button"
+                                                            onclick="add_new_drink()">اضافة
                                                             مشروب
                                                             <i class="fa fa-plus"></i></button>
                                                     </div>
@@ -1537,65 +1531,61 @@
         }
 
     </script>
-    {{--    <script type="text/javascript">--}}
-    {{--        var check_payment = false;--}}
+    <script type="text/javascript">
+        var check_payment = false;
 
-    {{--        function payment() {--}}
-    {{--            if (check_payment == false) {--}}
-    {{--                $(function () {--}}
-    {{--                    var table = $('#data_table_payment').DataTable({--}}
-    {{--                        processing: true,--}}
-    {{--                        serverSide: true,--}}
-    {{--                        autoWidth: false,--}}
-    {{--                        responsive: true,--}}
-    {{--                        aaSorting: [],--}}
-    {{--                        "dom": "<'card-header border-0 p-0 pt-6'<'card-title' <'d-flex align-items-center position-relative my-1'f> r> <'card-toolbar' <'d-flex justify-content-end add_button4'B> r>>  <'row'l r> <''t><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable--}}
-    {{--                        lengthMenu: [[10, 25, 50, 100, 250, -1], [10, 25, 50, 100, 250, "الكل"]],--}}
-    {{--                        "language": {--}}
-    {{--                            search: '',--}}
-    {{--                            searchPlaceholder: 'بحث سريع'--}}
-    {{--                        },--}}
-    {{--                        buttons: [--}}
-    {{--                            {--}}
-    {{--                                extend: 'print',--}}
-    {{--                                className: 'btn btn-light-primary me-3',--}}
-    {{--                                text: '<i class="bi bi-printer-fill fs-2x"></i>'--}}
-    {{--                            },--}}
-    {{--                            // {extend: 'pdf', className: 'btn btn-raised btn-danger', text: 'PDF'},--}}
-    {{--                            {--}}
-    {{--                                extend: 'excel',--}}
-    {{--                                className: 'btn btn-light-primary me-3',--}}
-    {{--                                text: '<i class="bi bi-file-earmark-spreadsheet-fill fs-2x"></i>'--}}
-    {{--                            },--}}
-    {{--                            // {extend: 'colvis', className: 'btn secondary', text: 'إظهار / إخفاء الأعمدة '}--}}
-    {{--                        ],--}}
-    {{--                        ajax: {--}}
-    {{--                            url: '{{ route('company.payment.datatable.data',$data->id)}}',--}}
-    {{--                            data: {}--}}
-    {{--                        },--}}
-    {{--                        columns: [--}}
-    {{--                            {data: 'checkbox', name: 'checkbox', "searchable": false, "orderable": false},--}}
-    {{--                            {data: 'date', name: 'date', "searchable": true, "orderable": true},--}}
-    {{--                            {data: 'amount', name: 'amount', "searchable": true, "orderable": true},--}}
-    {{--                            {data: 'created_at', name: 'created_at', "searchable": true, "orderable": true},--}}
-    {{--                            {data: 'actions', name: 'actions', "searchable": true, "orderable": true},--}}
+        function payment() {
+            if (check_payment == false) {
+                $(function () {
+                    var table = $('#data_table_payment').DataTable({
+                        processing: true,
+                        serverSide: true,
+                        autoWidth: false,
+                        responsive: true,
+                        aaSorting: [],
+                        "dom": "<'card-header border-0 p-0 pt-6'<'card-title' <'d-flex align-items-center position-relative my-1'f> r> <'card-toolbar' <'d-flex justify-content-end add_button4'B> r>>  <'row'l r> <''t><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+                        lengthMenu: [[10, 25, 50, 100, 250, -1], [10, 25, 50, 100, 250, "الكل"]],
+                        "language": {
+                            search: '',
+                            searchPlaceholder: 'بحث سريع'
+                        },
+                        buttons: [
+                            {
+                                extend: 'print',
+                                className: 'btn btn-light-primary me-3',
+                                text: '<i class="bi bi-printer-fill fs-2x"></i>'
+                            },
+                            // {extend: 'pdf', className: 'btn btn-raised btn-danger', text: 'PDF'},
+                            {
+                                extend: 'excel',
+                                className: 'btn btn-light-primary me-3',
+                                text: '<i class="bi bi-file-earmark-spreadsheet-fill fs-2x"></i>'
+                            },
+                            // {extend: 'colvis', className: 'btn secondary', text: 'إظهار / إخفاء الأعمدة '}
+                        ],
+                        ajax: {
+                            url: '{{ route('company_order.datatable.data',$data->id)}}',
+                            data: {}
+                        },
+                        columns: [
+                            {data: 'id', name: 'id', "searchable": true, "orderable": true},
+                            {data: 'user_name', name: 'user_name', "searchable": true, "orderable": true},
+                            {data: 'phone', name: 'phone', "searchable": true, "orderable": true},
+                            {data: 'total_price', name: 'total_price', "searchable": true, "orderable": true},
+                            {data: 'status', name: 'status', "searchable": true, "orderable": true},
+                            {data: 'actions', name: 'actions', "searchable": false, "orderable": false},
 
-    {{--                        ]--}}
-    {{--                    });--}}
-    {{--                    $.ajax({--}}
-    {{--                        url: "{{ URL::to('admin/add-company-payment-button/'.$data->id)}}",--}}
-    {{--                        success: function (data) {--}}
-    {{--                            $('.add_button4').append(data);--}}
-    {{--                            check_payment = true;--}}
-    {{--                        },--}}
-    {{--                        dataType: 'html'--}}
-    {{--                    });--}}
-    {{--                });--}}
-    {{--            }--}}
 
-    {{--        }--}}
+                        ]
+                    });
+                    check_payment = true;
 
-    {{--    </script>--}}
+                });
+            }
+
+        }
+
+    </script>
     {{--    <script type="text/javascript">--}}
     {{--        var check_notification = false;--}}
 

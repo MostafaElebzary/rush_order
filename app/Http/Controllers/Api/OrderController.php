@@ -66,6 +66,11 @@ class OrderController extends Controller
             if ($carts->count() == 0) {
                 return msg(failed(), trans('lang.cart_empty'));
             }
+            if ($request->deliver_type == "Delivery") {
+                $delivery_price = $company->delivery_price;
+            } else {
+                $delivery_price = 0;
+            }
             $order = Order::create([
                 'user_id' => $user->id,
                 'company_id' => $request->company_id,
@@ -75,7 +80,7 @@ class OrderController extends Controller
                 'user_address' => $user_address->address,
                 'user_address_id' => $request->user_address_id,
                 'payment_type' => $request->payment_type,
-                'delivery_price' => $company->delivery_price,
+                'delivery_price' => $delivery_price,
                 'order_price' => $sub_total,
                 'total_price' => $sub_total + $company->delivery_price,
                 'deliver_type' => $request->deliver_type,

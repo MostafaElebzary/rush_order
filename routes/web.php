@@ -170,6 +170,13 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
     Route::get('add-company_product-button/{company_id}', 'CompanyProductController@button');
 
 
+//    company Order
+    Route::get('company_order_datatable/{company_id}', 'CompanyOrderController@datatable')
+        ->name('company_order.datatable.data');
+    Route::get('show-company_order/{id}', 'CompanyOrderController@show');
+
+
+
 });
 
 
