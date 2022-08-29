@@ -247,7 +247,7 @@
                                                                         <td colspan="5" class="text-end">الاجمالي
                                                                             الطلبية
                                                                         </td>
-                                                                        <td class="text-end">{{$data->order_price}}</td>
+                                                                        <td class="text-end">{{$data->order_price}} $</td>
                                                                     </tr>
                                                                     <!--end::Subtotal-->
                                                                     <!--begin::VAT-->
@@ -257,7 +257,7 @@
                                                                     <tr>
                                                                         <td colspan="5" class="text-end">تكلفه التوصيل
                                                                         </td>
-                                                                        <td class="text-end">{{$data->delivery_price}}</td>
+                                                                        <td class="text-end">{{$data->delivery_price}} $</td>
                                                                     </tr>
                                                                     <!--end::Shipping-->
                                                                     <!--begin::Grand total-->
@@ -267,7 +267,7 @@
                                                                             الاجمالي
                                                                         </td>
                                                                         <td class="text-dark fs-3 fw-bolder text-end">
-                                                                            {{$data->total_price}}
+                                                                            {{$data->total_price}} $
                                                                         </td>
                                                                     </tr>
                                                                     <!--end::Grand total-->
