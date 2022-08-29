@@ -1,6 +1,7 @@
 @extends('admin.layouts.master')
 
 @section('css')
+
 @endsection
 
 @section('breadcrumb')
@@ -40,7 +41,7 @@
                         <!--begin:::Tab item-->
                         <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
-                               href="#Cards" onclick="cards()">الكروت</a>
+                               href="#Cards" onclick="cards()">التصنيفات الخاصة</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
@@ -407,7 +408,7 @@
                                                             @else
                                                                 <div class="image-input-wrapper w-325px h-150px"
                                                                      style="background-image: url({{asset('/admin')}}/assets/media/avatars/blank.png)"></div>
-                                                        @endif
+                                                            @endif
 
                                                         <!--end::Preview existing avatar-->
                                                             <!--begin::Label-->
@@ -473,7 +474,6 @@
                                 <!--begin::Button-->
                             </form>
                         </div>
-
                         <div class="tab-pane fade" id="Followers" role="tab-panel">
                             <div class="d-flex flex-column gap-7 gap-lg-10">
                                 <div class="card card-flush py-4">
@@ -537,8 +537,10 @@
                                                     </div>
                                                 </th>
 
-                                                <th class="min-w-125px">اسم الكارت</th>
-                                                <th class="min-w-125px">تاريخ الانشاء</th>
+                                                <th class="min-w-125px">الصورة</th>
+                                                <th class="min-w-125px">الاسم</th>
+                                                <th class="min-w-125px">اسم الشركة</th>
+                                                <th class="min-w-125px">الاجرائات</th>
 
                                             </tr>
                                             <!--end::Table row-->
@@ -691,13 +693,15 @@
 
                 <!--end::Content-->
                 <!--begin::Modal - Add task-->
-                <div class="modal fade" id="kt_modal_add_user" tabindex="-1" aria-hidden="true">
+
+                <!--begin::Modal - Add task-->
+                <div class="modal fade" id="kt_modal_add_payment" tabindex="-3" aria-hidden="true">
                     <!--begin::Modal dialog-->
                     <div class="modal-dialog modal-dialog-centered mw-650px">
                         <!--begin::Modal content-->
                         <div class="modal-content">
                             <!--begin::Modal header-->
-                            <div class="modal-header" id="kt_modal_add_user_header">
+                            <div class="modal-header" id="kt_modal_add_debit_header">
                                 <!--begin::Modal title-->
                                 <h2 class="fw-bolder">اضف جديد</h2>
                                 <!--end::Modal title-->
@@ -722,10 +726,9 @@
                             <!--begin::Modal body-->
                             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                                 <!--begin::Form-->
-                                <form id="" class="form" method="post" action="{{url('admin/store-company')}}"
+                                <form id="" class="form" method="post" action="{{url('admin/store-company_category')}}"
                                       enctype="multipart/form-data">
                                 @csrf
-
                                 <!--begin::Scroll-->
                                     <div class="d-flex flex-column scroll-y me-n7 pe-7"
                                          id="kt_modal_add_user_scroll" data-kt-scroll="true"
@@ -735,14 +738,43 @@
                                          data-kt-scroll-wrappers="#kt_modal_add_user_scroll"
                                          data-kt-scroll-offset="300px">
 
+                                        <!--begin::Input group-->
+                                        <input type="hidden" name="company_id" value="{{$data->id}}">
                                         <div class="fv-row mb-7">
                                             <!--begin::Label-->
-                                            <label class="col-lg-4 col-form-label fw-bold fs-6">صورة البروفايل</label>
+                                            <label class="required fw-bold fs-6 mb-2">الاسم بالعربية </label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input type="text" name="title_ar"
+                                                   class="form-control form-control-solid mb-3 mb-lg-0"
+                                                   placeholder="الاسم بالعربية" value="{{old('title_ar')}}" required/>
+
+                                            <!--end::Input-->
+                                        </div>
+
+                                        <div class="fv-row mb-7">
+                                            <!--begin::Label-->
+                                            <label class="required fw-bold fs-6 mb-2">الاسم بالانجليزية </label>
+                                            <!--end::Label-->
+                                            <!--begin::Input-->
+                                            <input type="text" name="title_en"
+                                                   class="form-control form-control-solid mb-3 mb-lg-0"
+                                                   placeholder="الاسم بالانجليزية" value="{{old('title_en')}}" required/>
+
+                                            <!--end::Input-->
+                                        </div>
+
+                                        <!--end::Input group-->
+                                        <!--begin::Input group-->
+                                        <div class="fv-row mb-7">
+                                            <!--begin::Label-->
+                                            <label class="col-lg-4 col-form-label fw-bold fs-6">الصورة</label>
                                             <!--end::Label-->
                                             <!--begin::Col-->
                                             <div class="col-lg-8">
                                                 <!--begin::Image input-->
-                                                <div class="image-input image-input-outline" data-kt-image-input="true"
+                                                <div class="image-input image-input-outline"
+                                                     data-kt-image-input="true"
                                                      style="background-image: url('{{asset('/admin')}}/assets/media/svg/avatars/blank.svg')">
                                                     <!--begin::Preview existing avatar-->
                                                     <div class="image-input-wrapper w-125px h-125px"
@@ -755,8 +787,8 @@
                                                         title="تعديل">
                                                         <i class="bi bi-pencil-fill fs-7"></i>
                                                         <!--begin::Inputs-->
-                                                        <input type="file" name="photo" accept=".png, .jpg, .jpeg"
-                                                               required/>
+                                                        <input type="file" name="image" accept=".png, .jpg, .jpeg , .png"
+                                                        />
                                                         <input type="hidden" name="avatar_remove"/>
                                                         <!--end::Inputs-->
                                                     </label>
@@ -785,134 +817,7 @@
                                             </div>
                                             <!--end::Col-->
                                         </div>
-                                        <!--end::Input group-->
 
-                                        <!--begin::Input group-->
-                                        <div class="fv-row mb-7">
-                                            <!--begin::Label-->
-                                            <label class="required fw-bold fs-6 mb-2">الاسم بالكامل</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="text" name="name"
-                                                   class="form-control form-control-solid mb-3 mb-lg-0"
-                                                   placeholder="الاسم" value="{{old('name')}}" required/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->  <!--begin::Input group-->
-                                        <div class="fv-row mb-7">
-                                            <!--begin::Label-->
-                                            <label class="fw-bold fs-6 mb-2">البريد الالكترونى</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="email" name="email"
-                                                   class="form-control form-control-solid mb-3 mb-lg-0"
-                                                   placeholder="البريد الالكتروني" value="{{old('email')}}"
-                                            />
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
-                                        <div class="fv-row mb-7">
-                                            <!--begin::Label-->
-                                            <label class="required fw-bold fs-6 mb-2">رقم الجوال</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="tel" name="phone"
-                                                   class="form-control form-control-solid mb-3 mb-lg-0"
-                                                   placeholder="رقم الجوال" value="{{old('phone')}}" required/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <div class="fv-row mb-7">
-                                            <!--begin::Label-->
-                                            <label class="required fw-bold fs-6 mb-2">كلمة المرور</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="password" name="password"
-                                                   class="form-control form-control-solid mb-3 mb-lg-0"
-                                                   placeholder="كلمة المرور" value="" required/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <div class="fv-row mb-7">
-                                            <!--begin::Label-->
-                                            <label class="required fw-bold fs-6 mb-2">تأكيد كلمة المرور</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="password" name="password_confirmation"
-                                                   class="form-control form-control-solid mb-3 mb-lg-0"
-                                                   placeholder="تأكيد كلمة المرور" value="" required/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <!--end::Input group-->
-
-                                        <div class="fv-row mb-7">
-                                            <!--begin::Label-->
-                                            <label class="required fw-bold fs-6 mb-2">رقم العضوية</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="text" name="membership_no"
-                                                   class="form-control form-control-solid mb-3 mb-lg-0"
-                                                   placeholder="رقم العضوية"
-                                                   value="" required
-                                                   readonly/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <div class="fv-row mb-7">
-                                            <!--begin::Label-->
-                                            <label class="required fw-bold fs-6 mb-2">الرقم القومي</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="text" name="national_no"
-                                                   class="form-control form-control-solid mb-3 mb-lg-0"
-                                                   placeholder="الرقم القومي"
-                                                   value="" required/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <div class="fv-row mb-7">
-                                            <!--begin::Label-->
-                                            <label class="required fw-bold fs-6 mb-2">الوظيفة</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="text" name="jop"
-                                                   class="form-control form-control-solid mb-3 mb-lg-0"
-                                                   placeholder="الوظيفة" value="{{old('jop')}}" required/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <div class="fv-row mb-7">
-                                            <!--begin::Label-->
-                                            <label class="required fw-bold fs-6 mb-2">تاريخ الميلاد</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="date" name="birth_date"
-                                                   class="form-control form-control-solid mb-3 mb-lg-0"
-                                                   placeholder="تاريخ الميلاد" value="{{old('birth_date')}}" required/>
-                                            <!--end::Input-->
-                                        </div>
-                                        <div class="fv-row mb-7">
-                                            <!--begin::Label-->
-                                            <label class="required fw-bold fs-6 mb-2">تاريخ التسجيل</label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <input type="date" name="register_date"
-                                                   class="form-control form-control-solid mb-3 mb-lg-0"
-                                                   placeholder="تاريخ التسجيل" value="{{old('register_date')}}"
-                                                   required/>
-                                            <input type="hidden" name="type" value="1">
-                                            <input type="hidden" name="parent_id" value="{{$data->id}}">
-
-                                            <!--end::Input-->
-                                        </div>
-                                        <div class="fv-row mb-7">
-                                            <div
-                                                class="form-check form-switch form-check-custom form-check-solid">
-                                                <label class="form-check-label" for="flexSwitchDefault">مفعل
-                                                    ؟</label>
-                                                <input class="form-check-input" name="is_active" type="hidden"
-                                                       value="0" id="flexSwitchDefault"/>
-                                                <input
-                                                    class="form-check-input form-control form-control-solid mb-3 mb-lg-0"
-                                                    name="is_active" type="checkbox"
-                                                    value="1" id="flexSwitchDefault" checked/>
-                                            </div>
-                                        </div>
                                         <!--end::Input group-->
 
 
@@ -940,6 +845,7 @@
                     </div>
                     <!--end::Modal dialog-->
                 </div>
+                <!--end::Modal - Add task-->
 
                 <!--end::Modal - Add task-->
 
@@ -1082,63 +988,66 @@
             }
 
         </script>
-    {{--    <script type="text/javascript">--}}
-    {{--        var check_cards = false;--}}
+        <script type="text/javascript">
+            var check_cards = false;
 
-    {{--        function cards() {--}}
-    {{--            if (check_cards == false) {--}}
-    {{--                $(function () {--}}
-    {{--                    var table = $('#data_table_cards').DataTable({--}}
-    {{--                        processing: true,--}}
-    {{--                        serverSide: true,--}}
-    {{--                        autoWidth: false,--}}
-    {{--                        responsive: true,--}}
-    {{--                        aaSorting: [],--}}
-    {{--                        "dom": "<'card-header border-0 p-0 pt-6'<'card-title' <'d-flex align-items-center position-relative my-1'f> r> <'card-toolbar' <'d-flex justify-content-end add_button2'B> r>>  <'row'l r> <''t><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable--}}
-    {{--                        lengthMenu: [[10, 25, 50, 100, 250, -1], [10, 25, 50, 100, 250, "الكل"]],--}}
-    {{--                        "language": {--}}
-    {{--                            search: '',--}}
-    {{--                            searchPlaceholder: 'بحث سريع'--}}
-    {{--                        },--}}
-    {{--                        buttons: [--}}
-    {{--                            {--}}
-    {{--                                extend: 'print',--}}
-    {{--                                className: 'btn btn-light-primary me-3',--}}
-    {{--                                text: '<i class="bi bi-printer-fill fs-2x"></i>'--}}
-    {{--                            },--}}
-    {{--                            // {extend: 'pdf', className: 'btn btn-raised btn-danger', text: 'PDF'},--}}
-    {{--                            {--}}
-    {{--                                extend: 'excel',--}}
-    {{--                                className: 'btn btn-light-primary me-3',--}}
-    {{--                                text: '<i class="bi bi-file-earmark-spreadsheet-fill fs-2x"></i>'--}}
-    {{--                            },--}}
-    {{--                            // {extend: 'colvis', className: 'btn secondary', text: 'إظهار / إخفاء الأعمدة '}--}}
-    {{--                        ],--}}
-    {{--                        ajax: {--}}
-    {{--                            url: '{{ route('company.cards.datatable.data',$data->id)}}',--}}
-    {{--                            data: {}--}}
-    {{--                        },--}}
-    {{--                        columns: [--}}
-    {{--                            {data: 'checkbox', name: 'checkbox', "searchable": false, "orderable": false},--}}
-    {{--                            {data: 'name', name: 'name', "searchable": true, "orderable": true},--}}
-    {{--                            {data: 'created_at', name: 'created_at', "searchable": true, "orderable": true},--}}
+            function cards() {
+                if (check_cards == false) {
+                    $(function () {
+                        var table = $('#data_table_cards').DataTable({
+                            processing: true,
+                            serverSide: true,
+                            autoWidth: false,
+                            responsive: true,
+                            aaSorting: [],
+                            "dom": "<'card-header border-0 p-0 pt-6'<'card-title' <'d-flex align-items-center position-relative my-1'f> r> <'card-toolbar' <'d-flex justify-content-end add_button2'B> r>>  <'row'l r> <''t><'row'<'col-md-5 col-sm-12'i><'col-md-7 col-sm-12'p>>", // horizobtal scrollable datatable
+                            lengthMenu: [[10, 25, 50, 100, 250, -1], [10, 25, 50, 100, 250, "الكل"]],
+                            "language": {
+                                search: '',
+                                searchPlaceholder: 'بحث سريع'
+                            },
+                            buttons: [
+                                {
+                                    extend: 'print',
+                                    className: 'btn btn-light-primary me-3',
+                                    text: '<i class="bi bi-printer-fill fs-2x"></i>'
+                                },
+                                // {extend: 'pdf', className: 'btn btn-raised btn-danger', text: 'PDF'},
+                                {
+                                    extend: 'excel',
+                                    className: 'btn btn-light-primary me-3',
+                                    text: '<i class="bi bi-file-earmark-spreadsheet-fill fs-2x"></i>'
+                                },
+                                // {extend: 'colvis', className: 'btn secondary', text: 'إظهار / إخفاء الأعمدة '}
+                            ],
+                            ajax: {
+                                url: '{{ route('company_category.datatable.data',$data->id)}}',
+                                data: {}
+                            },
+                            columns: [
+                                {data: 'checkbox', name: 'checkbox', "searchable": false, "orderable": false},
+                                {data: 'image', name: 'image', "searchable": false, "orderable": false},
+                                {data: 'title_ar', name: 'title_ar', "searchable": true, "orderable": true},
+                                {data: 'company_id', name: 'company_id', "searchable": true, "orderable": true},
+                                {data: 'actions', name: 'actions', "searchable": false, "orderable": false},
 
-    {{--                        ]--}}
-    {{--                    });--}}
-    {{--                    $.ajax({--}}
-    {{--                        url: "{{ URL::to('admin/add-company-card-button/'.$data->id)}}",--}}
-    {{--                        success: function (data) {--}}
-    {{--                            $('.add_button2').append(data);--}}
-    {{--                            check_cards = true;--}}
-    {{--                        },--}}
-    {{--                        dataType: 'html'--}}
-    {{--                    });--}}
-    {{--                });--}}
-    {{--            }--}}
 
-    {{--        }--}}
+                            ]
+                        });
+                        $.ajax({
+                            url: "{{ URL::to('admin/add-company_category-button/'.$data->id)}}",
+                            success: function (data) {
+                                $('.add_button2').append(data);
+                                check_cards = true;
+                            },
+                            dataType: 'html'
+                        });
+                    });
+                }
 
-    {{--    </script>--}}
+            }
+
+        </script>
     {{--    <script type="text/javascript">--}}
     {{--        var check_debits = false;--}}
 
