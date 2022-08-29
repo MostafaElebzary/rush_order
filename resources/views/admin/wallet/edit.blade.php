@@ -80,7 +80,7 @@
                                     <!--begin::Input-->
                                     <textarea name="description" id="kt_docs_tinymce_basic2">
                                             {!! $data->description !!}
-                                                            </textarea>
+                                    </textarea>
                                     <!--end::Input-->
                                 </div>
 
