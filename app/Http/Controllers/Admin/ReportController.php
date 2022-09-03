@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Company;
 use App\Models\Order;
 use App\Models\OrderProduct;
+use App\Models\User;
+use App\Models\Wallet;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -37,5 +40,26 @@ class ReportController extends Controller
             ->first();
         return view('admin.reports.order', get_defined_vars());
 
+    }
+
+
+    public function CompanyReport(Request $request){
+        $companies = Company::query();
+        $count = $companies->count();
+        $wallet_income  = Wallet::where('type','deposit')->sum('price');
+        $wallet_outcome = Wallet::where('type','withdrawal')->sum('price');
+
+
+        return view('admin.reports.company', get_defined_vars());
+    }
+
+    public function UsersReport(Request $request){
+        $users = User::query();
+        $count = $users->count();
+        $orders_count = Order::query()->count();
+        $orders_average = $orders_count/$count;
+
+
+        return view('admin.reports.users', get_defined_vars());
     }
 }

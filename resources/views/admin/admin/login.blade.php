@@ -20,7 +20,7 @@
                 <div class="text-center mb-10">
                     <!--begin::Logo-->
                     <a href="{{url('/admin')}}" class="mb-12">
-                        <img alt="Logo" src="" class="h-60px" />
+                        <img alt="Logo" src="{{settings_image('logo')}}" class="h-60px" />
                     </a>
                     <!--end::Logo-->
                     <!--begin::Title-->

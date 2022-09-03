@@ -271,7 +271,7 @@ if (!function_exists('HttpPost')) {
 
     function taxs()
     {
-        return 15;
+        return settings('tax');
     }
 
 

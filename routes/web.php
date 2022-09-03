@@ -174,10 +174,16 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
         ->name('company_order.datatable.data');
     Route::get('show-company_order/{id}', 'CompanyOrderController@show');
 
-    Route::get('reports/orders', 'ReportController@OrderReport');
-    Route::post('reports/orders', 'ReportController@OrderReport');
+//    reports
+    Route::group(['prefix' => 'reports',], function () {
+//        orders
+        Route::get('orders', 'ReportController@OrderReport');
+        Route::post('orders', 'ReportController@OrderReport');
 
+        Route::get('companies', 'ReportController@CompanyReport');
+        Route::get('users', 'ReportController@UsersReport');
 
+    });
 });
 
 

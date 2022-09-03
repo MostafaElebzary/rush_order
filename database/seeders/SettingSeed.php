@@ -48,6 +48,23 @@ class SettingSeed extends Seeder
             ], [
                 'key' => "terms",
                 'value' => "terms",
+            ], [
+                'key' => "tax",
+                'value' => 15,
+            ], [
+                'key' => "payment_percent",
+                'value' => 3,
+            ],[
+                'key' => "app_percent",
+                'value' => 5,
+            ],[
+                'key' => "logo",
+                'value' => "1.png",
+
+            ],[
+                'key' => "fav",
+                'value' => "1.png",
+
             ],
         ];
         foreach ($data as $row) {

@@ -2,8 +2,8 @@
     <!--begin::Brand-->
     <div class="header-brand">
         <!--begin::Logo-->
-        <a href="{{url('/admin')}}">
-            <img alt="Logo" src="" class="h-25px h-lg-50px" />
+        <a href="{{url('/admin/home')}}">
+            <img alt="Logo" src="{{settings_image('logo')}}" class="h-25px h-lg-50px" />
         </a>
         <!--end::Logo-->
         <!--begin::Aside minimize-->

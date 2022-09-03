@@ -12,6 +12,7 @@ use App\Models\Order;
 use App\Models\OrderProduct;
 use App\Models\User;
 use App\Models\UserAddress;
+use App\Models\Wallet;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
@@ -89,6 +90,7 @@ class OrderController extends Controller
                 'car_num' => $request->car_num,
                 'car_notes' => $request->car_notes,
             ]);
+
 
 
             foreach ($carts as $cart) {
