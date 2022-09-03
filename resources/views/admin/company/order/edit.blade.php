@@ -247,7 +247,8 @@
                                                                         <td colspan="5" class="text-end">الاجمالي
                                                                             الطلبية
                                                                         </td>
-                                                                        <td class="text-end">{{$data->order_price}} $</td>
+                                                                        <td class="text-end">{{$data->order_price}}$
+                                                                        </td>
                                                                     </tr>
                                                                     <!--end::Subtotal-->
                                                                     <!--begin::VAT-->
@@ -257,7 +258,9 @@
                                                                     <tr>
                                                                         <td colspan="5" class="text-end">تكلفه التوصيل
                                                                         </td>
-                                                                        <td class="text-end">{{$data->delivery_price}} $</td>
+                                                                        <td class="text-end">{{$data->delivery_price}}
+                                                                            $
+                                                                        </td>
                                                                     </tr>
                                                                     <!--end::Shipping-->
                                                                     <!--begin::Grand total-->

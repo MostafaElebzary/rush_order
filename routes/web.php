@@ -138,7 +138,6 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
     });
 
 
-    //todo::repeate this for subActivity , WorkTimes  , Products , Orders and  Clients[Company , Branch]
 //company branches
     Route::get('branch_datatable/{company_id}', 'BranchController@datatable')->name('branch.datatable.data');
     Route::get('delete-branch', 'BranchController@destroy');
@@ -175,6 +174,8 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
         ->name('company_order.datatable.data');
     Route::get('show-company_order/{id}', 'CompanyOrderController@show');
 
+    Route::get('reports/orders', 'ReportController@OrderReport');
+    Route::post('reports/orders', 'ReportController@OrderReport');
 
 
 });
