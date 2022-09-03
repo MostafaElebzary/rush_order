@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 29, 2022 at 09:29 PM
+-- Generation Time: Sep 03, 2022 at 03:56 PM
 -- Server version: 10.4.13-MariaDB
 -- PHP Version: 7.4.8
 
@@ -367,7 +367,8 @@ CREATE TABLE `company_products` (
 --
 
 INSERT INTO `company_products` (`id`, `company_id`, `company_category_id`, `title_ar`, `title_en`, `content_ar`, `content_en`, `price`, `image`, `preparation_time`, `attributes`, `additions`, `drinks`, `type`, `created_at`, `updated_at`) VALUES
-(3, 1, 6, 'العمل الاول', 'المطعم', '<p>فثسف</p>', '<p>فثفثف</p>', 150, '1661797070630d02ce811b9.png', '15 دقيقه', '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"cola\",\"drink_name_en\":\"\\u0643\\u0648\\u0644\\u0627\",\"drink_price\":\"10\"}]', 'Normal', '2022-08-29 19:17:50', '2022-08-29 19:17:50');
+(3, 1, 6, 'العمل الاول', 'المطعم', '<p>فثسف</p>', '<p>فثفثف</p>', 150, '1661797070630d02ce811b9.png', '15 دقيقه', '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"cola\",\"drink_name_en\":\"\\u0643\\u0648\\u0644\\u0627\",\"drink_price\":\"10\"}]', 'Normal', '2022-08-29 19:17:50', '2022-08-29 19:17:50'),
+(4, 1, 6, 'العمل hgeee', 'erererer', '<p>فثسف</p>', '<p>فثفثف</p>', 150, '1661797070630d02ce811b9.png', '15 دقيقه', '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"cola\",\"drink_name_en\":\"\\u0643\\u0648\\u0644\\u0627\",\"drink_price\":\"10\"}]', 'Normal', '2022-08-29 19:17:50', '2022-08-29 19:17:50');
 
 -- --------------------------------------------------------
 
@@ -589,8 +590,14 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `company_id`, `user_name`, `user_state`, `user_city`, `user_address`, `user_address_id`, `payment_type`, `delivery_price`, `order_price`, `total_price`, `status`, `deliver_type`, `car_type`, `car_color`, `car_num`, `car_notes`, `created_at`, `updated_at`) VALUES
-(1, 1, 1, 'mohamed 1  ahmed 1', NULL, NULL, 'testr', 1, 'Cash', 15.3, 437, 452.3, 0, 'Delivery', NULL, NULL, NULL, NULL, '2022-08-29 19:19:13', '2022-08-29 19:19:13'),
-(2, 1, 1, 'mohamed 1  ahmed 1', NULL, NULL, 'testr', 1, 'Cash', 15.3, 874, 889.3, 0, 'ByCar', 'BMW', 'black', '0555', NULL, '2022-08-29 19:20:13', '2022-08-29 19:20:13');
+(1, 1, 4, 'mohamed 1  ahmed 1', NULL, NULL, 'testr', 1, 'Cash', 15.3, 437, 452.3, 4, 'Delivery', NULL, NULL, NULL, NULL, '2022-09-29 19:19:13', '2022-08-29 19:19:13'),
+(2, 1, 4, 'mohamed 1  ahmed 1', NULL, NULL, 'testr', 1, 'Cash', 15.3, 874, 889.3, 4, 'ByCar', 'BMW', 'black', '0555', NULL, '2022-09-29 19:20:13', '2022-08-29 19:20:13'),
+(3, 1, 4, 'mohamed 1  ahmed 1', NULL, NULL, 'testr', 1, 'Cash', 15.3, 437, 452.3, 0, 'Delivery', NULL, NULL, NULL, NULL, '2022-09-29 19:19:13', '2022-08-29 19:19:13'),
+(4, 1, 4, 'mohamed 1  ahmed 1', NULL, NULL, 'testr', 1, 'Cash', 15.3, 874, 889.3, 0, 'ByCar', 'BMW', 'black', '0555', NULL, '2022-09-29 19:20:13', '2022-08-29 19:20:13'),
+(5, 1, 4, 'mohamed 1  ahmed 1', NULL, NULL, 'testr', 1, 'Cash', 15.3, 437, 452.3, 0, 'Delivery', NULL, NULL, NULL, NULL, '2022-09-29 19:19:13', '2022-08-29 19:19:13'),
+(6, 1, 4, 'mohamed 1  ahmed 1', NULL, NULL, 'testr', 1, 'Cash', 15.3, 874, 889.3, 0, 'ByCar', 'BMW', 'black', '0555', NULL, '2022-09-29 19:20:13', '2022-08-29 19:20:13'),
+(7, 1, 4, 'mohamed 1  ahmed 1', NULL, NULL, 'testr', 1, 'Cash', 15.3, 437, 452.3, 0, 'Delivery', NULL, NULL, NULL, NULL, '2022-09-29 19:19:13', '2022-08-29 19:19:13'),
+(8, 1, 4, 'mohamed 1  ahmed 1', NULL, NULL, 'testr', 1, 'Cash', 15.3, 874, 889.3, 0, 'ByCar', 'BMW', 'black', '0555', NULL, '2022-09-29 19:20:13', '2022-08-29 19:20:13');
 
 -- --------------------------------------------------------
 
@@ -616,10 +623,10 @@ CREATE TABLE `order_products` (
 --
 
 INSERT INTO `order_products` (`id`, `order_id`, `company_product_id`, `price`, `qty`, `attributes`, `additions`, `drinks`, `created_at`, `updated_at`) VALUES
-(1, 1, 3, 190, 1, '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"},{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"cola\",\"drink_name_en\":\"\\u0643\\u0648\\u0644\\u0627\",\"drink_price\":\"10\"}]', '2022-08-29 19:19:13', '2022-08-29 19:19:13'),
-(2, 1, 3, 190, 1, '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"},{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"cola\",\"drink_name_en\":\"\\u0643\\u0648\\u0644\\u0627\",\"drink_price\":\"10\"}]', '2022-08-29 19:19:13', '2022-08-29 19:19:13'),
-(3, 2, 3, 190, 1, '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"},{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"cola\",\"drink_name_en\":\"\\u0643\\u0648\\u0644\\u0627\",\"drink_price\":\"10\"}]', '2022-08-29 19:20:13', '2022-08-29 19:20:13'),
-(4, 2, 3, 190, 1, '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"},{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"cola\",\"drink_name_en\":\"\\u0643\\u0648\\u0644\\u0627\",\"drink_price\":\"10\"}]', '2022-08-29 19:20:13', '2022-08-29 19:20:13'),
+(1, 1, 4, 190, 1, '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"},{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"cola\",\"drink_name_en\":\"\\u0643\\u0648\\u0644\\u0627\",\"drink_price\":\"10\"}]', '2022-08-29 19:19:13', '2022-08-29 19:19:13'),
+(2, 1, 4, 190, 1, '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"},{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"cola\",\"drink_name_en\":\"\\u0643\\u0648\\u0644\\u0627\",\"drink_price\":\"10\"}]', '2022-08-29 19:19:13', '2022-08-29 19:19:13'),
+(3, 2, 4, 190, 1, '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"},{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"cola\",\"drink_name_en\":\"\\u0643\\u0648\\u0644\\u0627\",\"drink_price\":\"10\"}]', '2022-08-29 19:20:13', '2022-08-29 19:20:13'),
+(4, 2, 4, 190, 1, '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"},{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"cola\",\"drink_name_en\":\"\\u0643\\u0648\\u0644\\u0627\",\"drink_price\":\"10\"}]', '2022-08-29 19:20:13', '2022-08-29 19:20:13'),
 (5, 2, 3, 190, 1, '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"},{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"cola\",\"drink_name_en\":\"\\u0643\\u0648\\u0644\\u0627\",\"drink_price\":\"10\"}]', '2022-08-29 19:20:13', '2022-08-29 19:20:13'),
 (6, 2, 3, 190, 1, '[{\"attribute_name_ar\":\"\\u0627\\u0644\\u062d\\u062c\\u0645\",\"attribute_name_en\":\"size\",\"attribute_option_ar\":\"\\u0635\\u063a\\u064a\\u0631\",\"attribute_option_en\":\"small\",\"attribute_price\":\"15\"}]', '[{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"},{\"addittion_name_ar\":\"\\u062c\\u0628\\u0646\\u0629\",\"addittion_name_en\":\"cheese\",\"addittion_price\":\"15\"}]', '[{\"drink_name_ar\":\"cola\",\"drink_name_en\":\"\\u0643\\u0648\\u0644\\u0627\",\"drink_price\":\"10\"}]', '2022-08-29 19:20:13', '2022-08-29 19:20:13');
 
@@ -732,7 +739,12 @@ INSERT INTO `settings` (`id`, `key`, `value`, `file`, `created_at`, `updated_at`
 (7, 'twiter', 'www.twitter.com/rush-order', NULL, '2022-08-28 14:32:26', '2022-08-28 14:32:26'),
 (8, 'instagram', 'www.instagram.com/rush-order', NULL, '2022-08-28 14:32:26', '2022-08-28 14:32:26'),
 (9, 'privacy', 'privacy', NULL, '2022-08-28 14:32:26', '2022-08-28 14:32:26'),
-(10, 'terms', 'terms', NULL, '2022-08-28 14:32:26', '2022-08-28 14:32:26');
+(10, 'terms', 'terms', NULL, '2022-08-28 14:32:26', '2022-08-28 14:32:26'),
+(11, 'tax', '15', NULL, '2022-09-03 14:48:34', '2022-09-03 14:48:34'),
+(12, 'payment_percent', '3', NULL, '2022-09-03 14:48:34', '2022-09-03 14:48:34'),
+(13, 'app_percent', '5', NULL, '2022-09-03 14:48:34', '2022-09-03 14:48:34'),
+(15, 'logo', '<p>1.png</p>', '166221307363135bd16e34e.png', '2022-09-03 14:50:32', '2022-09-03 14:51:13'),
+(18, 'fav', '<p>fav</p>', '166221326763135c932348e.png', '2022-09-03 14:54:27', '2022-09-03 14:54:27');
 
 -- --------------------------------------------------------
 
@@ -823,6 +835,13 @@ CREATE TABLE `wallets` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `wallets`
+--
+
+INSERT INTO `wallets` (`id`, `price`, `type`, `company_id`, `order_id`, `description`, `created_at`, `updated_at`) VALUES
+(1, 1500, 'withdrawal', 4, 1, NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -1092,7 +1111,7 @@ ALTER TABLE `company_categories`
 -- AUTO_INCREMENT for table `company_products`
 --
 ALTER TABLE `company_products`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `company_rates`
@@ -1152,7 +1171,7 @@ ALTER TABLE `notifications`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `order_products`
@@ -1176,7 +1195,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `settings`
 --
 ALTER TABLE `settings`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `sliders`
@@ -1200,7 +1219,7 @@ ALTER TABLE `user_addresses`
 -- AUTO_INCREMENT for table `wallets`
 --
 ALTER TABLE `wallets`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- Constraints for dumped tables
