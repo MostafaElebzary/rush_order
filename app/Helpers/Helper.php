@@ -252,7 +252,6 @@ if (!function_exists('HttpPost')) {
 
         // $output contains the output string
         $output = curl_exec($ch);
-
         // Close curl resource to free up system resources
         curl_close($ch);
         return json_decode($output);
