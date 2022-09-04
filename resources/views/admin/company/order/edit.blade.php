@@ -56,8 +56,8 @@
                                                 <!--end::Logo-->
                                                 <div class="text-sm-end">
                                                     <!--begin::Logo-->
-                                                    <a href="#" class="d-block mw-150px ms-sm-auto">
-                                                        <img alt="Logo" src="#" class="w-100"/>
+                                                    <a href="{{settings_image('logo')}}" class="d-block mw-150px ms-sm-auto">
+                                                        <img alt="Logo" src="{{settings_image('logo')}}" class="w-100"/>
                                                     </a>
                                                     <!--end::Logo-->
                                                     <!--begin::Text-->
