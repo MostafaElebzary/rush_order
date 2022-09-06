@@ -14,6 +14,7 @@ class Branch extends Model
         'company_id', 'lat', 'lng', 'city_id', 'title_ar', 'title_en', 'delivery_time'
     ];
     protected $appends = ['title'];
+
     public function getTitleAttribute()
     {
         if ($locale = App::currentLocale() == "en") {
@@ -22,9 +23,15 @@ class Branch extends Model
             return $this->title_ar;
         }
     }
+
     public function Company()
     {
         return $this->belongsTo(Company::class, 'company_id');
+    }
+
+    public function Orders()
+    {
+        return $this->hasMany(Order::class, 'branch_id');
     }
 
     public function City()

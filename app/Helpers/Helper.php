@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 // send fcm notification
@@ -47,7 +48,8 @@ if (!function_exists('settings_image')) {
     function settings_image($key)
     {
         $result = App\Models\Setting::where('key', $key)->first();
-        return $result['file'];
+
+        return $result->file;
     }
 }
 
@@ -273,5 +275,16 @@ if (!function_exists('HttpPost')) {
         return settings('tax');
     }
 
+
+    if (!function_exists('Client_type')) {
+        function Client_type()
+        {
+             if (Auth::guard('client')->check()){
+                 return Auth::user()->type;
+             }else{
+                 return "";
+             }
+        }
+    }
 
 }

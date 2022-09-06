@@ -187,6 +187,29 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 });
 
 
+Route::get('client', 'Client\AuthController@showLoginForm');
+Route::get('client/login', 'Client\AuthController@showLoginForm')->name('client.login');
+Route::post('client/login', 'Client\AuthController@login')->name('client.login.submit');
+Route::post('client/logout', 'Client\AuthController@logout')->name('client.logout');
+//Client Routes
+Route::group(['prefix' => 'client', 'namespace' => 'Client', 'middleware' => 'auth:client'], function () {
+    Route::get('/home', 'HomeController@index')->name('client.blank');
+
+//    company users
+    Route::get('/clients', 'ClientController@index')->name('client.client');
+    Route::get('client_datatable', 'ClientController@datatable')->name('client.client.datatable.data');
+//   todo::now
+    Route::get('delete-client', 'ClientController@destroy');
+    Route::get('show-client/{id}', 'ClientController@show')->name('client.client.show');
+    Route::post('store-client', 'ClientController@store');
+    Route::get('edit-client/{id}', 'ClientController@edit');
+    Route::post('update-client', 'ClientController@update');
+    Route::get('add-client-button', function () {
+        return view('client/clients/button');
+    });
+
+});
+
 Route::get('lang/{lang}', function ($lang) {
 
 

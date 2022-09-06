@@ -15,7 +15,12 @@ class SettingSeed extends Seeder
     public function run()
     {
         $data = [
+            [
+                'key' => "logo",
+                'value' => "1.png",
+                'file' => "1.png",
 
+            ],
             [
                 'key' => "aboutus_ar",
                 'value' => "aboutus_ar",
@@ -58,17 +63,23 @@ class SettingSeed extends Seeder
                 'key' => "app_percent",
                 'value' => 5,
             ],[
-                'key' => "logo",
-                'value' => "1.png",
-
-            ],[
                 'key' => "fav",
                 'value' => "1.png",
+                'file' => "1.png",
+
+            ],[
+                'key' => "title_ar",
+                'value' => "rush_order",
 
             ],
         ];
+
+        Setting::truncate();
         foreach ($data as $row) {
-            Setting::updateOrCreate($row);
+
+            Setting::create($row);
+
+
         }
     }
 }
