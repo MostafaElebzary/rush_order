@@ -234,6 +234,21 @@ Route::group(['prefix' => 'client', 'namespace' => 'Client', 'middleware' => 'au
     Route::get('add-company_category-button/{company_id}', 'CompanyCategoryController@button');
 
 
+
+//    company Products
+    Route::get('/client-company_product', 'CompanyProductController@index')->name('client.company_product');
+    Route::get('company_product_datatable/{company_id}', 'CompanyProductController@datatable')->name('client.company_product.datatable.data');
+    Route::get('delete-company_product', 'CompanyProductController@destroy');
+    Route::get('show-company_product/{id}', 'CompanyProductController@show');
+    Route::get('create-company_product', 'CompanyProductController@create');
+    Route::post('store-company_product', 'CompanyProductController@store');
+    Route::get('edit-company_product/{id}', 'CompanyProductController@edit');
+    Route::post('update-company_product', 'CompanyProductController@update');
+    Route::get('add-company_product-button/{company_id}', 'CompanyProductController@button');
+
+
+
+
 });
 
 Route::get('lang/{lang}', function ($lang) {
