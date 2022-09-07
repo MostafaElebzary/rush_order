@@ -87,7 +87,7 @@
                                 <!--begin::Modal body-->
                                 <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                                     <!--begin::Form-->
-                                    <form id="" class="form" method="post" action="{{url('admin/store-admin')}}"
+                                    <form id="" class="form" method="post" action="{{url('client/store-client')}}"
                                           enctype="multipart/form-data">
                                     @csrf
                                     <!--begin::Scroll-->
@@ -176,6 +176,17 @@
                                                 />
                                                 <!--end::Input-->
                                             </div>
+                                            <div class="fv-row mb-7">
+                                                <!--begin::Label-->
+                                                <label class="fw-bold fs-6 mb-2">العنوان</label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <input type="text" name="address"
+                                                       class="form-control form-control-solid mb-3 mb-lg-0"
+                                                       placeholder="العنوان" value="{{old('address')}}"
+                                                />
+                                                <!--end::Input-->
+                                            </div>
                                             <!--end::Input group-->
                                             <div class="fv-row mb-7">
                                                 <!--begin::Label-->
@@ -208,6 +219,37 @@
                                                 <!--end::Input-->
                                             </div>
                                             <!--end::Input group-->
+                                            <div class="fv-row mb-7">
+                                                <div
+                                                    class="form-check form-switch form-check-custom form-check-solid">
+                                                    <label class="form-check-label" for="flexSwitchDefault1">مدير
+                                                        ؟</label>
+                                                    <input class="form-check-input" name="type" type="hidden"
+                                                           value="Employee" id=""/>
+                                                    <input
+                                                        class="form-check-input form-control form-control-solid mb-3 mb-lg-0"
+                                                        name="type" type="checkbox"
+                                                        value="Manager" id="flexSwitchDefault1"/>
+                                                </div>
+                                            </div>
+                                            <!--end::Input group-->
+                                            <div class="fv-row mb-7" style="display: block" id="branch">
+                                                <!--begin::Label-->
+                                                <label class="required fw-bold fs-6 mb-2">الفرع </label>
+                                                <!--end::Label-->
+                                                <!--begin::Input-->
+                                                <select class="form-select mb-2" name="branch_id"
+                                                        data-control=""
+                                                        data-hide-search="false" data-placeholder="إختر الفرع"
+                                                        >
+
+                                                    <option>إختر الفرع</option>
+                                                    @foreach(\App\Models\Branch::where('company_id',Client_Company_Id())->get() as $company)
+                                                        <option value="{{$company->id}}">{{$company->title}}</option>
+                                                    @endforeach
+                                                </select>
+                                                <!--end::Input-->
+                                            </div>
 
                                             <div class="fv-row mb-7">
                                                 <div
@@ -236,7 +278,8 @@
                                                     data-kt-users-modal-action="submit">
                                                 <span class="indicator-label">حفظ</span>
                                                 <span class="indicator-progress">برجاء الانتظار
-                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                                 <span
+                                                     class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
                                             </button>
                                         </div>
                                         <!--end::Actions-->
@@ -316,5 +359,14 @@
                 dataType: 'html'
             });
         });
+    </script>
+    <script>
+        $('#flexSwitchDefault1').change(function () {
+            if ($(this).is(":checked")) {
+                $("#branch").css("display", 'none');
+            } else {
+                $("#branch").css("display", 'block');
+            }
+        })
     </script>
 @endsection

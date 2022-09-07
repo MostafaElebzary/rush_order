@@ -198,12 +198,13 @@ Route::group(['prefix' => 'client', 'namespace' => 'Client', 'middleware' => 'au
 //    company users
     Route::get('/clients', 'ClientController@index')->name('client.client');
     Route::get('client_datatable', 'ClientController@datatable')->name('client.client.datatable.data');
-//   todo::now
     Route::get('delete-client', 'ClientController@destroy');
     Route::get('show-client/{id}', 'ClientController@show')->name('client.client.show');
     Route::post('store-client', 'ClientController@store');
     Route::get('edit-client/{id}', 'ClientController@edit');
     Route::post('update-client', 'ClientController@update');
+    Route::get('profile-client', 'ClientController@profile');
+    Route::post('update-profile', 'ClientController@updateProfile');
     Route::get('add-client-button', function () {
         return view('client/clients/button');
     });

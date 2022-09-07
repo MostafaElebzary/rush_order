@@ -4,7 +4,7 @@
 @endsection
 
 @section('breadcrumb')
-    <h1 class="d-flex flex-column text-dark fw-bolder fs-3 mb-0">موظفي الفرع</h1>
+    <h1 class="d-flex flex-column text-dark fw-bolder fs-3 mb-0">الصفحة الشخصية</h1>
 @endsection
 
 @section('content')
@@ -20,7 +20,7 @@
 
                     <div id="kt_account_settings_profile_details" class="collapse show">
                         <!--begin::Form-->
-                        <form id="kt_account_profile_details_form" action="{{url('client/update-client')}}" class="form"
+                        <form id="kt_account_profile_details_form" action="{{url('client/update-profile')}}" class="form"
                               method="post" enctype="multipart/form-data">
                         @csrf
                         <!--begin::Card body-->
@@ -95,55 +95,11 @@
                                             <!--end::Input-->
                                         </div>
                                         <!--end::Input group-->
-                                        <div class="fv-row mb-7">
-                                            <div
-                                                class="form-check form-switch form-check-custom form-check-solid">
-                                                <label class="form-check-label" for="flexSwitchDefault1">مدير
-                                                    ؟</label>
-                                                <input class="form-check-input" name="type" type="hidden"
-                                                       value="Employee" id=""/>
-                                                <input
-                                                    class="form-check-input form-control form-control-solid mb-3 mb-lg-0"
-                                                    name="type" type="checkbox" @if($data->type == "Manager") checked
-                                                    @endif
-                                                    value="Manager" id="flexSwitchDefault1"/>
-                                            </div>
-                                        </div>
-                                        <!--end::Input group-->
-                                        <div class="fv-row mb-7"
-                                             style=" @if($data->type == "Manager") display: none @else display: block @endif "
-                                             id="branch">
-                                            <!--begin::Label-->
-                                            <label class="required fw-bold fs-6 mb-2">الفرع </label>
-                                            <!--end::Label-->
-                                            <!--begin::Input-->
-                                            <select class="form-select mb-2" name="branch_id"
-                                                    data-control=""
-                                                    data-hide-search="false" data-placeholder="إختر الفرع"
-                                            >
-                                                <option value="">إختر الفرع</option>
-                                                @foreach(\App\Models\Branch::where('company_id',Client_Company_Id())->get() as $company)
-                                                    <option @if($data->branch_id == $company->id) selected
-                                                            @endif value="{{$company->id}}">{{$company->title}}</option>
-                                                @endforeach
-                                            </select>
-                                            <!--end::Input-->
-                                        </div>
 
-                                        <div class="fv-row mb-7">
-                                            <div
-                                                class="form-check form-switch form-check-custom form-check-solid">
-                                                <label class="form-check-label" for="flexSwitchDefault">مفعل
-                                                    ؟</label>
-                                                <input class="form-check-input" name="is_active" type="hidden"
-                                                       value="0" id="flexSwitchDefault"/>
-                                                <input
-                                                    class="form-check-input form-control form-control-solid mb-3 mb-lg-0"
-                                                    name="is_active" type="checkbox" @if($data->type == 1) checked
-                                                    @endif
-                                                    value="1" id="flexSwitchDefault"/>
-                                            </div>
-                                        </div>
+                                        <!--end::Input group-->
+
+
+
                                         <!--end::Input group-->
 
                                     </div>

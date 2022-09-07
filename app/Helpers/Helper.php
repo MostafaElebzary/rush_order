@@ -279,11 +279,22 @@ if (!function_exists('HttpPost')) {
     if (!function_exists('Client_type')) {
         function Client_type()
         {
-             if (Auth::guard('client')->check()){
-                 return Auth::user()->type;
-             }else{
-                 return "";
-             }
+            if (Auth::guard('client')->check()) {
+                return Auth::user()->type;
+            } else {
+                return "";
+            }
+        }
+    }
+
+    if (!function_exists('Client_Company_Id')) {
+        function Client_Company_Id()
+        {
+            if (Auth::guard('client')->check()) {
+                return Auth::user()->company_id;
+            } else {
+                return null;
+            }
         }
     }
 

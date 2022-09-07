@@ -76,8 +76,8 @@ class ClientController extends Controller
             })
             ->editColumn('branch_id', function ($row) {
                 $phone = '';
-                if($row->Branch){
-                $phone .= ' <span class="text-gray-800 text-hover-primary mb-1">' . $row->Branch->title . '</span>';
+                if ($row->Branch) {
+                    $phone .= ' <span class="text-gray-800 text-hover-primary mb-1">' . $row->Branch->title . '</span>';
                 }
                 return $phone;
             })
@@ -91,12 +91,12 @@ class ClientController extends Controller
                 }
             })
             ->addColumn('actions', function ($row) {
-                $actions = ' <a href="' . url("admin/show-admin/" . $row->id) . '" class="btn btn-icon btn-light-warning"><i class="bi bi-eye-fill"></i> </a>';
-                $actions .= ' <a href="' . url("admin/edit-admin/" . $row->id) . '" class="btn btn-icon btn-light-info"><i class="bi bi-pencil-fill"></i> </a>';
+                $actions = ' <a href="' . url("client/show-client/" . $row->id) . '" class="btn btn-icon btn-light-warning"><i class="bi bi-eye-fill"></i> </a>';
+                $actions .= ' <a href="' . url("client/edit-client/" . $row->id) . '" class="btn btn-icon btn-light-info"><i class="bi bi-pencil-fill"></i> </a>';
                 return $actions;
 
             })
-            ->rawColumns(['checkbox', 'photo', 'name', 'phone', 'type','branch_id', 'is_active', 'actions'])
+            ->rawColumns(['checkbox', 'photo', 'name', 'phone', 'type', 'branch_id', 'is_active', 'actions'])
             ->make();
 
     }
@@ -105,40 +105,55 @@ class ClientController extends Controller
     {
         $rule = [
             'name' => 'required|string',
-            'email' => 'email|unique:admins',
-            'phone' => 'required|unique:admins',
-            'password' => 'required|min:6',
-            'profile' => 'image|mimes:png,jpg,jpeg|max:2048'
+            'profile' => 'image|mimes:png,jpg,jpeg|max:2048',
+            'email' => 'nullable|email|unique:clients',
+            'address' => 'nullable|string',
+            'phone' => 'required|unique:clients',
+            'password' => 'required|min:6|confirmed',
+            'is_active' => 'required|in:0,1',
+            'type' => 'required|in:Manager,Employee',
+            'branch_id' => 'required_unless:type,Manager',
         ];
         $validate = Validator::make($request->all(), $rule);
         if ($validate->fails()) {
             return redirect()->back()->with('message', $validate->messages()->first())->with('status', 'error');
         }
 
-
-        $data = Admin::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'password' => $request->password,
-            'image' => $request->profile,
-            'is_active' => $request->is_active,
-        ]);
+        $data = new Client();
+        $data->company_id = Client_Company_Id();
+        $data->image = $request->profile;
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->address = $request->address;
+        $data->phone = $request->phone;
+        $data->password = $request->password;
+        $data->is_active = $request->is_active;
+        $data->type = $request->type;
+        if ($request->type != "Manager") {
+            $data->branch_id = $request->branch_id;
+        }
+        $data->save();
         return redirect()->back()->with('message', 'تم الاضافة بنجاح')->with('status', 'success');
     }
 
     public function show($id)
     {
-        // $query['data'] = Admin::where('id', $id)->get();
-        $query['data'] = Admin::find($id);
-        return view('admin.admin.show', $query);
+        $query['data'] = Client::findOrFail($id);
+        return view('client.clients.show', $query);
     }
 
     public function edit($id)
     {
         // $query['data'] = Admin::where('id', $id)->get();
-        $query['data'] = Admin::find($id);
-        return view('admin.admin.edit', $query);
+        $query['data'] = Client::findOrFail($id);
+        return view('client.clients.edit', $query);
+    }
+    public function profile()
+    {
+
+        // $query['data'] = Admin::where('id', $id)->get();
+        $query['data'] = Client::findOrFail(Auth::guard('client')->user()->id);
+        return view('client.clients.profile', $query);
     }
 
     public function update(Request $request)
@@ -146,46 +161,83 @@ class ClientController extends Controller
 
         $rule = [
             'name' => 'required|string',
-            'email' => 'email',
-            'phone' => 'required',
-            'password' => 'nullable|confirmed',
-            'profile' => 'image|mimes:png,jpg,jpeg|max:2048'
+            'profile' => 'image|mimes:png,jpg,jpeg|max:2048',
+            'email' => 'nullable|email|unique:clients,email,' . $request->id,
+            'address' => 'nullable|string',
+            'phone' => 'required|unique:clients,phone,' . $request->id,
+            'password' => 'nullable|min:6|confirmed',
+            'is_active' => 'required|in:0,1',
+            'type' => 'required|in:Manager,Employee',
+            'branch_id' => 'nullable|required_unless:type,Manager',
         ];
         $validate = Validator::make($request->all(), $rule);
         if ($validate->fails()) {
             return redirect()->back()->with('message', $validate->messages()->first())->with('status', 'error');
         }
 
-        $row = Admin::find($request->id);
-
-
+        $data = Client::findOrFail($request->id);
+        $data->company_id = Client_Company_Id();
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->address = $request->address;
+        $data->phone = $request->phone;
+        $data->is_active = $request->is_active;
+        $data->type = $request->type;
+        if ($request->type != "Manager") {
+            $data->branch_id = $request->branch_id;
+        } else {
+            $data->branch_id = null;
+        }
         if ($request->password) {
-            $row->password = $request->password;
-
+            $data->password = $request->password;
         }
         if ($request->profile) {
-            $row->image = $request->profile;
-
-
+            $data->image = $request->profile;
         }
-        $row->save();
+        $data->save();
 
-        $data = Admin::where('id', $request->id)->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'phone' => $request->phone,
-            'is_active' => $request->is_active,
-        ]);
 
-        return redirect(route('admins'))->with('message', 'تم التعديل بنجاح')->with('status', 'success');
+        return redirect(route('client.client'))->with('message', 'تم التعديل بنجاح')->with('status', 'success');
+    }
+    public function updateProfile(Request $request)
+    {
+
+        $rule = [
+            'name' => 'required|string',
+            'profile' => 'image|mimes:png,jpg,jpeg|max:2048',
+            'email' => 'nullable|email|unique:clients,email,' . $request->id,
+            'address' => 'nullable|string',
+            'phone' => 'required|unique:clients,phone,' . $request->id,
+            'password' => 'nullable|min:6|confirmed',
+
+        ];
+        $validate = Validator::make($request->all(), $rule);
+        if ($validate->fails()) {
+            return redirect()->back()->with('message', $validate->messages()->first())->with('status', 'error');
+        }
+
+        $data = Client::findOrFail($request->id);
+        $data->company_id = Client_Company_Id();
+        $data->name = $request->name;
+        $data->email = $request->email;
+        $data->address = $request->address;
+        $data->phone = $request->phone;
+        if ($request->password) {
+            $data->password = $request->password;
+        }
+        if ($request->profile) {
+            $data->image = $request->profile;
+        }
+        $data->save();
+
+
+        return redirect()->back()->with('message', 'تم التعديل بنجاح')->with('status', 'success');
     }
 
     public function destroy(Request $request)
     {
-
-
         try {
-            Admin::whereIn('id', $request->id)->delete();
+            Client::whereIn('id', $request->id)->delete();
         } catch (\Exception $e) {
             return response()->json(['message' => 'Failed']);
         }

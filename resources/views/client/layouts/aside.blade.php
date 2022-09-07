@@ -142,7 +142,7 @@
                             <div class="menu-item px-5">
 
                                 <a
-{{--                                    href="{{url('admin/show-admin')}}/{{Auth::user()->id}}"--}}
+                                    href="{{url('client/profile-client')}}"
                                    class="menu-link px-5">حسابي</a>
                             </div>
                             <!--end::Menu item-->

@@ -39,7 +39,7 @@
                 if (result.value) {
                     var CSRF_TOKEN = $('meta[name="csrf-token"]').attr('content');
                     $.ajax({
-                        url: '{{url("admin/delete-admin")}}',
+                        url: '{{url("client/delete-client")}}',
                         type: "get",
                         data: {'id': dataList, _token: CSRF_TOKEN},
                         dataType: "JSON",
