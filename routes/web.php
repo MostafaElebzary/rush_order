@@ -209,6 +209,31 @@ Route::group(['prefix' => 'client', 'namespace' => 'Client', 'middleware' => 'au
         return view('client/clients/button');
     });
 
+
+//company branches
+    Route::get('/client-branches', 'BranchController@index')->name('client.branches');
+    Route::get('branch_datatable/{company_id}', 'BranchController@datatable')->name('client.branch.datatable.data');
+    Route::get('delete-branch', 'BranchController@destroy');
+    Route::get('show-branch/{id}', 'BranchController@show');
+    Route::get('create-branch', 'BranchController@create');
+    Route::post('store-branch', 'BranchController@store');
+    Route::get('edit-branch/{id}', 'BranchController@edit');
+    Route::post('update-branch', 'BranchController@update');
+    Route::get('add-branch-button/{company_id}', 'BranchController@button');
+
+
+//    company Categories
+    Route::get('/client-company_category', 'CompanyCategoryController@index')->name('client.company_category');
+    Route::get('company_category_datatable/{company_id}', 'CompanyCategoryController@datatable')->name('client.company_category.datatable.data');
+    Route::get('delete-company_category', 'CompanyCategoryController@destroy');
+    Route::get('show-company_category/{id}', 'CompanyCategoryController@show');
+    Route::get('create-company_category', 'CompanyCategoryController@create');
+    Route::post('store-company_category', 'CompanyCategoryController@store');
+    Route::get('edit-company_category/{id}', 'CompanyCategoryController@edit');
+    Route::post('update-company_category', 'CompanyCategoryController@update');
+    Route::get('add-company_category-button/{company_id}', 'CompanyCategoryController@button');
+
+
 });
 
 Route::get('lang/{lang}', function ($lang) {

@@ -143,7 +143,7 @@
 
                                 <a
                                     href="{{url('client/profile-client')}}"
-                                   class="menu-link px-5">حسابي</a>
+                                    class="menu-link px-5">حسابي</a>
                             </div>
                             <!--end::Menu item-->
 
