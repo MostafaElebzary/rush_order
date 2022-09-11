@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('client.layouts.master')
 
 @section('css')
     <link href="{{asset('/admin')}}/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet"
@@ -28,12 +28,7 @@
                             <!--begin::Table row-->
 
                             <tr class="text-start text-muted fw-bolder fs-5 text-uppercase gs-0">
-                                <th class="w-10px pe-2">
-                                    <div class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                        <input class="form-check-input" type="checkbox" data-kt-check="true"
-                                               data-kt-check-target="#data_table .form-check-input" value=""/>
-                                    </div>
-                                </th>
+
 
                                 <th class="min-w-125px">المبلغ</th>
                                 <th class="min-w-125px">الشركة</th>
@@ -104,7 +99,7 @@
                     data: {}
                 },
                 columns: [
-                    {data: 'checkbox', name: 'checkbox', "searchable": false, "orderable": false},
+
                     {data: 'price', name: 'price', "searchable": true, "orderable": true},
                     {data: 'company_id', name: 'company_id', "searchable": true, "orderable": true},
                     {data: 'order_id', name: 'order_id', "searchable": true, "orderable": true},

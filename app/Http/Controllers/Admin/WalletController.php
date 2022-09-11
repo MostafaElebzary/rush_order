@@ -33,7 +33,7 @@ class WalletController extends Controller
     {
         $data = Wallet::orderBy('id', 'asc');
         if ($request->company_id) {
-            $data = $data->where('company_id', Client_Company_Id());
+            $data = $data->where('company_id', $request->company_id);
         }
         return Datatables::of($data)
             ->addColumn('checkbox', function ($row) {
@@ -73,10 +73,90 @@ class WalletController extends Controller
                     return $withdrawal;
                 }
             })
-            ->rawColumns(['checkbox', 'price', 'company_id', 'order_id', 'type', 'created_at', 'description'])
+            ->addColumn('actions', function ($row) {
+                $actions = ' <a href="' . url("admin/edit-wallet/" . $row->id) . '" class="btn btn-icon btn-light-info"><i class="bi bi-pencil-fill"></i> </a>';
+                return $actions;
+            })
+            ->rawColumns(['checkbox', 'price', 'company_id', 'order_id', 'type', 'created_at', 'description', 'actions'])
             ->make();
 
     }
 
+    public function store(Request $request)
+    {
+        $rule = [
+            'price' => 'required',
+            'company_id' => 'required|numeric',
+            'description' => 'nullable|string',
+            'type' => 'required|in:withdrawal,deposit',
+
+
+        ];
+
+        $validate = Validator::make($request->all(), $rule);
+        if ($validate->fails()) {
+            return redirect()->back()->with('message', $validate->messages()->first())->with('status', 'error');
+        }
+
+
+        $data = Wallet::create([
+            'price' => $request->price,
+            'company_id' => $request->company_id,
+            'description' => $request->description,
+            'type' => $request->type,
+
+
+        ]);
+        return redirect()->back()->with('message', 'تم الاضافة بنجاح')->with('status', 'success');
+    }
+
+
+    public function edit($id)
+    {
+        // $query['data'] = Admin::where('id', $id)->get();
+        $query['data'] = Wallet::findOrFail($id);
+        return view('admin.wallet.edit', $query);
+    }
+
+    public function update(Request $request)
+    {
+
+        $rule = [
+
+            'price' => 'required',
+            'company_id' => 'required|numeric',
+            'description' => 'nullable|string',
+            'type' => 'required|in:withdrawal,deposit',
+        ];
+        $validate = Validator::make($request->all(), $rule);
+        if ($validate->fails()) {
+            return redirect()->back()->with('message', $validate->messages()->first())->with('status', 'error');
+        }
+
+
+        $data = Wallet::where('id', $request->id)->update([
+            'price' => $request->price,
+            'company_id' => $request->company_id,
+            'description' => $request->description,
+            'type' => $request->type,
+
+
+        ]);
+
+        return redirect(route('wallet'))->with('message', 'تم التعديل بنجاح')->with('status', 'success');
+    }
+
+    public function destroy(Request $request)
+    {
+
+
+        try {
+            Wallet::whereIn('id', $request->id)->delete();
+        } catch (\Exception $e) {
+            return response()->json(['message' => 'Failed']);
+        }
+        return response()->json(['message' => 'Success']);
+
+    }
 
 }

@@ -270,7 +270,7 @@ Route::group(['prefix' => 'client', 'namespace' => 'Client', 'middleware' => 'au
 
 //    wallet
     Route::get('/wallet', 'WalletController@index')->name('client.wallet');
-    Route::get('wallet_datatable', 'WalletController@datatable')->name('client.wallet.datatable.data');
+    Route::get('/wallet_datatable', 'WalletController@datatable')->name('client.wallet.datatable.data');
 
 });
 

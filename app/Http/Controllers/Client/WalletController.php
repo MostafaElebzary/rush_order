@@ -26,22 +26,16 @@ class WalletController extends Controller
         // $query['data'] = Admin::orderBy('id','desc')->get();
         // $query['data'] = Admin::orderBy('id','desc')->paginate(10);
 
-        return view('admin.wallet.index');
+        return view('client.wallet.index');
     }
 
     public function datatable(Request $request)
     {
         $data = Wallet::orderBy('id', 'asc');
-        $data = $data->where('company_id', $request->company_id);
+        $data = $data->where('company_id', Client_Company_Id());
 
         return Datatables::of($data)
-            ->addColumn('checkbox', function ($row) {
-                $checkbox = '';
-                $checkbox .= '<div class="form-check form-check-sm form-check-custom form-check-solid">
-                                    <input class="form-check-input" type="checkbox" value="' . $row->id . '" />
-                                </div>';
-                return $checkbox;
-            })
+
             ->editColumn('price', function ($row) {
                 $name = '';
                 $name .= ' <span class="text-gray-800 text-hover-primary mb-1">' . $row->price . '</span>';
@@ -72,11 +66,8 @@ class WalletController extends Controller
                     return $withdrawal;
                 }
             })
-            ->addColumn('actions', function ($row) {
-                $actions = ' <a href="' . url("admin/edit-wallet/" . $row->id) . '" class="btn btn-icon btn-light-info"><i class="bi bi-pencil-fill"></i> </a>';
-                return $actions;
-            })
-            ->rawColumns(['checkbox', 'price', 'company_id', 'order_id', 'type', 'created_at', 'description', 'actions'])
+
+            ->rawColumns([ 'price', 'company_id', 'order_id', 'type', 'created_at', 'description'])
             ->make();
 
     }
