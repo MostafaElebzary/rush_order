@@ -7,7 +7,7 @@
 @endsection
 
 @section('breadcrumb')
-    <h1 class="d-flex flex-column text-dark fw-bolder fs-3 mb-0">التصنيفات الخاصة</h1>
+    <h1 class="d-flex flex-column text-dark fw-bolder fs-3 mb-0">تصنيفات المؤسسة</h1>
 @endsection
 
 @section('content')
@@ -40,9 +40,9 @@
                                 </th>
 
                                 <th class="min-w-125px">الصورة</th>
-                                <th class="min-w-125px">الاسم</th>
+                                <th class="min-w-125px">اسم التصنيف</th>
                                 <th class="min-w-125px">اسم الشركة</th>
-                                <th class="min-w-125px">الاجرائات</th>
+
 
                             </tr>
                             <!--end::Table row-->
@@ -89,7 +89,8 @@
                                 <!--begin::Modal body-->
                                 <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                                     <!--begin::Form-->
-                                    <form id="" class="form" method="post" action="{{url('client/store-company_category')}}"
+                                    <form id="" class="form" method="post"
+                                          action="{{url('client/store-company_sub_activity')}}"
                                           enctype="multipart/form-data">
                                     @csrf
                                     <!--begin::Scroll-->
@@ -108,82 +109,18 @@
                                                 <label class="required fw-bold fs-6 mb-2">الاسم بالعربية </label>
                                                 <!--end::Label-->
                                                 <!--begin::Input-->
-                                                <input type="text" name="title_ar"
-                                                       class="form-control form-control-solid mb-3 mb-lg-0"
-                                                       placeholder="الاسم بالعربية" value="{{old('title_ar')}}" required/>
+                                                <select class="form-select form-select-solid" name="activity_id[]"
+                                                        data-control="select2" multiple data-dropdown-parent="#kt_modal_add_payment"
+                                                        data-placeholder="اختر التصنيف الفرعي" data-allow-clear="true">
+
+                                                    <option></option>
+                                                    @foreach($activities as $company)
+                                                        <option value="{{$company->id}}">{{$company->title}}</option>
+                                                    @endforeach
+                                                </select>
 
                                                 <!--end::Input-->
                                             </div>
-
-                                            <div class="fv-row mb-7">
-                                                <!--begin::Label-->
-                                                <label class="required fw-bold fs-6 mb-2">الاسم بالانجليزية </label>
-                                                <!--end::Label-->
-                                                <!--begin::Input-->
-                                                <input type="text" name="title_en"
-                                                       class="form-control form-control-solid mb-3 mb-lg-0"
-                                                       placeholder="الاسم بالانجليزية" value="{{old('title_en')}}"
-                                                       required/>
-
-                                                <!--end::Input-->
-                                            </div>
-
-                                            <!--end::Input group-->
-                                            <!--begin::Input group-->
-                                            <div class="fv-row mb-7">
-                                                <!--begin::Label-->
-                                                <label class="col-lg-4 col-form-label fw-bold fs-6">الصورة</label>
-                                                <!--end::Label-->
-                                                <!--begin::Col-->
-                                                <div class="col-lg-8">
-                                                    <!--begin::Image input-->
-                                                    <div class="image-input image-input-outline"
-                                                         data-kt-image-input="true"
-                                                         style="background-image: url('{{asset('/admin')}}/assets/media/svg/avatars/blank.svg')">
-                                                        <!--begin::Preview existing avatar-->
-                                                        <div class="image-input-wrapper w-125px h-125px"
-                                                             style="background-image: url({{asset('/admin')}}/assets/media/avatars/blank.png)"></div>
-                                                        <!--end::Preview existing avatar-->
-                                                        <!--begin::Label-->
-                                                        <label
-                                                            class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                            data-kt-image-input-action="change" data-bs-toggle="tooltip"
-                                                            title="تعديل">
-                                                            <i class="bi bi-pencil-fill fs-7"></i>
-                                                            <!--begin::Inputs-->
-                                                            <input type="file" name="image"
-                                                                   accept=".png, .jpg, .jpeg , .png"
-                                                            />
-                                                            <input type="hidden" name="avatar_remove"/>
-                                                            <!--end::Inputs-->
-                                                        </label>
-                                                        <!--end::Label-->
-                                                        <!--begin::Cancel-->
-                                                        <span
-                                                            class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                            data-kt-image-input-action="cancel" data-bs-toggle="tooltip"
-                                                            title="الغاء">
-                                                        <i class="bi bi-x fs-2"></i>
-                                                    </span>
-                                                        <!--end::Cancel-->
-                                                        <!--begin::Remove-->
-                                                        <span
-                                                            class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                                            data-kt-image-input-action="remove" data-bs-toggle="tooltip"
-                                                            title="حذف">
-                                                        <i class="bi bi-x fs-2"></i>
-                                                    </span>
-                                                        <!--end::Remove-->
-                                                    </div>
-                                                    <!--end::Image input-->
-                                                    <!--begin::Hint-->
-                                                    <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-                                                    <!--end::Hint-->
-                                                </div>
-                                                <!--end::Col-->
-                                            </div>
-
-                                            <!--end::Input group-->
 
 
                                         </div>
@@ -257,7 +194,7 @@
                     // {extend: 'colvis', className: 'btn secondary', text: 'إظهار / إخفاء الأعمدة '}
                 ],
                 ajax: {
-                    url: '{!! route('client.company_category.datatable.data',$data->company_id) !!}',
+                    url: '{{ route('client.company_sub_activity.datatable.data',$data->company_id)}}',
                     data: {}
                 },
                 columns: [
@@ -265,16 +202,15 @@
                     {data: 'image', name: 'image', "searchable": false, "orderable": false},
                     {data: 'title_ar', name: 'title_ar', "searchable": true, "orderable": true},
                     {data: 'company_id', name: 'company_id', "searchable": true, "orderable": true},
-                    {data: 'actions', name: 'actions', "searchable": false, "orderable": false},
 
 
                 ]
             });
             $.ajax({
-                url: "{{ URL::to('client/add-company_category-button/'.$data->company_id)}}",
+                url: "{{ URL::to('client/add-company_sub_activity-button/'.$data->company_id)}}",
                 success: function (data) {
                     $('.add_button2').append(data);
-                    check_cards = true;
+
                 },
                 dataType: 'html'
             });

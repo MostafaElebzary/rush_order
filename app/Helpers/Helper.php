@@ -260,42 +260,41 @@ if (!function_exists('HttpPost')) {
     }
 
 
-    function cart_sum($company_id, $user_id)
+}
+function cart_sum($company_id, $user_id)
+{
+    $total = 0;
+    $carts = \App\Models\Cart::where('company_id', $company_id)->where('user_id', $user_id)->get();
+    foreach ($carts as $cart) {
+        $total += $cart->price;
+    }
+    return $total;
+}
+
+function taxs()
+{
+    return settings('tax');
+}
+
+
+if (!function_exists('Client_type')) {
+    function Client_type()
     {
-        $total = 0;
-        $carts = \App\Models\Cart::where('company_id', $company_id)->where('user_id', $user_id)->get();
-        foreach ($carts as $cart) {
-            $total += $cart->price;
+        if (Auth::guard('client')->check()) {
+            return Auth::user()->type;
+        } else {
+            return "";
         }
-        return $total;
     }
+}
 
-    function taxs()
+if (!function_exists('Client_Company_Id')) {
+    function Client_Company_Id()
     {
-        return settings('tax');
-    }
-
-
-    if (!function_exists('Client_type')) {
-        function Client_type()
-        {
-            if (Auth::guard('client')->check()) {
-                return Auth::user()->type;
-            } else {
-                return "";
-            }
+        if (Auth::guard('client')->check()) {
+            return Auth::user()->company_id;
+        } else {
+            return null;
         }
     }
-
-    if (!function_exists('Client_Company_Id')) {
-        function Client_Company_Id()
-        {
-            if (Auth::guard('client')->check()) {
-                return Auth::user()->company_id;
-            } else {
-                return null;
-            }
-        }
-    }
-
 }

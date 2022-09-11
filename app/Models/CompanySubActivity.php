@@ -13,4 +13,14 @@ class CompanySubActivity extends Model
         'company_id',
         'activity_id',
     ];
+
+    public function Activity()
+    {
+        return $this->belongsTo(Activity::class, 'activity_id');
+    }
+
+    public function Company()
+    {
+        return $this->belongsTo(Company::class, 'company_id');
+    }
 }

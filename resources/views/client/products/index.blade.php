@@ -100,7 +100,7 @@
                                              data-kt-scroll-offset="300px">
 
                                             <!--begin::Input group-->
-                                            <input type="hidden" name="company_id" value="{{$data->id}}">
+                                            <input type="hidden" name="company_id" value="{{$data->company_id}}">
                                             <!--begin::Input group-->
                                             <div class="fv-row mb-7">
                                                 <!--begin::Label-->
@@ -168,7 +168,7 @@
                                                         required>
 
                                                     <option></option>
-                                                    @foreach(\App\Models\CompanyCategory::where('company_id',$data->id)->get() as $company)
+                                                    @foreach(\App\Models\CompanyCategory::where('company_id',$data->company_id)->get() as $company)
                                                         <option value="{{$company->id}}">{{$company->title}}</option>
                                                     @endforeach
                                                 </select>
@@ -528,7 +528,7 @@
                 ]
             });
             $.ajax({
-                url: "{{ URL::to('client/add-company_product-button/'.$data->id)}}",
+                url: "{{ URL::to('client/add-company_product-button/'.$data->company_id)}}",
                 success: function (data) {
                     $('.add_button3').append(data);
 

@@ -234,7 +234,6 @@ Route::group(['prefix' => 'client', 'namespace' => 'Client', 'middleware' => 'au
     Route::get('add-company_category-button/{company_id}', 'CompanyCategoryController@button');
 
 
-
 //    company Products
     Route::get('/client-company_product', 'CompanyProductController@index')->name('client.company_product');
     Route::get('company_product_datatable/{company_id}', 'CompanyProductController@datatable')->name('client.company_product.datatable.data');
@@ -253,6 +252,13 @@ Route::group(['prefix' => 'client', 'namespace' => 'Client', 'middleware' => 'au
         ->name('client-company_order.datatable.data');
     Route::get('show-client-company_order/{id}', 'CompanyOrderController@show');
     Route::post('store-order-branch', 'CompanyOrderController@AddToBranch');
+
+
+    Route::get('/client-company_sub_activity', 'CompanySubActivityController@index')->name('client.company_sub_activity');
+    Route::get('company_sub_activity_datatable/{company_id}', 'CompanySubActivityController@datatable')->name('client.company_sub_activity.datatable.data');
+    Route::get('delete-company_sub_activity', 'CompanySubActivityController@destroy');
+    Route::post('store-company_sub_activity', 'CompanySubActivityController@store');
+    Route::get('add-company_sub_activity-button/{company_id}', 'CompanySubActivityController@button');
 
 
 });
