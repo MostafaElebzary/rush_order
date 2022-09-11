@@ -252,6 +252,7 @@ Route::group(['prefix' => 'client', 'namespace' => 'Client', 'middleware' => 'au
         ->name('client-company_order.datatable.data');
     Route::get('show-client-company_order/{id}', 'CompanyOrderController@show');
     Route::post('store-order-branch', 'CompanyOrderController@AddToBranch');
+    Route::post('change-order-status', 'CompanyOrderController@ChangeStatus');
 
 
     Route::get('/client-company_sub_activity', 'CompanySubActivityController@index')->name('client.company_sub_activity');
@@ -259,6 +260,13 @@ Route::group(['prefix' => 'client', 'namespace' => 'Client', 'middleware' => 'au
     Route::get('delete-company_sub_activity', 'CompanySubActivityController@destroy');
     Route::post('store-company_sub_activity', 'CompanySubActivityController@store');
     Route::get('add-company_sub_activity-button/{company_id}', 'CompanySubActivityController@button');
+
+
+//    company Categories
+    Route::get('/client-company_works_time', 'CompanyWorksTimeController@index')->name('client.company_works_time');
+    Route::get('company_works_time_datatable/{company_id}', 'CompanyWorksTimeController@datatable')->name('client.company_works_time.datatable.data');
+    Route::get('edit-company_works_time/{id}', 'CompanyWorksTimeController@edit');
+    Route::post('update-company_works_time', 'CompanyWorksTimeController@update');
 
 
 });

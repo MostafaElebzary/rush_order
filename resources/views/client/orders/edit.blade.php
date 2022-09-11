@@ -95,23 +95,49 @@
                                                             </div>
                                                             <div class="flex-root d-flex flex-column">
                                                                 <span class="text-muted">حالة الطلب</span>
-                                                                <span class="fs-5">
-                                                                @if($data->status == 0)
-                                                                        <span
-                                                                            class="badge badge-light-success fw-bolder">فى الانتظار</span>
-                                                                    @elseif($data->status == 1)
-                                                                        <span
-                                                                            class="badge badge-light-success fw-bolder">تم القبول</span>
-                                                                    @elseif($data->status == 2)
-                                                                        <span
-                                                                            class="badge badge-light-success fw-bolder">جارى تنفيذ الطلب</span>
-                                                                    @elseif($data->status == 3)
-                                                                        <span
-                                                                            class="badge badge-light-success fw-bolder">تم توصيل الطلب</span>
-                                                                    @elseif($data->status == 4)
-                                                                        <span
-                                                                            class="badge badge-light-danger fw-bolder">تم الالغاء</span>
-                                                                    @endif
+                                                                @if(Client_type() == "Manager")
+                                                                    <span class="fs-5">
+                                                                        @if($data->status == 0)
+                                                                            <span
+                                                                                class="badge badge-light-success fw-bolder">فى الانتظار</span>
+                                                                        @elseif($data->status == 1)
+                                                                            <span
+                                                                                class="badge badge-light-success fw-bolder">تم القبول</span>
+                                                                        @elseif($data->status == 2)
+                                                                            <span
+                                                                                class="badge badge-light-success fw-bolder">جارى تنفيذ الطلب</span>
+                                                                        @elseif($data->status == 3)
+                                                                            <span
+                                                                                class="badge badge-light-success fw-bolder">تم توصيل الطلب</span>
+                                                                        @elseif($data->status == 4)
+                                                                            <span
+                                                                                class="badge badge-light-danger fw-bolder">تم الالغاء</span>
+                                                                        @endif
+                                                                        @else
+                                                                            <span
+                                                                                class="fs-6">
+                                                                            <button type="button" class="btn"
+                                                                                    data-bs-toggle="modal"
+                                                                                    data-bs-target="#kt_modal_add_user2">
+                                                                                 @if($data->status == 0)
+                                                                                    <span
+                                                                                        class="badge badge-light-success fw-bolder">فى الانتظار</span>
+                                                                                @elseif($data->status == 1)
+                                                                                    <span
+                                                                                        class="badge badge-light-success fw-bolder">تم القبول</span>
+                                                                                @elseif($data->status == 2)
+                                                                                    <span
+                                                                                        class="badge badge-light-success fw-bolder">جارى تنفيذ الطلب</span>
+                                                                                @elseif($data->status == 3)
+                                                                                    <span
+                                                                                        class="badge badge-light-success fw-bolder">تم توصيل الطلب</span>
+                                                                                @elseif($data->status == 4)
+                                                                                    <span
+                                                                                        class="badge badge-light-danger fw-bolder">تم الالغاء</span>
+                                                                                @endif
+                                                                            </button>
+                                                                                </span>
+                                                                        @endif
 
                                                             </span>
                                                             </div>
@@ -437,6 +463,101 @@
             <!--end::Modal dialog-->
         </div>
         <!--end::Modal - Add task-->
+
+        <!--begin::Modal - Add task-->
+        <div class="modal fade" id="kt_modal_add_user2" tabindex="-1" aria-hidden="true">
+            <!--begin::Modal dialog-->
+            <div class="modal-dialog modal-dialog-centered mw-650px">
+                <!--begin::Modal content-->
+                <div class="modal-content">
+                    <!--begin::Modal header-->
+                    <div class="modal-header" id="kt_modal_add_user2_header">
+                        <!--begin::Modal title-->
+                        <h2 class="fw-bolder">تخصيص لفرع </h2>
+                        <!--end::Modal title-->
+                        <!--begin::Close-->
+                        <div class="btn btn-icon btn-sm btn-active-icon-primary"
+                             data-bs-dismiss="modal">
+                            <!--begin::Svg Icon | path: icons/duotune/arrows/arr061.svg-->
+                            <span class="svg-icon svg-icon-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                     viewBox="0 0 24 24" fill="none">
+                                    <rect opacity="0.5" x="6" y="17.3137" width="16" height="2" rx="1"
+                                          transform="rotate(-45 6 17.3137)" fill="black"/>
+                                    <rect x="7.41422" y="6" width="16" height="2" rx="1"
+                                          transform="rotate(45 7.41422 6)" fill="black"/>
+                                </svg>
+                            </span>
+                            <!--end::Svg Icon-->
+                        </div>
+                        <!--end::Close-->
+                    </div>
+                    <!--end::Modal header-->
+                    <!--begin::Modal body-->
+                    <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
+                        <!--begin::Form-->
+                        <form id="" class="form" method="post" action="{{url('client/change-order-status')}}"
+                              enctype="multipart/form-data">
+                        @csrf
+                        <!--begin::Scroll-->
+                            <div class="d-flex flex-column scroll-y me-n7 pe-7"
+                                 id="kt_modal_add_use2r_scroll" data-kt-scroll="true"
+                                 data-kt-scroll-activate="{default: false, lg: true}"
+                                 data-kt-scroll-max-height="auto"
+                                 data-kt-scroll-dependencies="#kt_modal_add_user2_header"
+                                 data-kt-scroll-wrappers="#kt_modal_add_user2_scroll"
+                                 data-kt-scroll-offset="300px">
+
+
+                                <div class="fv-row mb-7">
+                                    <!--begin::Label-->
+                                    <label class="required fw-bold fs-6 mb-2">اختر الحاله</label>
+                                    <!--end::Label-->
+                                    <input type="hidden" name="id" value="{{$data->id}}">
+                                    <!--begin::Input-->
+                                    <select class="form-select form-select-solid" name="status"
+                                            data-control="select2" data-dropdown-parent="#kt_modal_add_user2"
+                                            data-placeholder="اختر الحاله" data-allow-clear="true">
+
+                                        <option></option>
+                                        <option value="1">تم القبول</option>
+                                        <option value="2">جارى تنفيذ الطلب</option>
+                                        <option value="3">تم توصيل الطلب</option>
+                                        <option value="4">تم الالغاء</option>
+
+
+                                    </select>
+                                    <!--end::Input-->
+                                </div>
+
+
+                            </div>
+                            <!--end::Scroll-->
+                            <!--begin::Actions-->
+                            <div class="text-center pt-15">
+                                <button type="reset" class="btn btn-light me-3"
+                                        data-bs-dismiss="modal">ألغاء
+                                </button>
+                                <button type="submit" class="btn btn-primary"
+                                        data-kt-users-modal-action="submit">
+                                    <span class="indicator-label">حفظ</span>
+                                    <span class="indicator-progress">برجاء الانتظار
+                                    <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                </button>
+                            </div>
+                            <!--end::Actions-->
+                        </form>
+                        <!--end::Form-->
+                    </div>
+                    <!--end::Modal body-->
+                </div>
+                <!--end::Modal content-->
+            </div>
+            <!--end::Modal dialog-->
+        </div>
+        <!--end::Modal - Add task-->
+
+
         <!--end::Content-->
 
     </div>

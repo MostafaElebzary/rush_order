@@ -116,5 +116,23 @@ class CompanyOrderController extends Controller
         return redirect()->back()->with('message', 'تم التعيين بنجاح')->with('status', 'success');
     }
 
+    public function ChangeStatus(Request $request)
+    {
+        $rule = [
+            'id' => 'required',
+            'status' => 'required|in:0,1,2,3,4',
+
+        ];
+        $validate = Validator::make($request->all(), $rule);
+        if ($validate->fails()) {
+            return redirect()->back()->with('message', $validate->messages()->first())->with('status', 'error');
+        }
+
+        $order = Order::whereId($request->id)->firstOrFail();
+        $order->status = $request->status;
+        $order->save();
+
+        return redirect()->back()->with('message', 'تم التعيين بنجاح')->with('status', 'success');
+    }
 
 }

@@ -61,7 +61,7 @@
                          data-kt-scroll-offset="300px">
 
                         <!--begin::Input group-->
-                        <input type="hidden" name="company_id" value="{{$data->company_id}}">
+                        <input type="hidden" name="company_id" value="{{$data->id}}">
                         <div class="fv-row mb-7">
                             <!--begin::Label-->
                             <label class="required fw-bold fs-6 mb-2">الاسم بالعربية </label>

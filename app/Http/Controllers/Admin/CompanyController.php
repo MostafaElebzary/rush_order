@@ -154,8 +154,8 @@ class CompanyController extends Controller
             CompanyWorkTime::create([
                 'company_id' => $data->id,
                 'day' => $day,
-                'open_time' => "09:00:00",
-                'close_time' => "23:00:00",
+                'open_time' => "09:00",
+                'close_time' => "23:00",
             ]);
         }
 

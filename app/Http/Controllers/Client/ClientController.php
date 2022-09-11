@@ -23,7 +23,6 @@ class ClientController extends Controller
     {
         // $query['data'] = Admin::orderBy('id','desc')->get();
         // $query['data'] = Admin::orderBy('id','desc')->paginate(10);
-
         return view('client.clients.index');
     }
 
@@ -148,6 +147,7 @@ class ClientController extends Controller
         $query['data'] = Client::findOrFail($id);
         return view('client.clients.edit', $query);
     }
+
     public function profile()
     {
 
@@ -199,6 +199,7 @@ class ClientController extends Controller
 
         return redirect(route('client.client'))->with('message', 'تم التعديل بنجاح')->with('status', 'success');
     }
+
     public function updateProfile(Request $request)
     {
 

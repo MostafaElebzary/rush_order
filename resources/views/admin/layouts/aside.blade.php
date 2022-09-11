@@ -314,10 +314,10 @@
         <div class="aside-user d-flex align-items-sm-center justify-content-center py-5">
             <!--begin::Symbol-->
             <div class="symbol symbol-50px">
-                @if (Auth::user()->photo == NULL || empty(Auth::user()->photo))
+                @if (Auth::user()->image == NULL || empty(Auth::user()->image))
                     <img src="{{asset('/admin/assets/media/avatars/blank.png')}}" alt="{{Auth::user()->name}}">
                 @else
-                    <img src="{{Auth::user()->photo}}" alt="{{Auth::user()->name}}">
+                    <img src="{{Auth::user()->image}}" alt="{{Auth::user()->name}}">
                 @endif
             </div>
             <!--end::Symbol-->
