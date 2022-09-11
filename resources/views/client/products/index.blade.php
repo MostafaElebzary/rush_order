@@ -514,7 +514,7 @@
                     // {extend: 'colvis', className: 'btn secondary', text: 'إظهار / إخفاء الأعمدة '}
                 ],
                 ajax: {
-                    url: '{{ route('client.company_product.datatable.data',$data->id)}}',
+                    url: '{{ route('client.company_product.datatable.data',$data->company_id)}}',
                     data: {}
                 },
                 columns: [

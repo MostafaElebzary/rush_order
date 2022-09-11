@@ -10,7 +10,7 @@ class Order extends Model
     use HasFactory;
 
     protected $fillable = ['user_id', 'company_id', 'user_name', 'user_state', 'user_city', 'user_address', 'payment_type'
-        , 'total_price', 'status', 'user_address_id', 'delivery_price', 'order_price',];
+        , 'total_price', 'status', 'user_address_id', 'delivery_price', 'order_price','branch_id'];
 
     public function User()
     {
@@ -20,6 +20,11 @@ class Order extends Model
     public function Company()
     {
         return $this->belongsTo(Company::class, 'company_id');
+    }
+
+    public function Branch()
+    {
+        return $this->belongsTo(Branch::class, 'branch_id');
     }
 
     public function UserAddress()

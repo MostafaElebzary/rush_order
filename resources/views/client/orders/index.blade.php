@@ -28,20 +28,12 @@
                             <!--begin::Table row-->
 
                             <tr class="text-start text-muted fw-bolder fs-5 text-uppercase gs-0">
-                                <th class="w-10px pe-2">
-                                    <div
-                                        class="form-check form-check-sm form-check-custom form-check-solid me-3">
-                                        <input class="form-check-input" type="checkbox"
-                                               data-kt-check="true"
-                                               data-kt-check-target="#data_table .form-check-input"
-                                               value=""/>
-                                    </div>
-                                </th>
-
-                                <th class="min-w-125px">الاسم</th>
-                                <th class="min-w-125px">المدينة</th>
-                                <th class="min-w-125px">وقت التوصيل</th>
-                                <th class=" min-w-100px">الاجراءات</th>
+                                <th class="min-w-125px">رقم الفاتورة</th>
+                                <th class="min-w-125px">اسم العميل</th>
+                                <th class="min-w-125px">رقم جوال العميل</th>
+                                <th class="min-w-125px">السعر</th>
+                                <th class="min-w-125px">الحالة</th>
+                                <th class="min-w-125px">الاجرائات</th>
                             </tr>
                             <!--end::Table row-->
                             </thead>
@@ -101,25 +93,27 @@
                     // {extend: 'colvis', className: 'btn secondary', text: 'إظهار / إخفاء الأعمدة '}
                 ],
                 ajax: {
-                    url: '{{ route('client.branch.datatable.data',$data->company_id)}}',
+                    url: '{{ route('client-company_order.datatable.data',$data->company_id)}}',
                     data: {}
                 },
                 columns: [
-                    {data: 'checkbox', name: 'checkbox', "searchable": false, "orderable": false},
-                    {data: 'title', name: 'title', "searchable": true, "orderable": true},
-                    {data: 'city', name: 'city', "searchable": true, "orderable": true},
-                    {data: 'delivery_time', name: 'delivery_time', "searchable": true, "orderable": true},
+                    {data: 'id', name: 'id', "searchable": true, "orderable": true},
+                    {data: 'user_name', name: 'user_name', "searchable": true, "orderable": true},
+                    {data: 'phone', name: 'phone', "searchable": true, "orderable": true},
+                    {data: 'total_price', name: 'total_price', "searchable": true, "orderable": true},
+                    {data: 'status', name: 'status', "searchable": true, "orderable": true},
                     {data: 'actions', name: 'actions', "searchable": false, "orderable": false},
+
 
                 ]
             });
-            $.ajax({
-                url: "{{ URL::to('client/add-branch-button/'.$data->company_id)}}",
-                success: function (data) {
-                    $('.add_button').append(data);
-                },
-                dataType: 'html'
-            });
+            {{--$.ajax({--}}
+            {{--    url: "{{ URL::to('client/add-branch-button/'.$data->id)}}",--}}
+            {{--    success: function (data) {--}}
+            {{--        $('.add_button').append(data);--}}
+            {{--    },--}}
+            {{--    dataType: 'html'--}}
+            {{--});--}}
         });
     </script>
 

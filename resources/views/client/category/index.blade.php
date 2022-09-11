@@ -257,7 +257,7 @@
                     // {extend: 'colvis', className: 'btn secondary', text: 'إظهار / إخفاء الأعمدة '}
                 ],
                 ajax: {
-                    url: '{{ route('client.company_category.datatable.data',$data->id)}}',
+                    url: '{{ route('client.company_category.datatable.data',$data->company_id)}}',
                     data: {}
                 },
                 columns: [
@@ -271,7 +271,7 @@
                 ]
             });
             $.ajax({
-                url: "{{ URL::to('client/add-company_category-button/'.$data->id)}}",
+                url: "{{ URL::to('client/add-company_category-button/'.$data->company_id)}}",
                 success: function (data) {
                     $('.add_button2').append(data);
                     check_cards = true;

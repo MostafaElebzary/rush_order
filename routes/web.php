@@ -247,6 +247,12 @@ Route::group(['prefix' => 'client', 'namespace' => 'Client', 'middleware' => 'au
     Route::get('add-company_product-button/{company_id}', 'CompanyProductController@button');
 
 
+//    company Order
+    Route::get('/client-company_order', 'CompanyOrderController@index')->name('client.company_order');
+    Route::get('client-company_order_datatable/{company_id}', 'CompanyOrderController@datatable')
+        ->name('client-company_order.datatable.data');
+    Route::get('show-client-company_order/{id}', 'CompanyOrderController@show');
+    Route::post('store-order-branch', 'CompanyOrderController@AddToBranch');
 
 
 });
