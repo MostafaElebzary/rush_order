@@ -268,6 +268,9 @@ Route::group(['prefix' => 'client', 'namespace' => 'Client', 'middleware' => 'au
     Route::get('edit-company_works_time/{id}', 'CompanyWorksTimeController@edit');
     Route::post('update-company_works_time', 'CompanyWorksTimeController@update');
 
+//    wallet
+    Route::get('/wallet', 'WalletController@index')->name('client.wallet');
+    Route::get('wallet_datatable', 'WalletController@datatable')->name('client.wallet.datatable.data');
 
 });
 
