@@ -382,7 +382,7 @@
                                                 <input type="text" name="maroof_id"
                                                        class="form-control form-control-solid mb-3 mb-lg-0"
                                                        value="{{old('maroof_id')}}" placeholder="الرقم المعرف لمعروف"
-                                                       />
+                                                />
                                                 <!--end::Input-->
                                             </div>
                                             <div class="fv-row mb-7">
@@ -433,8 +433,9 @@
                                                 <label class="form-check-label" for="us1">الموقع على الخريطه</label>
                                                 <input type="hidden" value="" id="lat" name="lat">
                                                 <input type="hidden" value="" id="lng" name="lng">
-                                                <input type="text" id="search_input" placeholder=" أبحث  بالمكان او اضغط على الخريطه" />
-                                                <input type="hidden" id="information"  />
+                                                <input type="text" id="search_input"
+                                                       placeholder=" أبحث  بالمكان او اضغط على الخريطه"/>
+                                                <input type="hidden" id="information"/>
                                                 <div id="us1" style="width: 100%; height: 250px;"></div>
                                             </div>
                                             <!--end::Input group-->
@@ -538,8 +539,6 @@
     <script>
 
 
-
-
         if (document.getElementById('us1')) {
             var content;
             var latitude = 24.69670448385797;
@@ -563,7 +562,7 @@
                 map = new google.maps.Map(document.getElementById("us1"), mapOptions);
 
                 content = document.getElementById('information');
-                google.maps.event.addListener(map, 'click', function(e) {
+                google.maps.event.addListener(map, 'click', function (e) {
                     placeMarker(e.latLng);
                 });
 
@@ -572,7 +571,7 @@
 
                 var searchBox = new google.maps.places.SearchBox(input);
 
-                google.maps.event.addListener(searchBox, 'places_changed', function() {
+                google.maps.event.addListener(searchBox, 'places_changed', function () {
                     var places = searchBox.getPlaces();
                     placeMarker(places[0].geometry.location);
                 });
@@ -590,14 +589,13 @@
             content.innerHTML = "Lat: " + location.lat() + " / Long: " + location.lng();
             $("#lat").val(location.lat());
             $("#lng").val(location.lng());
-            google.maps.event.addListener(marker, 'click', function(e) {
+            google.maps.event.addListener(marker, 'click', function (e) {
                 new google.maps.InfoWindow({
                     content: "Lat: " + location.lat() + " / Long: " + location.lng()
-                }).open(map,marker);
+                }).open(map, marker);
 
             });
         }
-
 
 
         function showInput() {
