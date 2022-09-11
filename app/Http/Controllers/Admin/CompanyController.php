@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Client;
 use App\Models\Company;
 use App\Models\CompanyUser;
+use App\Models\CompanyWorkTime;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -138,6 +139,25 @@ class CompanyController extends Controller
             'password' => $request->password,
 
         ]);
+
+        $weekDays = [
+            'Saturday',
+            'Sunday',
+            'Monday',
+            'Tuesday',
+            'Wednesday',
+            'Thursday',
+            'Friday'
+        ];
+        foreach ($weekDays as $day) {
+
+            CompanyWorkTime::create([
+                'company_id' => $data->id,
+                'day' => $day,
+                'open_time' => "09:00:00",
+                'close_time' => "23:00:00",
+            ]);
+        }
 
 
         return redirect()->back()->with('message', 'تم الاضافة بنجاح')->with('status', 'success');

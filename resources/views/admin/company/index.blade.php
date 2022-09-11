@@ -313,7 +313,7 @@
                                                         data-hide-search="false" data-placeholder="إختر نوع النشاط"
                                                         required>
                                                     <option disabled value="">إختر نوع النشاط</option>
-                                                    @foreach(\App\Models\Activity::all() as $activity)
+                                                    @foreach(\App\Models\Activity::whereNull('parent_id')->get() as $activity)
                                                         <option value="{{$activity->id}}">{{$activity->title}}</option>
                                                     @endforeach
                                                 </select>
