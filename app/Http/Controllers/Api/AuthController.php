@@ -125,6 +125,61 @@ class AuthController extends Controller
         if ($validate->fails()) {
             return response()->json(msg(failed(), $validate->messages()->first()));
         } else {
+            
+
+            if ($request->oldpassword) {
+                $credentials = $request->only(['phone', 'password']);
+                $token = Auth::attempt($credentials);
+
+                if (!$token) {
+                    return msg(failed(), trans('lang.not_authorized'));
+                }
+            }
+
+            $data = User::where('phone', $request->phone)->first();
+
+            if ($data) {
+                $data->password = $request->password;
+                $data->jwt = Str::random(60);
+                $data->save();
+                return $this->get_profile($data->id);
+
+            } else {
+                return response()->json(msg(not_found(), trans('lang.not_found')));
+
+            }
+
+        }
+
+    }
+
+    public function change_profile(Request $request)
+    {
+
+        $jwt = ($request->hasHeader('jwt') ? $request->header('jwt') : "");
+        $user = check_jwt($jwt);
+        if ($user){
+            $data = User::where('phone', $user->phone)->first();
+            $data->first_name = $request->first_name;
+            $data->last_name = $request->last_name;
+            $data->email = $request->email ;
+            $data->jwt = Str::random(60);
+            $data->save();
+            return $this->get_profile($data->id);
+        }else{
+            return msg(failed(), trans('lang.not_authorized'));
+
+        }
+
+        $rule = [
+            'phone' => 'required|exists:users,phone',
+            'password' => 'required|min:6'
+        ];
+
+        $validate = Validator::make($request->all(), $rule);
+        if ($validate->fails()) {
+            return response()->json(msg(failed(), $validate->messages()->first()));
+        } else {
             $data = User::where('phone', $request->phone)->first();
 
             if ($data) {

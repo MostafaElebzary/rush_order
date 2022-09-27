@@ -28,12 +28,14 @@ Route::post('/check-code', [AuthController::class, 'CheckCode']);
 Route::post('/register', [AuthController::class, 'Register']);
 Route::post('/login', [AuthController::class, 'login']);
 Route::post('/change-password', [AuthController::class, 'change_password']);
+Route::post('/change-profile', [AuthController::class, 'change_profile']);
 Route::get('/get-profile', [AuthController::class, 'get_profile_data']);
 // Home
 Route::get('/user-notification', [AuthController::class, 'UserNotification']);
 Route::get('/offers', [HomeController::class, 'Offers']);
 Route::get('/main-categories', [HomeController::class, 'MainCategories']);
 Route::get('/sub-categories/{id}', [HomeController::class, 'SubCategories']);
+Route::get('/search', [HomeController::class, 'search']);
 Route::get('/branches', [HomeController::class, 'branches']);
 Route::get('/branch-categories/{branch_id}', [HomeController::class, 'branch_Categories']);
 Route::get('/branch-products/{branch_id}', [HomeController::class, 'branch_products']);
@@ -50,7 +52,9 @@ Route::get('/decrease-qty/{id}', [CartController::class, 'DecreaseQty']);
 //Order
 Route::post('/place-order', [OrderController::class, 'PlaceOrder']);
 Route::get('/get-orders', [OrderController::class, 'getOrders']);
+Route::get('/get-orders-tap', [OrderController::class, 'getOrdersTap']);
 Route::get('/delete-order/{id}', [OrderController::class, 'deleteOrder']);
+Route::get('/get-copoun/{id}', [OrderController::class, 'getcopoun']);
 
 //user addresses
 Route::get('/user-address', [UserAddressController::class, 'UserAddresses']);

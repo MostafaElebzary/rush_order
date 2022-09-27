@@ -14,6 +14,14 @@ class CompanyProductResource extends JsonResource
      */
     public function toArray($request)
     {
+        foreach ($this->attributes as $key => $attrrib) {
+
+            $return = array();
+            foreach($this->attributes as $v) {
+                $return[$v->attribute_name_en][]= $v;
+            }
+        }
+
         return [
             'id' => (int)$this->id,
             'company_id' => (int)$this->company_id,
@@ -23,7 +31,7 @@ class CompanyProductResource extends JsonResource
             'image' => (string)$this->image,
             'price' => (double)$this->price,
             'type' => (string)$this->type,
-            'attributes' => (array)$this->attributes,
+            'attributes' => (array)$return,
             'additions' => (array)$this->additions,
             'drinks' => (array)$this->drinks,
 

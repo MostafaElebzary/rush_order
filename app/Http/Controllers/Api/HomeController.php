@@ -44,6 +44,28 @@ class HomeController extends Controller
         return response()->json(msgdata(success(), trans('lang.success'), $data));
     }
 
+    public function search(Request $request)
+    {
+
+        $query = Branch::whereHas('Company', function ($q) use ($request) {
+            if ($request->search) {
+                $q->where('title_ar', 'like', '%' . $request->search . '%')
+                    ->orwhere('title_en', 'like', '%' . $request->search . '%');
+            }
+        });
+
+        $query->with(['Company' => function ($q2) use ($request) {
+            $q2->with('CompanySubActivities')
+                ->with('CompanyWorkTime')
+                ->with('Rates');
+        }]);
+
+        $data = $query->paginate(5);
+        $data = BranchsResource::collection($data)->response()->getData(true);
+        return response()->json(msgdata(success(), trans('lang.success'), $data));
+
+    }
+
     public function branches(Request $request)
     {
         $query = Branch::whereHas('Company', function ($q) use ($request) {

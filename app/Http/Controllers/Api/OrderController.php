@@ -117,6 +117,26 @@ class OrderController extends Controller
         return msg(failed(), trans('lang.not_authorized'));
     }
 
+
+    public function getcopoun(Request $request, $id)
+    {
+        $jwt = ($request->hasHeader('jwt') ? $request->header('jwt') : "");
+        $user = check_jwt($jwt);
+        if ($user) {
+
+            $copoun = Copoun::where('code', $id)->first();
+            if (!$copoun) {
+                return msg(not_found(), trans('lang.not_found'));
+            } else {
+                return response()->json(msgdata(success(), trans('lang.success'), $copoun));
+            }
+
+        } else {
+            return msg(failed(), trans('lang.not_authorized'));
+        }
+
+    }
+
     public function getOrders(Request $request)
     {
         $jwt = ($request->hasHeader('jwt') ? $request->header('jwt') : "");
@@ -126,6 +146,25 @@ class OrderController extends Controller
             $orders = Order::where('user_id', $user->id)->with('Company')->with('OrderProducts');
             if ($request->status) {
                 $orders = $orders->where('status', $request->status);
+            }
+            $orders = $orders->paginate(10);
+            $data = OrderResources::collection($orders)->response()->getData(true);
+            return response()->json(msgdata(success(), trans('lang.success'), $data));
+        }
+        return msg(failed(), trans('lang.not_authorized'));
+    }
+
+    public function getOrdersTap(Request $request)
+    {
+        $jwt = ($request->hasHeader('jwt') ? $request->header('jwt') : "");
+        $user = check_jwt($jwt);
+        if ($user) {
+
+            $orders = Order::where('user_id', $user->id)->with('Company')->with('OrderProducts')->orderBy('id','desc');
+            if ($request->status == "new") {
+                $orders = $orders->whereIn('status', [0, 1, 2]);
+            } else {
+                $orders = $orders->whereIn('status', [3, 4]);
             }
             $orders = $orders->paginate(10);
             $data = OrderResources::collection($orders)->response()->getData(true);

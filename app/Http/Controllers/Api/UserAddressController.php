@@ -30,9 +30,15 @@ class UserAddressController extends Controller
             if (!$address) {
                 return msg(not_found(), trans('lang.not_found'));
             }
+
             if ($address->is_default == 0) {
                 $address->is_default = 1;
+
+                $data = UserAddress::where('id', '!=',$id)->where('is_default', 1)->update([
+                    'is_default' => 0
+                ]);
             } else {
+
                 $address->is_default = 0;
             }
             $address->save();
