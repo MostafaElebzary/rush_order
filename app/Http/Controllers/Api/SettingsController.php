@@ -29,6 +29,7 @@ class SettingsController extends Controller
             'phone' => 'required',
             'msg' => 'required|string',
 
+
         ];
 
         $validate = Validator::make($request->all(), $rule);
