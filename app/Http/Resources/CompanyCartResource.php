@@ -19,7 +19,8 @@ class CompanyCartResource extends JsonResource
         return [
             'id' => $this->id,
             'title' => $this->title,
-            'sub_categories' => ActivityResource::collection($this->CompanySubActivities),
+            'sub_categories' => CompanyCategoryResource::collection($this->CompanyCategories),
+            'location' => $this->location,
             'cart' => CartResource::collection($this->carts),
             'total' => cart_sum($this->id, self::$user_id),
             'tax' => cart_sum($this->id, self::$user_id) * taxs() / 100,

@@ -34,7 +34,7 @@ class CartController extends Controller
             }
             $product = CompanyProduct::where('id', $request->product_id)->first();
             if ($request->attribute != null || $request->additions != null || $request->drinks != null) {
-//                every quantity will be alone in db
+                //every quantity will be alone in db
                 for ($i = 0; $i < $request->qty; $i++) {
                     Cart::create([
                         'user_id' => $user->id,
@@ -86,6 +86,7 @@ class CartController extends Controller
             $companies = Company::whereHas('carts', function ($q) use ($user) {
                 $q->where('user_id', $user->id);
             })->with('carts')->get();
+            // dd($companies);
             $data = CompanyCartResource::customCollection($companies, $user->id);
             return response()->json(msgdata(success(), trans('lang.success'), $data));
         }

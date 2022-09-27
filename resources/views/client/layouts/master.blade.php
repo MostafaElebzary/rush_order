@@ -4,12 +4,10 @@
 <!--begin::Head-->
 <head>
     <base href="">
-    <title>Rush order</title>
+    <title>{{settings('site_title')}}</title>
     <meta charset="utf-8"/>
-    <meta name="description"
-          content="The most advanced Bootstrap client Theme on Themeforest trusted by 94,000 beginners and professionals. Multi-demo, Dark Mode, RTL support and complete React, Angular, Vue &amp; Laravel versions. Grab your copy now and get life-time updates for free."/>
-    <meta name="keywords"
-          content="Metronic, bootstrap, bootstrap 5, Angular, VueJs, React, Laravel, client themes, web design, figma, web development, free templates, free client themes, bootstrap theme, bootstrap template, bootstrap dashboard, bootstrap dak mode, bootstrap button, bootstrap datepicker, bootstrap timepicker, fullcalendar, datatables, flaticon"/>
+    <meta name="description" content=""/>
+    <meta name="keywords" content=""/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     @include('client.layouts.head')
