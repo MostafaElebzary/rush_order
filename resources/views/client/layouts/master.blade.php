@@ -4,7 +4,7 @@
 <!--begin::Head-->
 <head>
     <base href="">
-    <title>{{settings('site_title')}}</title>
+    <title>{{strip_tags(settings('site_title'))}}</title>
     <meta charset="utf-8"/>
     <meta name="description" content=""/>
     <meta name="keywords" content=""/>

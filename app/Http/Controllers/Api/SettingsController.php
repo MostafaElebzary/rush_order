@@ -28,6 +28,7 @@ class SettingsController extends Controller
             'email' => 'nullable|email',
             'phone' => 'required',
             'msg' => 'required|string',
+            'type' => 'nullable|in:0,1',
 
 
         ];
@@ -41,6 +42,7 @@ class SettingsController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'msg' => $request->msg,
+            'type' => $request->type,
 
         ]);
 

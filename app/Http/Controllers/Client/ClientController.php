@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Client;
+use App\Models\Company;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
@@ -246,4 +247,80 @@ class ClientController extends Controller
 
     }
 
+
+    public function company_profile()
+    {
+
+        // $query['data'] = Admin::where('id', $id)->get();
+        $client = Client::findOrFail(Auth::guard('client')->user()->id);
+        $query['data'] = Company::findOrFail($client->company_id);
+        return view('client.clients.company', $query);
+    }
+
+
+    public function updateCompanyProfile(Request $request)
+    {
+
+        $rule = [
+            'title_ar' => 'required|string',
+            'title_en' => 'required|string',
+            'logo' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
+            'banner' => 'nullable|image|mimes:png,jpg,jpeg|max:2048',
+            'location' => 'required',
+            'phone1' => 'required|unique:companies,phone1,' . $request->id,
+            'phone2' => 'nullable|unique:companies,phone2,' . $request->id,
+            'email1' => 'required|email|unique:companies,email1,' . $request->id,
+            'email2' => 'nullable|email|unique:companies,email2,' . $request->id,
+            'activity_id' => 'required|exists:activities,id',
+            'owner_name' => 'required',
+            'owner_phone' => 'required',
+            'ceo_name' => 'required',
+            'ceo_phone' => 'required',
+            'commercial_file' => 'nullable',
+            'maroof_id' => 'nullable',
+            'lat' => 'nullable',
+            'lng' => 'nullable',
+            'is_active' => 'required|in:0,1',
+            'expire_date' => 'required|date',
+            'delivery_price' => 'required',
+
+        ];
+        $validate = Validator::make($request->all(), $rule);
+        if ($validate->fails()) {
+            return redirect()->back()->with('message', $validate->messages()->first())->with('status', 'error');
+        }
+
+        $row = Company::findOrFail($request->id);
+
+        if ($request->logo) {
+            $row->logo = $request->logo;
+        }
+        if ($request->banner) {
+            $row->banner = $request->banner;
+        }
+        $row->title_ar = $request->title_ar;
+        $row->title_en = $request->title_en;
+        $row->location = $request->location;
+        $row->phone1 = $request->phone1;
+        $row->phone2 = $request->phone2;
+        $row->email1 = $request->email1;
+        $row->email2 = $request->email2;
+        $row->activity_id = $request->activity_id;
+        $row->owner_name = $request->owner_name;
+        $row->owner_phone = $request->owner_phone;
+        $row->ceo_name = $request->ceo_name;
+        $row->ceo_phone = $request->ceo_phone;
+        $row->commercial_file = $request->commercial_file;
+        $row->maroof_id = $request->maroof_id;
+        $row->lat = $request->lat;
+        $row->lng = $request->lng;
+        $row->is_active = $request->is_active;
+        $row->expire_date = $request->expire_date;
+        $row->delivery_price = $request->delivery_price;
+        $row->save();
+
+
+
+        return redirect()->back()->with('message', 'تم التعديل بنجاح')->with('status', 'success');
+    }
 }

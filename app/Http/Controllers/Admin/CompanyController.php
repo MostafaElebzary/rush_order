@@ -238,13 +238,7 @@ class CompanyController extends Controller
         $row->delivery_price = $request->delivery_price;
         $row->save();
 
-        $company_user = CompanyUser::where('company_id', $row->id)->first();
-        $company_user->name = $row->title_ar;
-        $company_user->email = $row->email1;
-        $company_user->phone = $row->phone1;
-        $company_user->password = $row->password;
-        $company_user->is_active = $row->is_active;
-        $company_user->save();
+
 
         return redirect(route('company'))->with('message', 'تم التعديل بنجاح')->with('status', 'success');
     }

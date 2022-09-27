@@ -278,6 +278,12 @@
                                     href="{{url('client/profile-client')}}"
                                     class="menu-link px-5">حسابي</a>
                             </div>
+                            <div class="menu-item px-5">
+
+                                <a
+                                    href="{{url('client/profile-company')}}"
+                                    class="menu-link px-5">بيانات المؤسسة</a>
+                            </div>
                             <!--end::Menu item-->
 
                             <!--begin::Menu item-->

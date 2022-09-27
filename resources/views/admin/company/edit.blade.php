@@ -194,7 +194,7 @@
                                                             data-hide-search="false" data-placeholder="إختر نوع النشاط"
                                                             required>
                                                         <option disabled value="">إختر نوع النشاط</option>
-                                                        @foreach(\App\Models\Activity::all() as $activity)
+                                                        @foreach(\App\Models\Activity::root()->get() as $activity)
                                                             <option @if($data->activity_id == $activity->id) selected
                                                                     @endif
                                                                     value="{{$activity->id}}">{{$activity->title}}</option>
@@ -722,7 +722,7 @@
                             <!--begin::Modal body-->
                             <div class="modal-body scroll-y mx-5 mx-xl-15 my-7">
                                 <!--begin::Form-->
-                                <form id="" class="form" method="post" action="{{url('admin/store-company_category')}}"
+                                <form  class="form" method="post" action="{{url('admin/store-company_category')}}"
                                       enctype="multipart/form-data">
                                 @csrf
                                 <!--begin::Scroll-->
@@ -1146,7 +1146,6 @@
     </div>
     <!--end::Content-->
 
-
 @endsection
 
 @section('js')
@@ -1154,8 +1153,92 @@
     <script src="{{asset('/admin')}}/assets/plugins/custom/datatables/datatables.bundle.js"></script>
     <script type="text/javascript"
             src='https://maps.google.com/maps/api/js?sensor=false&libraries=places&key=AIzaSyAIcQUxj9rT_a3_5GhMp-i6xVqMrtasqws&language=ar'></script>
+    <script>
 
 
+        if (document.getElementById('us1')) {
+            var content;
+            var latitude = 24.69670448385797;
+            var longitude = 46.690517596875;
+            var map;
+            var marker;
+            @if($data->lat)
+                latitude =  {{$data->lat}};
+            @endif
+                @if($data->lng)
+                longitude = {{$data->lng}};
+            @endif
+            navigator.geolocation.getCurrentPosition(loadMap);
+
+
+            function loadMap(location) {
+
+                var myLatlng = new google.maps.LatLng(latitude, longitude);
+                console.log(myLatlng)
+                var mapOptions = {
+                    zoom: 8,
+                    center: myLatlng,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP,
+
+                };
+                map = new google.maps.Map(document.getElementById("us1"), mapOptions);
+
+                content = document.getElementById('information');
+                google.maps.event.addListener(map, 'click', function (e) {
+                    placeMarker(e.latLng);
+                });
+
+                var input = document.getElementById('search_input');
+                map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+
+                var searchBox = new google.maps.places.SearchBox(input);
+
+                google.maps.event.addListener(searchBox, 'places_changed', function () {
+                    var places = searchBox.getPlaces();
+                    placeMarker(places[0].geometry.location);
+                });
+
+                marker = new google.maps.Marker({
+                    position: {lat: latitude, lng: longitude},
+                    map: map
+                });
+            }
+        }
+
+        function placeMarker(location) {
+            marker.setPosition(location);
+            map.panTo(location);
+            //map.setCenter(location)
+            content.innerHTML = "Lat: " + location.lat() + " / Long: " + location.lng();
+            $("#lat").val(location.lat());
+            $("#lng").val(location.lng());
+            google.maps.event.addListener(marker, 'click', function (e) {
+                new google.maps.InfoWindow({
+                    content: "Lat: " + location.lat() + " / Long: " + location.lng()
+                }).open(map, marker);
+
+            });
+        }
+
+    </script>
+    <script>
+        var options2 = {selector: "#kt_docs_tinymce_basic2"};
+
+        if (KTApp.isDarkMode()) {
+            options2["skin"] = "oxide-dark";
+            options2["content_css"] = "dark";
+        }
+
+        tinymce.init(options2);
+        var options = {selector: "#kt_docs_tinymce_basic1"};
+
+        if (KTApp.isDarkMode()) {
+            options["skin"] = "oxide-dark";
+            options["content_css"] = "dark";
+        }
+
+        tinymce.init(options);
+    </script>
     <script src="{{ URL::asset('/admin/assets/plugins/custom/tinymce/tinymce.bundle.js')}}"></script>
     <script>
         let i = 1;
@@ -1265,88 +1348,9 @@
     </script>
 
 
-    <script>
-        var options2 = {selector: "#kt_docs_tinymce_basic2"};
-
-        if (KTApp.isDarkMode()) {
-            options2["skin"] = "oxide-dark";
-            options2["content_css"] = "dark";
-        }
-
-        tinymce.init(options2);
-        var options = {selector: "#kt_docs_tinymce_basic1"};
-
-        if (KTApp.isDarkMode()) {
-            options["skin"] = "oxide-dark";
-            options["content_css"] = "dark";
-        }
-
-        tinymce.init(options);
-    </script>
-
-    <script>
 
 
-        if (document.getElementById('us1')) {
-            var content;
-            var latitude = {{$data->lat}};
-            var longitude = {{$data->lng}};
-            var map;
-            var marker;
-            navigator.geolocation.getCurrentPosition(loadMap);
 
-            function loadMap(location) {
-                // if (location.coords) {
-                //     latitude = location.coords.latitude;
-                //     longitude = location.coords.longitude;
-                // }
-                var myLatlng = new google.maps.LatLng(latitude, longitude);
-                var mapOptions = {
-                    zoom: 8,
-                    center: myLatlng,
-                    mapTypeId: google.maps.MapTypeId.ROADMAP,
-
-                };
-                map = new google.maps.Map(document.getElementById("us1"), mapOptions);
-
-                content = document.getElementById('information');
-                google.maps.event.addListener(map, 'click', function (e) {
-                    placeMarker(e.latLng);
-                });
-
-                var input = document.getElementById('search_input');
-                map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-                var searchBox = new google.maps.places.SearchBox(input);
-
-                google.maps.event.addListener(searchBox, 'places_changed', function () {
-                    var places = searchBox.getPlaces();
-                    placeMarker(places[0].geometry.location);
-                });
-
-                marker = new google.maps.Marker({
-                    position: {lat: latitude, lng: longitude},
-                    map: map
-                });
-            }
-        }
-
-        function placeMarker(location) {
-            marker.setPosition(location);
-            map.panTo(location);
-            //map.setCenter(location)
-            content.innerHTML = "Lat: " + location.lat() + " / Long: " + location.lng();
-            $("#lat").val(location.lat());
-            $("#lng").val(location.lng());
-            google.maps.event.addListener(marker, 'click', function (e) {
-                new google.maps.InfoWindow({
-                    content: "Lat: " + location.lat() + " / Long: " + location.lng()
-                }).open(map, marker);
-
-            });
-        }
-
-    </script>
     <script type="text/javascript">
         var check_followers = false;
 

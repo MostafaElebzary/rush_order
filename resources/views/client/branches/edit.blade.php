@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('client.layouts.master')
 
 @section('css')
     <link href="{{asset('/admin')}}/assets/plugins/custom/prismjs/prismjs.bundle.css" rel="stylesheet" type="text/css"/>

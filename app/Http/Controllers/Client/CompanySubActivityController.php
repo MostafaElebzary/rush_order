@@ -48,7 +48,7 @@ class CompanySubActivityController extends Controller
                 $photo = '';
                 $photo .= ' <a class="d-block overlay h-100" data-fslightbox="lightbox-hot-sales" target="_blank" href="' . $row->Activity->image . '">
                             <!--begin::Image-->
-                            <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-75px h-100" style="background-image:url(' . $row->image . ')"></div>
+                            <div class="overlay-wrapper bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-75px h-100" style="background-image:url(' . $row->Activity->image . ')"></div>
                             <!--end::Image-->
                             <!--begin::Action-->
                             <div class="overlay-layer card-rounded bg-dark bg-opacity-25">

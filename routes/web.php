@@ -205,6 +205,8 @@ Route::group(['prefix' => 'client', 'namespace' => 'Client', 'middleware' => 'au
     Route::post('update-client', 'ClientController@update');
     Route::get('profile-client', 'ClientController@profile');
     Route::post('update-profile', 'ClientController@updateProfile');
+    Route::get('profile-company', 'ClientController@company_profile');
+    Route::post('update-company-profile', 'ClientController@updateCompanyProfile');
     Route::get('add-client-button', function () {
         return view('client/clients/button');
     });
