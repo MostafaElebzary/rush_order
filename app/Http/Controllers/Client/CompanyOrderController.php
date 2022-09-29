@@ -131,14 +131,24 @@ class CompanyOrderController extends Controller
         $order = Order::whereId($request->id)->firstOrFail();
         $order->status = $request->status;
         $order->save();
+//
         if ($request->status == 3) {
             if ($order->deliver_type == "Delivery") {
-                send($order->User->fcm_token, notification_setting(5)->title, notification_setting(5)->body);
+//                checj notification_setting exists
+                if (notification_setting(5)) {
+
+                    send($order->User->fcm_token, notification_setting(5)->title, notification_setting(5)->body);
+                }
             } elseif ($order->deliver_type == "ByCar") {
-                send($order->User->fcm_token, notification_setting(6)->title, notification_setting(6)->body);
+
+                if (notification_setting(6)) {
+                    send($order->User->fcm_token, notification_setting(6)->title, notification_setting(6)->body);
+                }
             } else //on site
             {
-                send($request->fcm_token, notification_setting(7)->title, notification_setting(7)->body);
+                if (notification_setting(7)) {
+                    send($request->fcm_token, notification_setting(7)->title, notification_setting(7)->body);
+                }
             }
         }
 
