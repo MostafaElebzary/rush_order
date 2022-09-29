@@ -173,6 +173,9 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
     Route::get('company_order_datatable/{company_id}', 'CompanyOrderController@datatable')
         ->name('company_order.datatable.data');
     Route::get('show-company_order/{id}', 'CompanyOrderController@show');
+//    notification setting
+    Route::get('notification-setting', 'NotificationSettingController@index');
+    Route::post('notification-setting', 'NotificationSettingController@update');
 
 //    reports
     Route::group(['prefix' => 'reports',], function () {
