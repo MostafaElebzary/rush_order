@@ -12,6 +12,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\Role;
@@ -93,6 +94,17 @@ class CompanyOrderController extends Controller
         // $query['data'] = Admin::where('id', $id)->get();
         $query['data'] = Order::whereId($id)->with('OrderProducts')->firstOrFail();
 
+        $total_vat = $query['data']->total_price * .15;
+        $generatedString = [
+            $this->toString($query['data']->Company->title_ar, '1'),
+            $this->toString("123456789456123", '2'),
+            $this->toString($query['data']->created_at, '3'),
+            $this->toString($query['data']->total_price, '4'),
+            $this->toString($total_vat, '5'),
+        ];
+
+        $query['qrcode'] = QrCode::size(150)->generate($this->toBase64($generatedString));
+
         return view('client.orders.edit', $query);
     }
 
@@ -143,6 +155,33 @@ class CompanyOrderController extends Controller
         }
 
         return redirect()->back()->with('message', 'تم التعيين بنجاح')->with('status', 'success');
+    }
+
+    public function toBase64($value): string
+    {
+        return base64_encode($this->toTLV($value));
+    }
+
+    public function toTLV($value): string
+    {
+        return implode('', $value);
+    }
+
+    public function toString($value, $tag)
+    {
+        $value = (string)$value;
+
+        return $this->toHex($tag) . $this->toHex($this->getLength($value)) . ($value);
+    }
+
+    protected function toHex($value)
+    {
+        return pack("H*", sprintf("%02X", $value));
+    }
+
+    public function getLength($value)
+    {
+        return strlen($value);
     }
 
 }

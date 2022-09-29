@@ -24,7 +24,7 @@ Route::get('page/{id}', 'HomeController@getpage');
 
 //Auth::routes();
 
-Route::get('admin/login', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
+Route::get('adminme', 'Auth\AdminLoginController@showLoginForm')->name('admin.login');
 Route::get('admin/login', 'Auth\AdminLoginController@showLoginForm')->name('login');
 Route::post('admin/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
 Route::post('admin/logout', 'Auth\AdminLoginController@logout')->name('admin.logout');
@@ -138,6 +138,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
     Route::get('add-company-button', function () {
         return view('admin/company/button');
     });
+    Route::get('print-qrcode/{id}', 'CompanyController@printQrcode');
 
 
 //company branches
@@ -175,6 +176,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
     Route::get('company_order_datatable/{company_id}', 'CompanyOrderController@datatable')
         ->name('company_order.datatable.data');
     Route::get('show-company_order/{id}', 'CompanyOrderController@show');
+    
 //    notification setting
     Route::get('notification-setting', 'NotificationSettingController@index');
     Route::post('notification-setting', 'NotificationSettingController@update');
@@ -216,6 +218,7 @@ Route::group(['prefix' => 'client', 'namespace' => 'Client', 'middleware' => 'au
     Route::get('add-client-button', function () {
         return view('client/clients/button');
     });
+    Route::get('print-qrcode/{id}', 'ClientController@printQrcode');
 
 
 //company branches

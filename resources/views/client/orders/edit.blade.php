@@ -244,7 +244,7 @@
                                 </tbody>
                                 <tfoot>
                                     <tr>
-                                    <td class="text-center border-bottom-0" colspan="2" rowspan="3"></td>
+                                    <td class="text-center border-bottom-0" colspan="2" rowspan="3">{{$qrcode}}</td>
                                     <td class="text-end" colspan="2"><p>المجموع الفرعي</p></td>
                                     <td class="text-center" colspan="2">{{$data->order_price}} ريال</td>
                                     </tr>
