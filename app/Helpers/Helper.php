@@ -137,6 +137,7 @@ function msg($status, $key)
 
 function send($tokens, $title = "رسالة جديدة", $msg = "رسالة جديدة ", $type = 'mail', $chat = null)
 {
+//    todo::change Key
     $key = 'AAAA31ep5NE:APA91bFGi2zgaq3HwWcMz6Q77Me3CnFcxKms93YaC4GKoPQMwNWnwt3vV-58SXlg1HWKH800Li2FLoqhD9RLJvOeVCu-J93aC4T-MTtg6X30f6KVYIZt7sqmxGxjuXboFLc61HF6qjho';
 
     $fields = array
@@ -302,7 +303,7 @@ if (!function_exists('Client_Company_Id')) {
 if (!function_exists('notification_setting')) {
     function notification_setting($id)
     {
-        $notification_setting = \App\Models\NotificationSetting::whereId($id)->where('is_active',true)->first();
+        $notification_setting = \App\Models\NotificationSetting::whereId($id)->where('is_active', true)->first();
         return $notification_setting;
     }
 }

@@ -138,7 +138,7 @@ class BranchController extends Controller
 
         ]);
 
-        return redirect(url('admin/edit-company/' . $request->id))->with('message', 'تم التعديل بنجاح')->with('status', 'success');
+        return redirect()->back()->with('message', 'تم التعديل بنجاح')->with('status', 'success');
     }
 
     public function destroy(Request $request)
