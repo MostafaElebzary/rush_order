@@ -17,8 +17,6 @@
             <div id="kt_content_container" class="container-xxl">
 
                 <!--begin::Content-->
-
-
                 <!--begin::Form-->
 
 

@@ -90,8 +90,17 @@ class OrderController extends Controller
                 'car_num' => $request->car_num,
                 'car_notes' => $request->car_notes,
             ]);
+            if (notification_setting(1)) {
 
-
+                if ($request->deliver_type == "Delivery") {
+                    send($user->fcm_token, notification_setting(2)->title, notification_setting(2)->body);
+                } elseif ($request->deliver_type == "ByCar") {
+                    send($user->fcm_token, notification_setting(3)->title, notification_setting(3)->body);
+                } else //on site
+                {
+                    send($user->fcm_token, notification_setting(4)->title, notification_setting(4)->body);
+                }
+            }
 
             foreach ($carts as $cart) {
 
@@ -160,7 +169,7 @@ class OrderController extends Controller
         $user = check_jwt($jwt);
         if ($user) {
 
-            $orders = Order::where('user_id', $user->id)->with('Company')->with('OrderProducts')->orderBy('id','desc');
+            $orders = Order::where('user_id', $user->id)->with('Company')->with('OrderProducts')->orderBy('id', 'desc');
             if ($request->status == "new") {
                 $orders = $orders->whereIn('status', [0, 1, 2]);
             } else {

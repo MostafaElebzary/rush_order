@@ -176,6 +176,7 @@ Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => 'auth
 //    notification setting
     Route::get('notification-setting', 'NotificationSettingController@index');
     Route::post('notification-setting', 'NotificationSettingController@update');
+    Route::post('send-notification', 'NotificationSettingController@UsersSendNotification');
 
 //    reports
     Route::group(['prefix' => 'reports',], function () {

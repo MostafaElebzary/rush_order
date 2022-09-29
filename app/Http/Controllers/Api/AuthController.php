@@ -71,7 +71,10 @@ class AuthController extends Controller
                 'is_active' => 1
 
             ]);
+            if (notification_setting(1)) {
 
+                send($request->fcm_token, notification_setting(1)->title, notification_setting(1)->body);
+            }
             if ($data) {
                 return $this->get_profile($data->id);
             } else {
@@ -125,7 +128,7 @@ class AuthController extends Controller
         if ($validate->fails()) {
             return response()->json(msg(failed(), $validate->messages()->first()));
         } else {
-            
+
 
             if ($request->oldpassword) {
                 $credentials = $request->only(['phone', 'password']);
@@ -158,15 +161,15 @@ class AuthController extends Controller
 
         $jwt = ($request->hasHeader('jwt') ? $request->header('jwt') : "");
         $user = check_jwt($jwt);
-        if ($user){
+        if ($user) {
             $data = User::where('phone', $user->phone)->first();
             $data->first_name = $request->first_name;
             $data->last_name = $request->last_name;
-            $data->email = $request->email ;
+            $data->email = $request->email;
             $data->jwt = Str::random(60);
             $data->save();
             return $this->get_profile($data->id);
-        }else{
+        } else {
             return msg(failed(), trans('lang.not_authorized'));
 
         }
@@ -207,25 +210,28 @@ class AuthController extends Controller
             return response()->json(msgdata(success(), trans('lang.success'), $data));
         }
     }
-    public function get_profile_data(Request $request){
+
+    public function get_profile_data(Request $request)
+    {
         $jwt = ($request->hasHeader('jwt') ? $request->header('jwt') : "");
         $user = check_jwt($jwt);
-        if ($user){
+        if ($user) {
             return $this->get_profile($user->id);
-        }else{
+        } else {
             return msg(failed(), trans('lang.not_authorized'));
 
         }
     }
 
-    public function UserNotification(Request $request){
+    public function UserNotification(Request $request)
+    {
         $jwt = ($request->hasHeader('jwt') ? $request->header('jwt') : "");
         $user = check_jwt($jwt);
-        if ($user){
-            $data = Notification::where('user_id',$user->id)->paginate(10);
+        if ($user) {
+            $data = Notification::where('user_id', $user->id)->paginate(10);
             $data = NotificationResource::collection($data)->response()->getData(true);
             return response()->json(msgdata(success(), trans('lang.success'), $data));
-        }else{
+        } else {
             return msg(failed(), trans('lang.not_authorized'));
 
         }
