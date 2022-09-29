@@ -64,7 +64,7 @@
 
                     <div class="text-center text-muted text-uppercase fw-bolder mb-5"></div>
                     <div class="m-t-40 text-center">
-                        <p class="text-dark">© {{date('Y')}} ,<br> Crafted with <i class="mdi mdi-heart text-danger"></i> by Arabiacode.com</p>
+                        <p class="text-dark">© {{date('Y')}} ,<br> Crafted with <i class="mdi mdi-heart text-danger"></i> by F4h.com.sa</p>
                     </div>
 
                 </div>

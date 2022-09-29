@@ -78,7 +78,7 @@
                                         <!--begin::Card body-->
                                         <div class="card-body pt-0 row">
 
-                                            <div class="col-md-8">
+                                            <div class="col-md-7">
 
 
                                                 <!--begin::Input group-->
@@ -331,8 +331,9 @@
 
 
                                             </div>
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-5">
                                                 <div class="fv-row mb-7">
+                                                    
                                                     <!--begin::Label-->
                                                     <label class="col-lg-4 col-form-label fw-bold fs-6"> شعار
                                                         الشركة</label>
@@ -449,6 +450,10 @@
                                                     </div>
                                                     <!--end::Col-->
                                                 </div>
+                                                <br>
+                                                <a href="{{url('admin/print-qrcode/'.$data->id)}}">
+                                                {{QrCode::size(150)->generate(url('company-details/'.$data->id))}}
+                                                </a>
                                             </div>
 
                                         </div>

@@ -247,6 +247,13 @@ class ClientController extends Controller
 
     }
 
+    public function printQrcode($id)
+    {
+        // $query['data'] = Admin::where('id', $id)->get();
+        $query['data'] = $id;
+
+        return view('client.clients.qrcode', $query);
+    }
 
     public function company_profile()
     {

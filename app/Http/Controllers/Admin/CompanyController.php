@@ -11,6 +11,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Yajra\DataTables\Facades\DataTables;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Http\Request;
 use App\Models\Admin;
 use App\Models\Role;
@@ -174,7 +175,16 @@ class CompanyController extends Controller
     {
         // $query['data'] = Admin::where('id', $id)->get();
         $query['data'] = Company::findOrFail($id);
+
         return view('admin.company.edit', $query);
+    }
+
+    public function printQrcode($id)
+    {
+        // $query['data'] = Admin::where('id', $id)->get();
+        $query['data'] = $id;
+
+        return view('admin.company.qrcode', $query);
     }
 
     public function update(Request $request)

@@ -46,4 +46,9 @@ class CompanyCategory extends Model
             return $this->title_ar;
         }
     }
+
+    public function CompanyProducts()
+    {
+        return $this->hasMany(CompanyProduct::class, 'company_category_id');
+    }
 }
