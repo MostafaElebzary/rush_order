@@ -62,7 +62,6 @@ class HomeController extends Controller
         ];
         $validate = Validator::make($request->all(), $rule);
         if ($validate->fails()) {
-            dd($validate->messages());
             return redirect()->back()->with('message', $validate->messages()->first())->with('status', 'error');
         }
 
@@ -124,11 +123,6 @@ class HomeController extends Controller
         return view('front.details' ,$query);
     }
 
-    public function policy () {
-        $query['data'] = Page::find(3);
-        return view('front.pages.policy',$query);
-    }
-
     public function contactus(Request $request)
     {
         
@@ -146,52 +140,9 @@ class HomeController extends Controller
         $data->save();
         
         if ($data) {
-            return redirect('/#contact-section')->with('msg', 'Success');
+            return redirect()->back()->with('message', 'تم الارسال بنجاح')->with('status', 'success');
         } else {
-            return redirect('/#contact-section')->with('msg', 'Failed');
-        }
-    }
-
-    public function register () {
-        return view('front.pages.register');
-    }
-
-    public function registerform(Request $request)
-    {
-        $data = $this->validate(request(), [
-            'name' => 'required|string',
-            'email' => 'required|email|unique:clients',
-            'phone' => 'required|unique:clients',
-            'password' => 'required',
-            'city_id' => 'required',
-            'name_en' => 'required|string',
-            'profile_photo' => 'required|image',
-            'commerical_photo' => 'required|image',
-            'license_photo' => 'required|image',
-            'clinic_name' => 'required|string',
-            'clinic_name_en' => 'required|string',
-            'clinic_num' => 'required',
-            'tax_num' => 'required',
-            'tax_photo' => 'required|image',
-            'content' => 'required',
-            'phone2' => 'required',
-            'content_certificate' => 'required',
-            'content_certificate_en' => 'required',
-            'content_license' => 'required',
-            'content_license_en' => 'required',
-        ]);
-
-        $data['password'] = Hash::make($request->password);
-        $data['phone'] = $request->code . $request->phone;
-        $data['phone2'] = $request->code . $request->phone2;
-        $data['is_enabled'] = 0;
-        
-        $data = Client::create($data);
-
-        if ($data) {
-            return redirect('/register-clinic')->with('msg', 'Success');
-        } else {
-            return redirect('/register-clinic')->with('msg', 'Failed');
+            return redirect()->back()->with('message', 'عفوا .. لم يتم الارسال')->with('status', 'error');
         }
     }
 
